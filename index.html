@@ -4,47 +4,53 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Bernaldo de Quirós</title>
-<meta name="description" content="Fine art photography by Guillermo Bernaldo de Quirós. Limited edition prints, available for purchase." />
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230b0b0c%22/><circle cx=%2250%22 cy=%2250%22 r=%2226%22 fill=%22none%22 stroke=%22%23ff5233%22 stroke-width=%228%22/></svg>" />
+<meta name="description" content="Architectural and landscape photography by Guillermo Bernaldo de Quirós, Buenos Aires. Limited edition fine art prints." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230d0d0d%22/><rect x=%2230%22 y=%2222%22 width=%2240%22 height=%2256%22 fill=%22none%22 stroke=%22%23fff%22 stroke-width=%226%22/></svg>" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="assets/css/style.css" />
 <script>
-  /* Applied before paint: avoids a flash of the wrong theme, and gates reveals. */
   (function () {
     var d = document.documentElement;
     d.classList.add('js');
     try {
-      var t = localStorage.getItem('gbq-theme');
-      if (t) d.setAttribute('data-theme', t);
-      var l = localStorage.getItem('gbq-lang');
-      if (l) d.setAttribute('lang', l);
+      var t = localStorage.getItem('gbq-theme'); if (t) d.setAttribute('data-theme', t);
+      var l = localStorage.getItem('gbq-lang');  if (l) d.setAttribute('lang', l);
     } catch (e) {}
   })();
 </script>
 </head>
 <body>
 
-<a href="#work" class="skip-link" data-i18n="skip">Skip to the work</a>
+<a href="#/home" class="skip-link" data-i18n="skip">Skip to content</a>
 
-<!-- ===== HEADER ===== -->
-<header class="topbar" id="topbar">
-  <a href="#top" class="wordmark">
-    <span class="wordmark-mark" aria-hidden="true"></span>
-    <span class="wordmark-text">
-      <b>Guillermo Bernaldo de Quirós</b>
-      <i data-i18n="role">Photography</i>
-    </span>
-  </a>
+<!-- ===== FIXED CHROME ===== -->
+<a href="#/home" class="wordmark" id="wordmark">
+  <span class="wordmark-name"><i>GUILLERMO</i><b>BERNALDO DE QUIRÓS</b></span>
+  <span class="wordmark-sub" data-i18n="role">PHOTOGRAPHY</span>
+</a>
 
-  <nav class="topnav">
-    <a href="#work" data-i18n="nav.work">Work</a>
-    <a href="#about" data-i18n="nav.about">About</a>
-    <a href="#contact" data-i18n="nav.contact">Contact</a>
-  </nav>
+<button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+  <span></span><span></span>
+</button>
 
-  <div class="controls">
+<div class="rail">
+  <a href="https://www.behance.net/guillerbernald" target="_blank" rel="noopener noreferrer">BEHANCE</a>
+  <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">INSTAGRAM</a>
+</div>
+
+<!-- ===== MENU OVERLAY ===== -->
+<nav class="menu" id="menu" aria-hidden="true">
+  <ul>
+    <li><a href="#/home"    data-i18n="nav.home">HOME</a></li>
+    <li><a href="#/prints"  data-i18n="nav.prints">FINE ART PRINTS</a></li>
+    <li><a href="#/arch"    data-i18n="nav.arch">ARCHITECTURE</a></li>
+    <li><a href="#/land"    data-i18n="nav.land">LANDSCAPE</a></li>
+    <li><a href="#/about"   data-i18n="nav.about">ABOUT</a></li>
+    <li><a href="#/contact" data-i18n="nav.contact">CONTACT</a></li>
+  </ul>
+  <div class="menu-controls">
     <div class="lang-switch" role="group" aria-label="Language">
       <button type="button" data-lang="en" class="is-active">EN</button>
       <button type="button" data-lang="es">ES</button>
@@ -54,213 +60,154 @@
       <span class="sr-only" data-i18n="theme.label">Switch theme</span>
     </button>
   </div>
-</header>
+  <p class="menu-copy">© <span class="year">2026</span> Guillermo Bernaldo de Quirós</p>
+</nav>
 
-<!-- ===== INTRO ===== -->
-<section class="intro" id="top">
-  <h1 data-i18n="intro.title">Light, held still.</h1>
-  <p data-i18n="intro.body">Selected photographs by Guillermo Bernaldo de Quirós. Every frame below is a
-    limited edition print — the gallery shows preview files only.</p>
-  <p class="intro-meta">
-    <span data-i18n="intro.count">12 works</span>
-    <span data-i18n="intro.hint">Click any photograph to enlarge</span>
-  </p>
+<!-- ===== HOME ===== -->
+<section class="page page-home is-active" id="/home">
+  <div class="slide"><img src="assets/img/home1.jpg" alt="Architectural study in raking light" draggable="false" /></div>
+  <div class="slide"><img loading="lazy" src="assets/img/home2.jpg" alt="Open landscape beneath a heavy sky" draggable="false" /></div>
+  <div class="slide"><img loading="lazy" src="assets/img/home3.jpg" alt="Angular facade against bright sky" draggable="false" /></div>
+  <div class="slide"><img loading="lazy" src="assets/img/home4.jpg" alt="City lights thrown out of focus" draggable="false" /></div>
+  <span class="scroll-hint" data-i18n="home.hint">SCROLL</span>
 </section>
 
-<!-- ===== GALLERY =====
-     Figures live in the markup (not built by JS) so the work is indexable and
-     still renders with JS unavailable. JS reads the data-* for the lightbox. -->
-<main class="gallery" id="work">
-  <figure class="shot" data-src="assets/img/p01.jpg"
-    data-title-en="Held Breath" data-title-es="Aliento contenido"
-    data-place-en="Madrid, Spain" data-place-es="Madrid, España"
-    data-year="2024" data-edition="12" data-price="€420">
-    <img src="assets/img/p01.jpg" alt="Held Breath — soft points of light dissolving in darkness" draggable="false" />
-  </figure>
+<!-- ===== FINE ART PRINTS ===== -->
+<section class="page page-doc" id="/prints">
+  <header class="page-head">
+    <h1 data-i18n="prints.title">FINE ART PRINTS</h1>
+    <span class="rule"></span>
+    <div class="page-lede">
+      <p data-i18n="prints.p1">Photographs are printed on cotton papers with pigment inks, giving a colour
+        life of over a century under normal exhibition conditions.</p>
+      <p data-i18n="prints.p2">Every photograph in the Fine Art collection is a limited edition, inspected,
+        dated, numbered and signed by Guillermo Bernaldo de Quirós. A certificate of authenticity accompanies
+        each print.</p>
+      <p data-i18n="prints.p3">Available sizes: 65×100cm, 111×165cm and 150×240cm. Panoramic formats keep the
+        same height, with the length varying.</p>
+      <p class="lede-cta"><span data-i18n="prints.order">To order, write to</span>
+        <a href="#/contact" data-i18n="prints.orderlink">the contact page</a>.</p>
+    </div>
+  </header>
+  <div class="grid" data-gallery="prints"></div>
+</section>
 
-  <figure class="shot" data-src="assets/img/p02.jpg"
-    data-title-en="Long Horizon" data-title-es="Horizonte largo"
-    data-place-en="Cantabria, Spain" data-place-es="Cantabria, España"
-    data-year="2023" data-edition="8" data-price="€520">
-    <img loading="lazy" src="assets/img/p02.jpg" alt="Long Horizon — a pale sea meeting an overcast sky" draggable="false" />
-  </figure>
+<!-- ===== ARCHITECTURE ===== -->
+<section class="page page-doc" id="/arch">
+  <header class="page-head">
+    <h1 data-i18n="arch.title">ARCHITECTURE</h1>
+    <span class="rule"></span>
+    <div class="page-lede">
+      <p data-i18n="arch.lede">Cities read as structure before they read as places. This body of work follows
+        the line, plane and shadow of urban architecture — from modern towers to older, quieter buildings.</p>
+    </div>
+  </header>
+  <div class="grid" data-gallery="arch"></div>
+</section>
 
-  <figure class="shot" data-src="assets/img/p03.jpg"
-    data-title-en="Concrete Light I" data-title-es="Luz de hormigón I"
-    data-place-en="Valencia, Spain" data-place-es="Valencia, España"
-    data-year="2024" data-edition="10" data-price="€460">
-    <img loading="lazy" src="assets/img/p03.jpg" alt="Concrete Light I — hard planes of light across a facade" draggable="false" />
-  </figure>
-
-  <figure class="shot" data-src="assets/img/p04.jpg"
-    data-title-en="Before the Rain" data-title-es="Antes de la lluvia"
-    data-place-en="Asturias, Spain" data-place-es="Asturias, España"
-    data-year="2023" data-edition="8" data-price="€520">
-    <img loading="lazy" src="assets/img/p04.jpg" alt="Before the Rain — a low horizon under heavy cloud" draggable="false" />
-  </figure>
-
-  <figure class="shot" data-src="assets/img/p05.jpg"
-    data-title-en="Skin of the Earth" data-title-es="Piel de la tierra"
-    data-place-en="Lanzarote, Spain" data-place-es="Lanzarote, España"
-    data-year="2025" data-edition="6" data-price="€680">
-    <img loading="lazy" src="assets/img/p05.jpg" alt="Skin of the Earth — close volcanic texture in raking light" draggable="false" />
-  </figure>
-
-  <figure class="shot" data-src="assets/img/p06.jpg"
-    data-title-en="Night Traffic" data-title-es="Tráfico nocturno"
-    data-place-en="Buenos Aires, Argentina" data-place-es="Buenos Aires, Argentina"
-    data-year="2024" data-edition="12" data-price="€420">
-    <img loading="lazy" src="assets/img/p06.jpg" alt="Night Traffic — city lights thrown out of focus" draggable="false" />
-  </figure>
-
-  <figure class="shot" data-src="assets/img/p07.jpg"
-    data-title-en="Concrete Light II" data-title-es="Luz de hormigón II"
-    data-place-en="Valencia, Spain" data-place-es="Valencia, España"
-    data-year="2024" data-edition="10" data-price="€460">
-    <img loading="lazy" src="assets/img/p07.jpg" alt="Concrete Light II — angular shadow across a white wall" draggable="false" />
-  </figure>
-
-  <figure class="shot" data-src="assets/img/p08.jpg"
-    data-title-en="Slow Water" data-title-es="Agua lenta"
-    data-place-en="Galicia, Spain" data-place-es="Galicia, España"
-    data-year="2023" data-edition="8" data-price="€520">
-    <img loading="lazy" src="assets/img/p08.jpg" alt="Slow Water — long exposure of moving water" draggable="false" />
-  </figure>
-
-  <figure class="shot" data-src="assets/img/p09.jpg"
-    data-title-en="Salt Flat" data-title-es="Salina"
-    data-place-en="Almería, Spain" data-place-es="Almería, España"
-    data-year="2025" data-edition="6" data-price="€680">
-    <img loading="lazy" src="assets/img/p09.jpg" alt="Salt Flat — a bright plain under a dark sky" draggable="false" />
-  </figure>
-
-  <figure class="shot" data-src="assets/img/p10.jpg"
-    data-title-en="Verbena" data-title-es="Verbena"
-    data-place-en="Seville, Spain" data-place-es="Sevilla, España"
-    data-year="2024" data-edition="12" data-price="€420">
-    <img loading="lazy" src="assets/img/p10.jpg" alt="Verbena — festival lights scattered out of focus" draggable="false" />
-  </figure>
-
-  <figure class="shot" data-src="assets/img/p11.jpg"
-    data-title-en="Stairwell" data-title-es="Hueco de escalera"
-    data-place-en="Lisbon, Portugal" data-place-es="Lisboa, Portugal"
-    data-year="2023" data-edition="10" data-price="€460">
-    <img loading="lazy" src="assets/img/p11.jpg" alt="Stairwell — geometric planes falling away into shadow" draggable="false" />
-  </figure>
-
-  <figure class="shot" data-src="assets/img/p12.jpg"
-    data-title-en="Quiet Field" data-title-es="Campo en calma"
-    data-place-en="Castilla, Spain" data-place-es="Castilla, España"
-    data-year="2025" data-edition="6" data-price="€680">
-    <img loading="lazy" src="assets/img/p12.jpg" alt="Quiet Field — grasses in soft directional light" draggable="false" />
-  </figure>
-</main>
+<!-- ===== LANDSCAPE ===== -->
+<section class="page page-doc" id="/land">
+  <header class="page-head">
+    <h1 data-i18n="land.title">LANDSCAPE</h1>
+    <span class="rule"></span>
+    <div class="page-lede">
+      <p data-i18n="land.lede">Work made away from the city: long horizons, weather, and the open country of
+        Argentina and beyond, photographed with the same attention to light and composition.</p>
+    </div>
+  </header>
+  <div class="grid" data-gallery="land"></div>
+</section>
 
 <!-- ===== ABOUT ===== -->
-<section class="about" id="about">
-  <div class="about-portrait">
-    <img loading="lazy" src="assets/img/portrait.jpg" alt="Portrait of Guillermo Bernaldo de Quirós" draggable="false" />
-  </div>
-  <div class="about-body">
-    <p class="kicker" data-i18n="about.kicker">About</p>
-    <h2 data-i18n="about.title">Guillermo Bernaldo de Quirós</h2>
-    <p class="about-lead" data-i18n="about.lead">Guillermo Bernaldo de Quirós is a Buenos Aires-based
-      behavioral neurologist and architectural photographer with a distinguished dual career spanning
-      medicine and visual arts.</p>
-
-    <div class="about-block">
-      <h3 data-i18n="about.h.med">Medical Background</h3>
-      <p data-i18n="about.p.med">Dr. Bernaldo de Quirós is a recognized expert in behavioral neurology,
-        specializing in childhood hyperactivity disorders (ADHD) and related conditions. He completed his
-        advanced training at the Kennedy Schriver Center at Harvard University in Boston, United States,
-        bringing international expertise to his practice in Argentina. He currently serves as Director of the
-        Center for Behavioral Neurology and works in the Pediatrics Department at CEMIC.</p>
+<section class="page page-doc" id="/about">
+  <header class="page-head">
+    <h1 data-i18n="about.title">ABOUT</h1>
+    <span class="rule"></span>
+  </header>
+  <div class="about">
+    <div class="about-portrait">
+      <img loading="lazy" src="assets/img/portrait.jpg" alt="Guillermo Bernaldo de Quirós" draggable="false" />
     </div>
+    <div class="about-body">
+      <p class="about-lead" data-i18n="about.lead">Guillermo Bernaldo de Quirós is a Buenos Aires-based
+        behavioral neurologist and architectural photographer with a distinguished dual career spanning
+        medicine and visual arts.</p>
 
-    <div class="about-block">
-      <h3 data-i18n="about.h.photo">Photography Passion</h3>
-      <p data-i18n="about.p.photo">Alongside his medical career, Guillermo pursues a deep passion for
-        architectural and landscape photography. His work captures the essence of urban architecture across
-        diverse styles, from modern skyscrapers to traditional buildings, with a keen eye for composition and
-        light. His portfolio has been featured on international platforms including Inspiration Grid and has
-        garnered nearly 100,000 project views, reflecting his distinctive visual perspective on cities
-        worldwide.</p>
-    </div>
+      <div class="about-block">
+        <h2 data-i18n="about.h.med">Medical Background</h2>
+        <p data-i18n="about.p.med">Dr. Bernaldo de Quirós is a recognized expert in behavioral neurology,
+          specializing in childhood hyperactivity disorders (ADHD) and related conditions. He completed his
+          advanced training at the Kennedy Schriver Center at Harvard University in Boston, United States,
+          bringing international expertise to his practice in Argentina. He currently serves as Director of
+          the Center for Behavioral Neurology and works in the Pediatrics Department at CEMIC.</p>
+      </div>
 
-    <div class="about-block">
-      <h3 data-i18n="about.h.bridge">Bridging Two Worlds</h3>
-      <p data-i18n="about.p.bridge">Guillermo's unique profile combines scientific rigor from his medical
-        training with artistic sensibility from his photography practice, creating a distinctive perspective
-        that informs both his clinical work and his visual documentation of architecture and urban
-        landscapes.</p>
+      <div class="about-block">
+        <h2 data-i18n="about.h.photo">Photography Passion</h2>
+        <p data-i18n="about.p.photo">Alongside his medical career, Guillermo pursues a deep passion for
+          architectural and landscape photography. His work captures the essence of urban architecture across
+          diverse styles, from modern skyscrapers to traditional buildings, with a keen eye for composition
+          and light. His portfolio has been featured on international platforms including Inspiration Grid and
+          has garnered nearly 100,000 project views, reflecting his distinctive visual perspective on cities
+          worldwide.</p>
+      </div>
+
+      <div class="about-block">
+        <h2 data-i18n="about.h.bridge">Bridging Two Worlds</h2>
+        <p data-i18n="about.p.bridge">Guillermo's unique profile combines scientific rigor from his medical
+          training with artistic sensibility from his photography practice, creating a distinctive perspective
+          that informs both his clinical work and his visual documentation of architecture and urban
+          landscapes.</p>
+      </div>
+
+      <a class="link-out" href="https://www.behance.net/guillerbernald" target="_blank" rel="noopener noreferrer">
+        <span data-i18n="about.behance">Full portfolio on Behance</span> <span aria-hidden="true">↗</span>
+      </a>
     </div>
-    <a class="link-out" href="https://www.behance.net/guillerbernald" target="_blank" rel="noopener noreferrer">
-      <span data-i18n="about.behance">Full portfolio on Behance</span>
-      <span aria-hidden="true">↗</span>
-    </a>
   </div>
 </section>
 
 <!-- ===== CONTACT ===== -->
-<section class="contact" id="contact">
-  <h2 data-i18n="contact.title">Enquire about a print</h2>
-  <p data-i18n="contact.body">Tell me which photograph you have in mind and I will reply with sizes,
-    framing options and availability.</p>
+<section class="page page-doc" id="/contact">
+  <header class="page-head">
+    <h1 data-i18n="contact.title">CONTACT</h1>
+    <span class="rule"></span>
+    <div class="page-lede">
+      <p data-i18n="contact.lede">For print orders, exhibition enquiries and commissions. Tell me which
+        photograph you have in mind and I will reply with sizes, framing and availability.</p>
+    </div>
+  </header>
   <form id="enquiryForm" novalidate>
     <div class="field-row">
-      <label>
-        <span data-i18n="form.name">Name</span>
-        <input type="text" name="name" required />
-      </label>
-      <label>
-        <span data-i18n="form.email">Email</span>
-        <input type="email" name="email" required />
-      </label>
+      <label><span data-i18n="form.name">Name</span><input type="text" name="name" required /></label>
+      <label><span data-i18n="form.email">Email</span><input type="email" name="email" required /></label>
     </div>
-    <label>
-      <span data-i18n="form.work">Photograph</span>
-      <select name="work" id="formWork"></select>
-    </label>
-    <label>
-      <span data-i18n="form.message">Message</span>
-      <textarea name="message" rows="4"></textarea>
-    </label>
-    <button type="submit" class="btn-primary" data-i18n="form.submit">Send enquiry</button>
+    <label><span data-i18n="form.work">Photograph</span><select name="work" id="formWork"></select></label>
+    <label><span data-i18n="form.message">Message</span><textarea name="message" rows="4"></textarea></label>
+    <button type="submit" class="btn" data-i18n="form.submit">SEND</button>
     <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
   </form>
 </section>
 
-<footer class="site-footer">
-  <p>© <span id="year">2026</span> Guillermo Bernaldo de Quirós.
-    <span data-i18n="footer.rights">All images are protected and may not be reproduced.</span></p>
-  <p class="footer-note" data-i18n="footer.preview">Preview build — gallery files are low-resolution.</p>
-</footer>
-
 <!-- ===== LIGHTBOX ===== -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
   <button class="lb-close" id="lbClose" aria-label="Close"><span aria-hidden="true">✕</span></button>
-
   <figure class="lb-stage">
     <div class="lb-frame" id="lbFrame">
-      <!-- nav lives in the image column so it can never overlap the spec panel -->
       <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous"><span aria-hidden="true">‹</span></button>
       <button class="lb-nav lb-next" id="lbNext" aria-label="Next"><span aria-hidden="true">›</span></button>
       <img id="lbImage" alt="" draggable="false" />
-      <!-- sits above the image: makes drag-to-desktop and long-press-save grab nothing -->
       <div class="lb-shield" aria-hidden="true"></div>
       <div class="lb-watermark" aria-hidden="true"><span>GBQ</span><span>GBQ</span><span>GBQ</span></div>
     </div>
     <figcaption class="lb-meta">
-      <div class="lb-meta-main">
-        <h3 id="lbTitle"></h3>
-        <p id="lbPlace"></p>
-      </div>
+      <h2 id="lbTitle"></h2>
+      <p id="lbPlace"></p>
       <dl class="lb-spec">
         <div><dt data-i18n="lb.edition">Edition</dt><dd id="lbEdition"></dd></div>
-        <div><dt data-i18n="lb.print">Print</dt><dd data-i18n="lb.printval">Archival cotton rag</dd></div>
-        <div><dt data-i18n="lb.price">From</dt><dd id="lbPrice" class="lb-price"></dd></div>
+        <div><dt data-i18n="lb.print">Paper</dt><dd data-i18n="lb.printval">Cotton rag, pigment ink</dd></div>
       </dl>
-      <a class="btn-primary lb-cta" id="lbEnquire" href="#contact" data-i18n="lb.enquire">Enquire about this print</a>
+      <a class="btn lb-cta" id="lbEnquire" href="#/contact" data-i18n="lb.enquire">ENQUIRE</a>
       <p class="lb-protect" data-i18n="lb.protect">Preview resolution. Not licensed for download or reproduction.</p>
     </figcaption>
   </figure>

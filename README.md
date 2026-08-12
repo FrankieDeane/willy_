@@ -14,21 +14,33 @@ python3 -m http.server 8000   # then open http://localhost:8000
 ## Structure
 
 ```
-index.html            markup, with both languages carried in data-* attributes
+index.html            one section per page, plus fixed chrome and the lightbox
 assets/css/style.css  design tokens + all styling
-assets/js/main.js     lightbox, i18n, theme, image protection, enquiry form
+assets/js/main.js     catalogue, router, menu, galleries, lightbox, i18n, theme
 assets/img/           placeholder plates (see below)
 ```
 
+Pages are sections switched by a hash router (`#/home`, `#/prints`, `#/arch`,
+`#/land`, `#/about`, `#/contact`) — every page is linkable and the back button
+works. Home is a full-bleed scroll-snap sequence; the rest are document pages
+with a centred title, rule, intro and a photo grid.
+
+### Adding or changing work
+
+Galleries are built from the `WORKS` array at the top of `main.js` — one record
+per photograph, carrying both languages, the year, the edition size and which
+galleries it belongs to. Add a row and it appears in the grid, the lightbox and
+the contact form's dropdown. No markup to touch.
+
 ## Design
 
-The palette is grounded in the darkroom: neutral silver grounds and a single
-**safelight** accent, reserved for the sale affordance (price, primary action,
-focus). The work supplies all the colour, so the interface stays quiet.
+Monochrome by design: the photographs carry all the colour, so the interface is
+black, white and grey throughout. The one accent is reserved for focus rings and
+form errors — never decoration.
 
-- Display **Syne**, UI **Archivo**
-- Light `#faf9f7` / dark `#0b0b0c`, accent `#c6371c` (light) and `#ff5233` (dark)
-- No text hero — the gallery opens the page
+- **Jost** throughout, wide letterspacing on titles and the wordmark
+- Light `#ffffff` / dark `#0d0d0c`
+- No text hero — a photograph fills the first screen
 
 ## Features
 
@@ -42,9 +54,13 @@ states resolve: bare `:root` for light, `@media (prefers-color-scheme: dark)`
 guarded by `:not([data-theme="light"])` for system-dark, and `[data-theme="dark"]`
 for an explicit choice. Applied before paint, so there's no flash.
 
-**Lightbox.** Click, or focus and press Enter. Arrow keys navigate, Escape
-closes, focus returns to the photo you opened. "Enquire" carries the work through
-to the contact form.
+**Lightbox.** Click, or focus and press Enter. Arrow keys navigate *within the
+gallery you opened it from*, Escape closes, focus returns to the photo you
+opened. "Enquire" carries the work through to the contact form.
+
+**Menu.** The hamburger opens a full-screen overlay. The wordmark and social
+labels sit above it so the identity is never hidden. Escape closes it, as does
+choosing any link — including the page you are already on.
 
 ## Image protection — read this
 
@@ -67,9 +83,10 @@ at print size. Keep it that way — never upload full-resolution masters.
 
 `assets/img/` holds generated monochrome plates standing in for Guillermo's real
 photographs, because this environment could not reach Behance. Replace them
-keeping the same filenames (`p01.jpg`–`p12.jpg`, `portrait.jpg`) and no markup
-changes are needed — then update the titles, places, years, editions and prices
-in the `data-*` attributes on each `<figure>` in `index.html`.
+keeping the same filenames — `p01.jpg`–`p12.jpg` for the galleries, `home1.jpg`–
+`home4.jpg` for the full-bleed home sequence (wide crops), and `portrait.jpg` —
+then update the titles, places, years and editions in the `WORKS` array in
+`main.js`.
 
 Export replacements at preview resolution, per the section above.
 
