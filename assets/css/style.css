@@ -235,6 +235,19 @@ body.menu-open .burger span { box-shadow: none; }
 }
 .shot:hover .shot-cap, .shot:focus-visible .shot-cap { opacity: 1; transform: none; }
 
+/* ---------- awaiting imagery ---------- */
+.is-missing { position: relative; background: var(--sunken); }
+.shot.is-missing { min-height: 300px; }
+.is-missing img { visibility: hidden; }
+.is-missing::before {
+  content: attr(data-missing);
+  position: absolute; inset: 0; z-index: 1;
+  display: grid; place-items: center;
+  border: 1px dashed var(--line);
+  font-size: 0.68rem; letter-spacing: 0.2em; color: var(--muted);
+}
+.slide.is-missing::before { font-size: 0.8rem; }
+
 /* ---------- about ---------- */
 .about {
   display: grid; grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);

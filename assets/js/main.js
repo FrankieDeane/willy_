@@ -15,6 +15,17 @@
     return (window.__ASSETS__ && window.__ASSETS__[file]) || 'assets/img/' + file;
   }
 
+  /* While the image folder is being filled, a missing file shows a labelled
+     placeholder naming the file it expects, instead of a broken-image icon. */
+  function watchMissing(img, file) {
+    function flag() {
+      var host = img.closest('.shot, .slide, .about-portrait');
+      if (host) { host.classList.add('is-missing'); host.setAttribute('data-missing', file); }
+    }
+    if (img.complete && img.naturalWidth === 0) flag();
+    img.addEventListener('error', flag);
+  }
+
   /* ---------------- catalogue ----------------
      One record per photograph. Galleries are built from this, so adding work
      means adding a row here — no markup to touch. Swap `src` for Guillermo's
@@ -127,6 +138,7 @@
 
         var img = document.createElement('img');
         img.src = asset(w.src);
+        watchMissing(img, w.src);
         img.alt = title(w) + ' — ' + place(w);
         img.loading = 'lazy';
         img.draggable = false;
@@ -347,6 +359,9 @@
   themeToggle.setAttribute('aria-pressed', String(isDark()));
 
   /* ---------------- init ---------------- */
+  Array.prototype.forEach.call(document.querySelectorAll('.slide img, .about-portrait img'),
+    function (img) { watchMissing(img, (img.getAttribute('src') || '').split('/').pop()); });
+
   Array.prototype.forEach.call(document.querySelectorAll('.year'), function (el) {
     el.textContent = new Date().getFullYear();
   });
