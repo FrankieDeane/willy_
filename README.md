@@ -79,16 +79,26 @@ file out of the network tab. The protection that actually matters is the first
 one: the files served are too small to print, so what a copier gets is worthless
 at print size. Keep it that way — never upload full-resolution masters.
 
-## Placeholder imagery
+## The photographs
 
-`assets/img/` holds generated monochrome plates standing in for Guillermo's real
-photographs, because this environment could not reach Behance. Replace them
-keeping the same filenames — `p01.jpg`–`p12.jpg` for the galleries, `home1.jpg`–
-`home4.jpg` for the full-bleed home sequence (wide crops), and `portrait.jpg` —
-then update the titles, places, years and editions in the `WORKS` array in
-`main.js`.
+`assets/img/` holds 24 of Guillermo's own photographs, all 3:2 landscape at
+1440px on the long edge — already preview resolution, so nothing needs
+downsizing. Filenames are the originals as uploaded.
 
-Export replacements at preview resolution, per the section above.
+Four of them open the site full-bleed; the rest are split across the galleries
+by the `gal` field in `WORKS`.
+
+### Still to come from Guillermo
+
+- **Titles** are descriptive placeholders written from looking at each frame.
+  They are in `WORKS` in `main.js`, in both languages.
+- **Places, years and edition sizes** are deliberately absent rather than
+  invented. Add `place_en` / `place_es`, `year` and `ed` to any record and they
+  appear automatically; leave them off and the UI omits them cleanly.
+- **A portrait of Guillermo** for the About page. There is no portrait-format
+  image in the set, so the About column currently uses one of his street
+  photographs. Drop in a vertical portrait and point `.about-portrait img` at it.
+- **The Instagram URL** in the footer rail is a placeholder.
 
 ## Not implemented
 

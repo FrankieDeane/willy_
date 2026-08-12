@@ -31,19 +31,35 @@
      means adding a row here — no markup to touch. Swap `src` for Guillermo's
      real files and keep the rest. */
   var WORKS = [
-    { src: 'p03.jpg', gal: ['arch', 'prints'], en: 'Concrete Light I',  es: 'Luz de hormigón I',    place_en: 'Buenos Aires, Argentina', place_es: 'Buenos Aires, Argentina', year: 2024, ed: 10 },
-    { src: 'p07.jpg', gal: ['arch', 'prints'], en: 'Concrete Light II', es: 'Luz de hormigón II',   place_en: 'Buenos Aires, Argentina', place_es: 'Buenos Aires, Argentina', year: 2024, ed: 10 },
-    { src: 'p11.jpg', gal: ['arch', 'prints'], en: 'Stairwell',         es: 'Hueco de escalera',    place_en: 'Lisbon, Portugal',        place_es: 'Lisboa, Portugal',        year: 2023, ed: 10 },
-    { src: 'p06.jpg', gal: ['arch'],           en: 'Night Traffic',     es: 'Tráfico nocturno',     place_en: 'Buenos Aires, Argentina', place_es: 'Buenos Aires, Argentina', year: 2024, ed: 12 },
-    { src: 'p10.jpg', gal: ['arch'],           en: 'Tower, After Rain', es: 'Torre, tras la lluvia',place_en: 'São Paulo, Brazil',       place_es: 'São Paulo, Brasil',       year: 2024, ed: 12 },
-    { src: 'p01.jpg', gal: ['arch'],           en: 'Held Breath',       es: 'Aliento contenido',    place_en: 'Madrid, Spain',           place_es: 'Madrid, España',          year: 2024, ed: 12 },
+    // Titles are descriptive placeholders — replace with Guillermo's own.
+    // `place`, `year` and `ed` are intentionally blank: they are his facts to
+    // supply, and the UI omits whatever is missing rather than inventing it.
+    { src: 'Bwfk56PgHyD.jpg', gal: ['arch'],            en: 'Brick Alley',        es: 'Callejón de ladrillo' },
+    { src: 'BzyYlJ-DEDE.jpg', gal: ['arch', 'prints'],  en: 'The Great Hall',     es: 'El gran salón' },
+    { src: 'Cn2KeFZLGvt.jpg', gal: ['arch'],            en: 'Arcade, After Rain', es: 'Galería, tras la lluvia' },
+    { src: 'CurKNnYgEGc.jpg', gal: ['arch', 'prints'],  en: 'Blue Hour',          es: 'Hora azul' },
+    { src: 'CvmniOjgevj.jpg', gal: ['arch'],            en: 'Evening Tramline',   es: 'Tranvía al atardecer' },
+    { src: 'Cvzen1cgB5P.jpg', gal: ['arch', 'prints'],  en: 'Romanesque Door',    es: 'Portada románica' },
 
-    { src: 'p02.jpg', gal: ['land', 'prints'], en: 'Long Horizon',      es: 'Horizonte largo',      place_en: 'Patagonia, Argentina',    place_es: 'Patagonia, Argentina',    year: 2023, ed: 8 },
-    { src: 'p09.jpg', gal: ['land', 'prints'], en: 'Salt Flat',         es: 'Salina',               place_en: 'Salta, Argentina',        place_es: 'Salta, Argentina',        year: 2025, ed: 6 },
-    { src: 'p05.jpg', gal: ['land', 'prints'], en: 'Skin of the Earth', es: 'Piel de la tierra',    place_en: 'Jujuy, Argentina',        place_es: 'Jujuy, Argentina',        year: 2025, ed: 6 },
-    { src: 'p04.jpg', gal: ['land'],           en: 'Before the Rain',   es: 'Antes de la lluvia',   place_en: 'Córdoba, Argentina',      place_es: 'Córdoba, Argentina',      year: 2023, ed: 8 },
-    { src: 'p08.jpg', gal: ['land'],           en: 'Slow Water',        es: 'Agua lenta',           place_en: 'Tierra del Fuego',        place_es: 'Tierra del Fuego',        year: 2023, ed: 8 },
-    { src: 'p12.jpg', gal: ['land'],           en: 'Quiet Field',       es: 'Campo en calma',       place_en: 'Buenos Aires Province',   place_es: 'Provincia de Buenos Aires', year: 2025, ed: 6 }
+    { src: 'B0LWt19gqWp.jpg', gal: ['street', 'prints'],en: 'Mural and Bridge',   es: 'Mural y puente' },
+    { src: 'Bwm7YZCB2uf.jpg', gal: ['street'],          en: 'The Knife',          es: 'El cuchillo' },
+    { src: 'BxFL09Ug73B.jpg', gal: ['street'],          en: 'Snow in the Square', es: 'Nieve en la plaza' },
+    { src: 'CfSf007DA-5.jpg', gal: ['street'],          en: 'The Crew',           es: 'La tripulación' },
+    { src: 'Cia-VAmA8z0.jpg', gal: ['street'],          en: 'Shop Window',        es: 'Vidriera' },
+    { src: 'CvFkWfJADhi.jpg', gal: ['street'],          en: 'Porchetta',          es: 'Porchetta' },
+    { src: 'CvmncTqgsKb.jpg', gal: ['street'],          en: 'Tram, Moving',       es: 'Tranvía en marcha' },
+    { src: 'CvzeslrAf68.jpg', gal: ['street'],          en: 'Painted Shutter',    es: 'Persiana pintada' },
+
+    { src: 'BxdW7JJn207.jpg', gal: ['land', 'prints'],  en: 'Island in Mist',     es: 'Isla entre la niebla' },
+    { src: 'CeJMzMJLCI8.jpg', gal: ['land'],            en: 'Bench in the Green', es: 'Banco entre el verde' },
+    { src: 'Ceg_iwcpO52.jpg', gal: ['land', 'prints'],  en: 'Weather Coming In',  es: 'Llega el temporal' },
+    { src: 'ChM5zuugwvu.jpg', gal: ['land'],            en: 'Highland',           es: 'Tierras altas' },
+    { src: 'Cv4_EaegZpA.jpg', gal: ['land'],            en: 'Links by the Sea',   es: 'Campo junto al mar' },
+    { src: 'Cvfw3LGPF4j.jpg', gal: ['land', 'prints'],  en: 'Flock and Hillside', es: 'Bandada y ladera' },
+    { src: 'CvsV48BADIr.jpg', gal: ['land', 'prints'],  en: 'Anchored at Dusk',   es: 'Fondeado al atardecer' },
+    { src: 'CwV_CreA4Dj.jpg', gal: ['land'],            en: 'Gate and Tree',      es: 'Tranquera y árbol' },
+    { src: 'CwV_HHXAEEg.jpg', gal: ['land', 'prints'],  en: 'The Long Road',      es: 'El camino largo' },
+    { src: 'CwV_MqAgpcP.jpg', gal: ['land'],            en: 'Horse at the Fence', es: 'Caballo en el alambrado' }
   ];
 
   /* ---------------- translations ---------------- */
@@ -51,7 +67,7 @@
     en: {
       'skip': 'Skip to content', 'role': 'PHOTOGRAPHY',
       'nav.home': 'HOME', 'nav.prints': 'FINE ART PRINTS', 'nav.arch': 'ARCHITECTURE',
-      'nav.land': 'LANDSCAPE', 'nav.about': 'ABOUT', 'nav.contact': 'CONTACT',
+      'nav.street': 'STREET', 'nav.land': 'LANDSCAPE', 'nav.about': 'ABOUT', 'nav.contact': 'CONTACT',
       'theme.label': 'Switch theme', 'home.hint': 'SCROLL',
       'prints.title': 'FINE ART PRINTS',
       'prints.p1': 'Photographs are printed on cotton papers with pigment inks, giving a colour life of over a century under normal exhibition conditions.',
@@ -60,6 +76,8 @@
       'prints.order': 'To order, write to', 'prints.orderlink': 'the contact page',
       'arch.title': 'ARCHITECTURE',
       'arch.lede': 'Cities read as structure before they read as places. This body of work follows the line, plane and shadow of urban architecture — from modern towers to older, quieter buildings.',
+      'street.title': 'STREET',
+      'street.lede': 'People and the marks they leave — painted walls, shop windows, a tram pulling away, a vendor at work. Photographed without interrupting anything.',
       'land.title': 'LANDSCAPE',
       'land.lede': 'Work made away from the city: long horizons, weather, and the open country of Argentina and beyond, photographed with the same attention to light and composition.',
       'about.title': 'ABOUT',
@@ -84,7 +102,7 @@
     es: {
       'skip': 'Ir al contenido', 'role': 'FOTOGRAFÍA',
       'nav.home': 'INICIO', 'nav.prints': 'COPIAS DE ARTE', 'nav.arch': 'ARQUITECTURA',
-      'nav.land': 'PAISAJE', 'nav.about': 'SOBRE MÍ', 'nav.contact': 'CONTACTO',
+      'nav.street': 'CALLE', 'nav.land': 'PAISAJE', 'nav.about': 'SOBRE MÍ', 'nav.contact': 'CONTACTO',
       'theme.label': 'Cambiar tema', 'home.hint': 'DESLIZÁ',
       'prints.title': 'COPIAS DE ARTE',
       'prints.p1': 'Las fotografías se imprimen sobre papeles de algodón con tintas de pigmento, lo que garantiza una permanencia del color de más de un siglo en condiciones normales de exhibición.',
@@ -93,6 +111,8 @@
       'prints.order': 'Para encargos, escribí a', 'prints.orderlink': 'la página de contacto',
       'arch.title': 'ARQUITECTURA',
       'arch.lede': 'Las ciudades se leen como estructura antes que como lugares. Este cuerpo de trabajo sigue la línea, el plano y la sombra de la arquitectura urbana — de las torres modernas a los edificios más antiguos y callados.',
+      'street.title': 'CALLE',
+      'street.lede': 'La gente y las marcas que deja — muros pintados, vidrieras, un tranvía que arranca, un vendedor trabajando. Fotografiado sin interrumpir nada.',
       'land.title': 'PAISAJE',
       'land.lede': 'Trabajo realizado lejos de la ciudad: horizontes largos, clima y el campo abierto de la Argentina y más allá, fotografiados con la misma atención a la luz y a la composición.',
       'about.title': 'SOBRE MÍ',
@@ -119,7 +139,7 @@
   var lang = root.getAttribute('lang') === 'es' ? 'es' : 'en';
   function t(k) { return (STRINGS[lang] && STRINGS[lang][k]) || STRINGS.en[k] || k; }
   function title(w) { return w[lang] || w.en; }
-  function place(w) { return w['place_' + lang] || w.place_en; }
+  function place(w) { return w['place_' + lang] || w.place_en || ''; }
 
   /* ---------------- galleries ---------------- */
   var order = [];   // lightbox navigates within the gallery on screen
@@ -139,7 +159,7 @@
         var img = document.createElement('img');
         img.src = asset(w.src);
         watchMissing(img, w.src);
-        img.alt = title(w) + ' — ' + place(w);
+        img.alt = [title(w), place(w)].filter(Boolean).join(' — ');
         img.loading = 'lazy';
         img.draggable = false;
 
@@ -242,10 +262,12 @@
   function render(i) {
     var w = order[i];
     lbImage.src = asset(w.src);
-    lbImage.alt = title(w) + ' — ' + place(w);
+    lbImage.alt = [title(w), place(w)].filter(Boolean).join(' — ');
     lbTitle.textContent = title(w);
-    lbPlace.textContent = place(w) + ' · ' + w.year;
-    lbEdition.textContent = w.ed + ' ' + t('lb.of') + ' ' + w.ed;
+    lbPlace.textContent = [place(w), w.year].filter(Boolean).join(' · ');
+    var row = document.getElementById('lbEditionRow');
+    if (w.ed) { lbEdition.textContent = w.ed + ' ' + t('lb.of') + ' ' + w.ed; row.style.display = ''; }
+    else { row.style.display = 'none'; }
   }
 
   function openLightbox(galKey, src) {
@@ -303,7 +325,7 @@
     WORKS.forEach(function (w) {
       var o = document.createElement('option');
       o.value = w.src;
-      o.textContent = title(w) + ' · ' + w.year;
+      o.textContent = title(w) + (w.year ? ' · ' + w.year : '');
       workSelect.appendChild(o);
     });
     workSelect.value = keep;
