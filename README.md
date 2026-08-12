@@ -44,10 +44,10 @@ form errors — never decoration.
 
 ## Features
 
-**Language (EN / ES).** Interface strings live in `STRINGS` in `main.js`. Photo
-titles and locations live on each `<figure>` as `data-title-en` / `data-title-es`
-/ `data-place-en` / `data-place-es`, so both languages ship in the markup and the
-work stays indexable. Choice persists in `localStorage` and sets `<html lang>`.
+**Language (EN / ES).** Interface strings live in `STRINGS` in `main.js`; photo
+titles and places live alongside each record in `WORKS`. Switching language
+re-renders the galleries, so captions, the lightbox and the contact dropdown all
+follow. Choice persists in `localStorage` and sets `<html lang>`.
 
 **Theme (light / dark).** Tokens are defined three times so all three viewer
 states resolve: bare `:root` for light, `@media (prefers-color-scheme: dark)`
