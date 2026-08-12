@@ -3,316 +3,246 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AURELIA — Fine Art Photography Studio</title>
-<meta name="description" content="AURELIA is a premium fine art photography studio specializing in weddings, editorial portraiture, and bespoke visual storytelling." />
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23c9a24b%22>◆</text></svg>" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Bernaldo de Quirós</title>
+<meta name="description" content="Fine art photography by Guillermo Bernaldo de Quirós. Limited edition prints, available for purchase." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230b0b0c%22/><circle cx=%2250%22 cy=%2250%22 r=%2226%22 fill=%22none%22 stroke=%22%23ff5233%22 stroke-width=%228%22/></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="assets/css/style.css" />
-<script>document.documentElement.classList.add('js');</script>
+<script>
+  /* Applied before paint: avoids a flash of the wrong theme, and gates reveals. */
+  (function () {
+    var d = document.documentElement;
+    d.classList.add('js');
+    try {
+      var t = localStorage.getItem('gbq-theme');
+      if (t) d.setAttribute('data-theme', t);
+      var l = localStorage.getItem('gbq-lang');
+      if (l) d.setAttribute('lang', l);
+    } catch (e) {}
+  })();
+</script>
 </head>
 <body>
 
-<div class="grain"></div>
-<div class="progress-bar" id="progressBar"></div>
+<a href="#work" class="skip-link" data-i18n="skip">Skip to the work</a>
 
-<!-- ===== NAV ===== -->
-<header class="site-header" id="siteHeader">
-  <div class="header-inner">
-    <a href="#home" class="logo">AUR<span>E</span>LIA</a>
-    <nav class="main-nav" id="mainNav">
-      <a href="#portfolio">Portfolio</a>
-      <a href="#services">Services</a>
-      <a href="#about">Studio</a>
-      <a href="#testimonials">Praise</a>
-      <a href="#journal">Journal</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <a href="#contact" class="btn btn-outline nav-cta">Book a Session</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-      <span></span><span></span><span></span>
+<!-- ===== HEADER ===== -->
+<header class="topbar" id="topbar">
+  <a href="#top" class="wordmark">
+    <span class="wordmark-mark" aria-hidden="true"></span>
+    <span class="wordmark-text">
+      <b>Guillermo Bernaldo de Quirós</b>
+      <i data-i18n="role">Photography</i>
+    </span>
+  </a>
+
+  <nav class="topnav">
+    <a href="#work" data-i18n="nav.work">Work</a>
+    <a href="#about" data-i18n="nav.about">About</a>
+    <a href="#contact" data-i18n="nav.contact">Contact</a>
+  </nav>
+
+  <div class="controls">
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button type="button" data-lang="en" class="is-active">EN</button>
+      <button type="button" data-lang="es">ES</button>
+    </div>
+    <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="false">
+      <span class="theme-icon" aria-hidden="true"></span>
+      <span class="sr-only" data-i18n="theme.label">Switch theme</span>
     </button>
   </div>
 </header>
 
-<!-- ===== HERO ===== -->
-<section class="hero" id="home">
-  <div class="hero-media">
-    <img src="assets/img/hero.jpg" alt="Portrait photography by AURELIA" />
-  </div>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <p class="eyebrow reveal">Est. 2011 · New York — Paris — Kyoto</p>
-    <h1 class="reveal">Timeless Stories,<br />Captured in Light.</h1>
-    <p class="hero-sub reveal">A fine art photography studio for weddings, editorial portraiture &amp; bespoke visual legacies.</p>
-    <div class="hero-actions reveal">
-      <a href="#portfolio" class="btn btn-solid">View Portfolio</a>
-      <a href="#contact" class="btn btn-ghost">Enquire Now</a>
-    </div>
-  </div>
-  <a href="#intro" class="scroll-cue" aria-label="Scroll down"><span></span>Scroll</a>
+<!-- ===== INTRO ===== -->
+<section class="intro" id="top">
+  <h1 data-i18n="intro.title">Light, held still.</h1>
+  <p data-i18n="intro.body">Selected photographs by Guillermo Bernaldo de Quirós. Every frame below is a
+    limited edition print — the gallery shows preview files only.</p>
+  <p class="intro-meta">
+    <span data-i18n="intro.count">12 works</span>
+    <span data-i18n="intro.hint">Click any photograph to enlarge</span>
+  </p>
 </section>
 
-<!-- ===== INTRO / STATS ===== -->
-<section class="intro" id="intro">
-  <div class="intro-text reveal">
-    <p class="section-tag">The Studio</p>
-    <h2>We don't just take photographs.<br />We preserve <em>moments that matter.</em></h2>
-    <p class="intro-copy">AURELIA is an award-winning collective of photographers and visual artists devoted to
-      honest, cinematic storytelling. From intimate elopements to editorial campaigns, every frame is composed
-      with the same obsession for light, emotion and detail that built our name.</p>
-  </div>
-  <div class="stats reveal">
-    <div class="stat"><span class="stat-num" data-count="15">0</span><span class="stat-suffix">+</span><p>Years of Craft</p></div>
-    <div class="stat"><span class="stat-num" data-count="640">0</span><span class="stat-suffix">+</span><p>Stories Told</p></div>
-    <div class="stat"><span class="stat-num" data-count="27">0</span><span class="stat-suffix"></span><p>Awards &amp; Features</p></div>
-    <div class="stat"><span class="stat-num" data-count="98">0</span><span class="stat-suffix">%</span><p>Client Delight</p></div>
-  </div>
-</section>
+<!-- ===== GALLERY =====
+     Figures live in the markup (not built by JS) so the work is indexable and
+     still renders with JS unavailable. JS reads the data-* for the lightbox. -->
+<main class="gallery" id="work">
+  <figure class="shot" data-src="assets/img/p01.jpg"
+    data-title-en="Held Breath" data-title-es="Aliento contenido"
+    data-place-en="Madrid, Spain" data-place-es="Madrid, España"
+    data-year="2024" data-edition="12" data-price="€420">
+    <img src="assets/img/p01.jpg" alt="Held Breath — soft points of light dissolving in darkness" draggable="false" />
+  </figure>
 
-<!-- ===== PORTFOLIO ===== -->
-<section class="portfolio" id="portfolio">
-  <div class="section-head reveal">
-    <p class="section-tag">Selected Work</p>
-    <h2>The Portfolio</h2>
-    <p class="section-sub">A curated collection across weddings, editorial, portraiture and fine art landscape.</p>
-  </div>
+  <figure class="shot" data-src="assets/img/p02.jpg"
+    data-title-en="Long Horizon" data-title-es="Horizonte largo"
+    data-place-en="Cantabria, Spain" data-place-es="Cantabria, España"
+    data-year="2023" data-edition="8" data-price="€520">
+    <img loading="lazy" src="assets/img/p02.jpg" alt="Long Horizon — a pale sea meeting an overcast sky" draggable="false" />
+  </figure>
 
-  <div class="filters reveal" id="filters">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="weddings">Weddings</button>
-    <button class="filter-btn" data-filter="editorial">Editorial</button>
-    <button class="filter-btn" data-filter="portraits">Portraits</button>
-    <button class="filter-btn" data-filter="fineart">Fine Art</button>
-  </div>
+  <figure class="shot" data-src="assets/img/p03.jpg"
+    data-title-en="Concrete Light I" data-title-es="Luz de hormigón I"
+    data-place-en="Valencia, Spain" data-place-es="Valencia, España"
+    data-year="2024" data-edition="10" data-price="€460">
+    <img loading="lazy" src="assets/img/p03.jpg" alt="Concrete Light I — hard planes of light across a facade" draggable="false" />
+  </figure>
 
-  <div class="gallery" id="gallery">
-    <figure class="gallery-item reveal" data-cat="weddings"><img loading="lazy" src="assets/img/work-01.jpg" alt="Wedding photography"><figcaption><span>Weddings</span>Golden Hour Vows — Provence</figcaption></figure>
-    <figure class="gallery-item reveal" data-cat="portraits"><img loading="lazy" src="assets/img/work-02.jpg" alt="Portrait photography"><figcaption><span>Portraits</span>Quiet Light — Studio Series</figcaption></figure>
-    <figure class="gallery-item reveal" data-cat="fineart"><img loading="lazy" src="assets/img/work-03.jpg" alt="Fine art landscape photography"><figcaption><span>Fine Art</span>Between Mountains — No. 3</figcaption></figure>
-    <figure class="gallery-item reveal" data-cat="editorial"><img loading="lazy" src="assets/img/work-04.jpg" alt="Editorial fashion photography"><figcaption><span>Editorial</span>Muted Elegance — Vogue Feature</figcaption></figure>
-    <figure class="gallery-item reveal" data-cat="weddings"><img loading="lazy" src="assets/img/work-05.jpg" alt="Wedding couple photography"><figcaption><span>Weddings</span>First Light — Amalfi Coast</figcaption></figure>
-    <figure class="gallery-item reveal" data-cat="portraits"><img loading="lazy" src="assets/img/work-06.jpg" alt="Black and white portrait"><figcaption><span>Portraits</span>Unposed — Vol. II</figcaption></figure>
-    <figure class="gallery-item reveal" data-cat="fineart"><img loading="lazy" src="assets/img/work-07.jpg" alt="Fine art nature photography"><figcaption><span>Fine Art</span>Silence of the Forest</figcaption></figure>
-    <figure class="gallery-item reveal" data-cat="editorial"><img loading="lazy" src="assets/img/work-08.jpg" alt="Editorial portrait photography"><figcaption><span>Editorial</span>Modern Muse — Campaign 08</figcaption></figure>
-    <figure class="gallery-item reveal" data-cat="weddings"><img loading="lazy" src="assets/img/work-09.jpg" alt="Wedding detail photography"><figcaption><span>Weddings</span>Kyoto Garden Ceremony</figcaption></figure>
-  </div>
+  <figure class="shot" data-src="assets/img/p04.jpg"
+    data-title-en="Before the Rain" data-title-es="Antes de la lluvia"
+    data-place-en="Asturias, Spain" data-place-es="Asturias, España"
+    data-year="2023" data-edition="8" data-price="€520">
+    <img loading="lazy" src="assets/img/p04.jpg" alt="Before the Rain — a low horizon under heavy cloud" draggable="false" />
+  </figure>
 
-  <div class="portfolio-cta reveal">
-    <a href="#" class="btn btn-outline">View Full Archive</a>
-  </div>
-</section>
+  <figure class="shot" data-src="assets/img/p05.jpg"
+    data-title-en="Skin of the Earth" data-title-es="Piel de la tierra"
+    data-place-en="Lanzarote, Spain" data-place-es="Lanzarote, España"
+    data-year="2025" data-edition="6" data-price="€680">
+    <img loading="lazy" src="assets/img/p05.jpg" alt="Skin of the Earth — close volcanic texture in raking light" draggable="false" />
+  </figure>
 
-<!-- ===== SERVICES ===== -->
-<section class="services" id="services">
-  <div class="section-head reveal light">
-    <p class="section-tag">Investment</p>
-    <h2>Bespoke Packages</h2>
-    <p class="section-sub">Every collection is tailored — these are starting points for the conversation.</p>
-  </div>
+  <figure class="shot" data-src="assets/img/p06.jpg"
+    data-title-en="Night Traffic" data-title-es="Tráfico nocturno"
+    data-place-en="Buenos Aires, Argentina" data-place-es="Buenos Aires, Argentina"
+    data-year="2024" data-edition="12" data-price="€420">
+    <img loading="lazy" src="assets/img/p06.jpg" alt="Night Traffic — city lights thrown out of focus" draggable="false" />
+  </figure>
 
-  <div class="pricing-grid">
-    <div class="price-card reveal">
-      <h3>Essential</h3>
-      <p class="price-desc">Intimate sessions &amp; single-day coverage</p>
-      <p class="price">$2,400</p>
-      <ul>
-        <li>4 hours of coverage</li>
-        <li>1 photographer</li>
-        <li>150+ retouched images</li>
-        <li>Private online gallery</li>
-        <li>Print release included</li>
-      </ul>
-      <a href="#contact" class="btn btn-outline">Enquire</a>
-    </div>
+  <figure class="shot" data-src="assets/img/p07.jpg"
+    data-title-en="Concrete Light II" data-title-es="Luz de hormigón II"
+    data-place-en="Valencia, Spain" data-place-es="Valencia, España"
+    data-year="2024" data-edition="10" data-price="€460">
+    <img loading="lazy" src="assets/img/p07.jpg" alt="Concrete Light II — angular shadow across a white wall" draggable="false" />
+  </figure>
 
-    <div class="price-card featured reveal">
-      <p class="ribbon">Most Booked</p>
-      <h3>Signature</h3>
-      <p class="price-desc">Full-day storytelling, start to finish</p>
-      <p class="price">$4,800</p>
-      <ul>
-        <li>8 hours of coverage</li>
-        <li>2 photographers + 1 assistant</li>
-        <li>400+ retouched images</li>
-        <li>Cinematic highlight film</li>
-        <li>Heirloom album, hand-bound</li>
-        <li>Engagement session included</li>
-      </ul>
-      <a href="#contact" class="btn btn-solid">Enquire</a>
-    </div>
+  <figure class="shot" data-src="assets/img/p08.jpg"
+    data-title-en="Slow Water" data-title-es="Agua lenta"
+    data-place-en="Galicia, Spain" data-place-es="Galicia, España"
+    data-year="2023" data-edition="8" data-price="€520">
+    <img loading="lazy" src="assets/img/p08.jpg" alt="Slow Water — long exposure of moving water" draggable="false" />
+  </figure>
 
-    <div class="price-card reveal">
-      <h3>Bespoke</h3>
-      <p class="price-desc">Multi-day, destination &amp; editorial work</p>
-      <p class="price">Custom</p>
-      <ul>
-        <li>Unlimited coverage</li>
-        <li>Full creative team</li>
-        <li>Fine art print collection</li>
-        <li>Global travel included</li>
-        <li>Dedicated art director</li>
-      </ul>
-      <a href="#contact" class="btn btn-outline">Let's Talk</a>
-    </div>
-  </div>
-</section>
+  <figure class="shot" data-src="assets/img/p09.jpg"
+    data-title-en="Salt Flat" data-title-es="Salina"
+    data-place-en="Almería, Spain" data-place-es="Almería, España"
+    data-year="2025" data-edition="6" data-price="€680">
+    <img loading="lazy" src="assets/img/p09.jpg" alt="Salt Flat — a bright plain under a dark sky" draggable="false" />
+  </figure>
+
+  <figure class="shot" data-src="assets/img/p10.jpg"
+    data-title-en="Verbena" data-title-es="Verbena"
+    data-place-en="Seville, Spain" data-place-es="Sevilla, España"
+    data-year="2024" data-edition="12" data-price="€420">
+    <img loading="lazy" src="assets/img/p10.jpg" alt="Verbena — festival lights scattered out of focus" draggable="false" />
+  </figure>
+
+  <figure class="shot" data-src="assets/img/p11.jpg"
+    data-title-en="Stairwell" data-title-es="Hueco de escalera"
+    data-place-en="Lisbon, Portugal" data-place-es="Lisboa, Portugal"
+    data-year="2023" data-edition="10" data-price="€460">
+    <img loading="lazy" src="assets/img/p11.jpg" alt="Stairwell — geometric planes falling away into shadow" draggable="false" />
+  </figure>
+
+  <figure class="shot" data-src="assets/img/p12.jpg"
+    data-title-en="Quiet Field" data-title-es="Campo en calma"
+    data-place-en="Castilla, Spain" data-place-es="Castilla, España"
+    data-year="2025" data-edition="6" data-price="€680">
+    <img loading="lazy" src="assets/img/p12.jpg" alt="Quiet Field — grasses in soft directional light" draggable="false" />
+  </figure>
+</main>
 
 <!-- ===== ABOUT ===== -->
 <section class="about" id="about">
-  <div class="about-media reveal">
-    <img loading="lazy" src="assets/img/studio.jpg" alt="Lead photographer of AURELIA studio" />
+  <div class="about-portrait">
+    <img loading="lazy" src="assets/img/portrait.jpg" alt="Portrait of Guillermo Bernaldo de Quirós" draggable="false" />
   </div>
-  <div class="about-text reveal">
-    <p class="section-tag">Behind the Lens</p>
-    <h2>Hello, we're <em>AURELIA.</em></h2>
-    <p>Founded in 2011 by photographer Elena Marchetti, AURELIA began as a one-woman studio shooting
-      film weddings across the Mediterranean. Today we're a small, deliberately-sized collective of
-      photographers, retouchers and album artisans — working from studios in New York, Paris and Kyoto.</p>
-    <p>We believe photography should feel like memory: imperfect, warm, and quietly beautiful. No forced
-      poses, no over-processed skies — just light, patience, and an eye trained over thousands of hours
-      to know exactly when to press the shutter.</p>
-    <div class="about-signoff">
-      <span class="sig">Elena Marchetti</span>
-      <span class="sig-role">Founder &amp; Lead Photographer</span>
-    </div>
-  </div>
-</section>
-
-<!-- ===== FEATURED IN ===== -->
-<section class="press reveal">
-  <p class="press-label">As Featured In</p>
-  <div class="press-marks">
-    <span>VOGUE</span><span>HARPER'S BAZAAR</span><span>ELLE</span><span>KINFOLK</span><span>THE KNOT</span><span>APERTURE</span>
-  </div>
-</section>
-
-<!-- ===== TESTIMONIALS ===== -->
-<section class="testimonials" id="testimonials">
-  <div class="section-head reveal light">
-    <p class="section-tag">Kind Words</p>
-    <h2>From Our Clients</h2>
-  </div>
-
-  <div class="testimonial-track" id="testimonialTrack">
-    <div class="testimonial active">
-      <p class="quote">“AURELIA didn't just document our wedding — they translated it into art. Three years
-        later, our album still stops us in our tracks.”</p>
-      <p class="author">Sofia &amp; Marcus — New York</p>
-    </div>
-    <div class="testimonial">
-      <p class="quote">“Elena has an instinct for the quiet, in-between moments. Our editorial shoot felt
-        effortless, and the images ran in three international titles.”</p>
-      <p class="author">Naomi Reyes — Creative Director, Ellery House</p>
-    </div>
-    <div class="testimonial">
-      <p class="quote">“Worth every cent. The team is calm, unobtrusive, and the final gallery genuinely made
-        my mother cry. That's the whole review.”</p>
-      <p class="author">Julien Laurent — Paris</p>
-    </div>
-  </div>
-  <div class="testimonial-dots" id="testimonialDots"></div>
-</section>
-
-<!-- ===== JOURNAL ===== -->
-<section class="journal" id="journal">
-  <div class="section-head reveal">
-    <p class="section-tag">The Journal</p>
-    <h2>Notes on Light &amp; Life</h2>
-  </div>
-  <div class="journal-grid">
-    <article class="journal-card reveal">
-      <img loading="lazy" src="assets/img/journal-01.jpg" alt="Journal post" />
-      <p class="journal-date">June 14, 2026</p>
-      <h3>Five Questions to Ask Before Booking Your Wedding Photographer</h3>
-      <a href="#" class="journal-link">Read More →</a>
-    </article>
-    <article class="journal-card reveal">
-      <img loading="lazy" src="assets/img/journal-02.jpg" alt="Journal post" />
-      <p class="journal-date">May 2, 2026</p>
-      <h3>Inside Our Kyoto Studio: A Season of Cherry Blossoms</h3>
-      <a href="#" class="journal-link">Read More →</a>
-    </article>
-    <article class="journal-card reveal">
-      <img loading="lazy" src="assets/img/journal-03.jpg" alt="Journal post" />
-      <p class="journal-date">April 18, 2026</p>
-      <h3>Film vs. Digital: What We Actually Shoot and Why</h3>
-      <a href="#" class="journal-link">Read More →</a>
-    </article>
+  <div class="about-body">
+    <p class="kicker" data-i18n="about.kicker">About</p>
+    <h2 data-i18n="about.title">Guillermo Bernaldo de Quirós</h2>
+    <p data-i18n="about.p1">Guillermo photographs the ordinary at the moment it stops being ordinary — a
+      wall an hour before sunset, a field going quiet, city lights losing their edges. He works slowly, mostly
+      alone, and usually returns to the same place many times before a frame is worth keeping.</p>
+    <p data-i18n="about.p2">Photography began for him as a way of paying attention. It still is. He is drawn
+      to restraint over spectacle: available light, few frames, and prints made with the same patience the
+      picture was taken with.</p>
+    <p data-i18n="about.p3">Every photograph here is produced as a signed limited edition, printed on
+      archival cotton rag. When an edition closes, it is not reprinted.</p>
+    <a class="link-out" href="https://www.behance.net/guillerbernald" target="_blank" rel="noopener noreferrer">
+      <span data-i18n="about.behance">Full portfolio on Behance</span>
+      <span aria-hidden="true">↗</span>
+    </a>
   </div>
 </section>
 
 <!-- ===== CONTACT ===== -->
 <section class="contact" id="contact">
-  <div class="contact-inner">
-    <div class="contact-text reveal">
-      <p class="section-tag">Get In Touch</p>
-      <h2>Let's create something<br /><em>timeless</em> together.</h2>
-      <p class="section-sub">Tell us about your story and we'll respond within 48 hours with availability
-        and a tailored proposal.</p>
-      <div class="contact-details">
-        <div><span>Studio</span>Bond Street, New York, NY</div>
-        <div><span>Email</span>studio@aurelia-photo.example</div>
-        <div><span>Phone</span>+1 (212) 555-0148</div>
-      </div>
-      <div class="social-row">
-        <a href="#">Instagram</a><a href="#">Pinterest</a><a href="#">Vimeo</a>
-      </div>
-    </div>
-
-    <form class="contact-form reveal" id="contactForm">
-      <div class="form-row">
-        <label>Full Name
-          <input type="text" name="name" placeholder="Jane Doe" required />
-        </label>
-        <label>Email
-          <input type="email" name="email" placeholder="jane@email.com" required />
-        </label>
-      </div>
-      <div class="form-row">
-        <label>Occasion
-          <select name="occasion">
-            <option>Wedding</option>
-            <option>Editorial / Commercial</option>
-            <option>Portrait Session</option>
-            <option>Fine Art Commission</option>
-            <option>Other</option>
-          </select>
-        </label>
-        <label>Preferred Date
-          <input type="date" name="date" />
-        </label>
-      </div>
-      <label>Tell us your story
-        <textarea name="message" rows="4" placeholder="Where, when, and what you're dreaming of..."></textarea>
+  <h2 data-i18n="contact.title">Enquire about a print</h2>
+  <p data-i18n="contact.body">Tell me which photograph you have in mind and I will reply with sizes,
+    framing options and availability.</p>
+  <form id="enquiryForm" novalidate>
+    <div class="field-row">
+      <label>
+        <span data-i18n="form.name">Name</span>
+        <input type="text" name="name" required />
       </label>
-      <button type="submit" class="btn btn-solid full">Send Enquiry</button>
-      <p class="form-note" id="formNote"></p>
-    </form>
-  </div>
+      <label>
+        <span data-i18n="form.email">Email</span>
+        <input type="email" name="email" required />
+      </label>
+    </div>
+    <label>
+      <span data-i18n="form.work">Photograph</span>
+      <select name="work" id="formWork"></select>
+    </label>
+    <label>
+      <span data-i18n="form.message">Message</span>
+      <textarea name="message" rows="4"></textarea>
+    </label>
+    <button type="submit" class="btn-primary" data-i18n="form.submit">Send enquiry</button>
+    <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+  </form>
 </section>
 
-<!-- ===== FOOTER ===== -->
 <footer class="site-footer">
-  <div class="footer-inner">
-    <a href="#home" class="logo footer-logo">AUR<span>E</span>LIA</a>
-    <nav class="footer-nav">
-      <a href="#portfolio">Portfolio</a>
-      <a href="#services">Services</a>
-      <a href="#about">Studio</a>
-      <a href="#contact">Contact</a>
-      <a href="#">Privacy</a>
-    </nav>
-    <form class="newsletter" id="newsletterForm">
-      <input type="email" placeholder="Join our newsletter" required />
-      <button type="submit" aria-label="Subscribe">→</button>
-    </form>
-  </div>
-  <p class="footer-copy">© 2026 AURELIA Photography Studio. All rights reserved. Preview build.</p>
+  <p>© <span id="year">2026</span> Guillermo Bernaldo de Quirós.
+    <span data-i18n="footer.rights">All images are protected and may not be reproduced.</span></p>
+  <p class="footer-note" data-i18n="footer.preview">Preview build — gallery files are low-resolution.</p>
 </footer>
 
-<button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+<!-- ===== LIGHTBOX ===== -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+  <button class="lb-close" id="lbClose" aria-label="Close"><span aria-hidden="true">✕</span></button>
+
+  <figure class="lb-stage">
+    <div class="lb-frame" id="lbFrame">
+      <!-- nav lives in the image column so it can never overlap the spec panel -->
+      <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous"><span aria-hidden="true">‹</span></button>
+      <button class="lb-nav lb-next" id="lbNext" aria-label="Next"><span aria-hidden="true">›</span></button>
+      <img id="lbImage" alt="" draggable="false" />
+      <!-- sits above the image: makes drag-to-desktop and long-press-save grab nothing -->
+      <div class="lb-shield" aria-hidden="true"></div>
+      <div class="lb-watermark" aria-hidden="true"><span>GBQ</span><span>GBQ</span><span>GBQ</span></div>
+    </div>
+    <figcaption class="lb-meta">
+      <div class="lb-meta-main">
+        <h3 id="lbTitle"></h3>
+        <p id="lbPlace"></p>
+      </div>
+      <dl class="lb-spec">
+        <div><dt data-i18n="lb.edition">Edition</dt><dd id="lbEdition"></dd></div>
+        <div><dt data-i18n="lb.print">Print</dt><dd data-i18n="lb.printval">Archival cotton rag</dd></div>
+        <div><dt data-i18n="lb.price">From</dt><dd id="lbPrice" class="lb-price"></dd></div>
+      </dl>
+      <a class="btn-primary lb-cta" id="lbEnquire" href="#contact" data-i18n="lb.enquire">Enquire about this print</a>
+      <p class="lb-protect" data-i18n="lb.protect">Preview resolution. Not licensed for download or reproduction.</p>
+    </figcaption>
+  </figure>
+</div>
 
 <script src="assets/js/main.js"></script>
 </body>
