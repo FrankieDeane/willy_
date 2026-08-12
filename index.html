@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AURELIA — Fine Art Photography Studio</title>
+<meta name="description" content="AURELIA is a premium fine art photography studio specializing in weddings, editorial portraiture, and bespoke visual storytelling." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23c9a24b%22>◆</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css" />
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- ===== NAV ===== -->
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a href="#home" class="logo">AUR<span>E</span>LIA</a>
+    <nav class="main-nav" id="mainNav">
+      <a href="#portfolio">Portfolio</a>
+      <a href="#services">Services</a>
+      <a href="#about">Studio</a>
+      <a href="#testimonials">Praise</a>
+      <a href="#journal">Journal</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="btn btn-outline nav-cta">Book a Session</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+  <div class="hero-media">
+    <img src="assets/img/hero.jpg" alt="Portrait photography by AURELIA" />
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="eyebrow reveal">Est. 2011 · New York — Paris — Kyoto</p>
+    <h1 class="reveal">Timeless Stories,<br />Captured in Light.</h1>
+    <p class="hero-sub reveal">A fine art photography studio for weddings, editorial portraiture &amp; bespoke visual legacies.</p>
+    <div class="hero-actions reveal">
+      <a href="#portfolio" class="btn btn-solid">View Portfolio</a>
+      <a href="#contact" class="btn btn-ghost">Enquire Now</a>
+    </div>
+  </div>
+  <a href="#intro" class="scroll-cue" aria-label="Scroll down"><span></span>Scroll</a>
+</section>
+
+<!-- ===== INTRO / STATS ===== -->
+<section class="intro" id="intro">
+  <div class="intro-text reveal">
+    <p class="section-tag">The Studio</p>
+    <h2>We don't just take photographs.<br />We preserve <em>moments that matter.</em></h2>
+    <p class="intro-copy">AURELIA is an award-winning collective of photographers and visual artists devoted to
+      honest, cinematic storytelling. From intimate elopements to editorial campaigns, every frame is composed
+      with the same obsession for light, emotion and detail that built our name.</p>
+  </div>
+  <div class="stats reveal">
+    <div class="stat"><span class="stat-num" data-count="15">0</span><span class="stat-suffix">+</span><p>Years of Craft</p></div>
+    <div class="stat"><span class="stat-num" data-count="640">0</span><span class="stat-suffix">+</span><p>Stories Told</p></div>
+    <div class="stat"><span class="stat-num" data-count="27">0</span><span class="stat-suffix"></span><p>Awards &amp; Features</p></div>
+    <div class="stat"><span class="stat-num" data-count="98">0</span><span class="stat-suffix">%</span><p>Client Delight</p></div>
+  </div>
+</section>
+
+<!-- ===== PORTFOLIO ===== -->
+<section class="portfolio" id="portfolio">
+  <div class="section-head reveal">
+    <p class="section-tag">Selected Work</p>
+    <h2>The Portfolio</h2>
+    <p class="section-sub">A curated collection across weddings, editorial, portraiture and fine art landscape.</p>
+  </div>
+
+  <div class="filters reveal" id="filters">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="weddings">Weddings</button>
+    <button class="filter-btn" data-filter="editorial">Editorial</button>
+    <button class="filter-btn" data-filter="portraits">Portraits</button>
+    <button class="filter-btn" data-filter="fineart">Fine Art</button>
+  </div>
+
+  <div class="gallery" id="gallery">
+    <figure class="gallery-item reveal" data-cat="weddings"><img loading="lazy" src="assets/img/work-01.jpg" alt="Wedding photography"><figcaption><span>Weddings</span>Golden Hour Vows — Provence</figcaption></figure>
+    <figure class="gallery-item reveal" data-cat="portraits"><img loading="lazy" src="assets/img/work-02.jpg" alt="Portrait photography"><figcaption><span>Portraits</span>Quiet Light — Studio Series</figcaption></figure>
+    <figure class="gallery-item reveal" data-cat="fineart"><img loading="lazy" src="assets/img/work-03.jpg" alt="Fine art landscape photography"><figcaption><span>Fine Art</span>Between Mountains — No. 3</figcaption></figure>
+    <figure class="gallery-item reveal" data-cat="editorial"><img loading="lazy" src="assets/img/work-04.jpg" alt="Editorial fashion photography"><figcaption><span>Editorial</span>Muted Elegance — Vogue Feature</figcaption></figure>
+    <figure class="gallery-item reveal" data-cat="weddings"><img loading="lazy" src="assets/img/work-05.jpg" alt="Wedding couple photography"><figcaption><span>Weddings</span>First Light — Amalfi Coast</figcaption></figure>
+    <figure class="gallery-item reveal" data-cat="portraits"><img loading="lazy" src="assets/img/work-06.jpg" alt="Black and white portrait"><figcaption><span>Portraits</span>Unposed — Vol. II</figcaption></figure>
+    <figure class="gallery-item reveal" data-cat="fineart"><img loading="lazy" src="assets/img/work-07.jpg" alt="Fine art nature photography"><figcaption><span>Fine Art</span>Silence of the Forest</figcaption></figure>
+    <figure class="gallery-item reveal" data-cat="editorial"><img loading="lazy" src="assets/img/work-08.jpg" alt="Editorial portrait photography"><figcaption><span>Editorial</span>Modern Muse — Campaign 08</figcaption></figure>
+    <figure class="gallery-item reveal" data-cat="weddings"><img loading="lazy" src="assets/img/work-09.jpg" alt="Wedding detail photography"><figcaption><span>Weddings</span>Kyoto Garden Ceremony</figcaption></figure>
+  </div>
+
+  <div class="portfolio-cta reveal">
+    <a href="#" class="btn btn-outline">View Full Archive</a>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section class="services" id="services">
+  <div class="section-head reveal light">
+    <p class="section-tag">Investment</p>
+    <h2>Bespoke Packages</h2>
+    <p class="section-sub">Every collection is tailored — these are starting points for the conversation.</p>
+  </div>
+
+  <div class="pricing-grid">
+    <div class="price-card reveal">
+      <h3>Essential</h3>
+      <p class="price-desc">Intimate sessions &amp; single-day coverage</p>
+      <p class="price">$2,400</p>
+      <ul>
+        <li>4 hours of coverage</li>
+        <li>1 photographer</li>
+        <li>150+ retouched images</li>
+        <li>Private online gallery</li>
+        <li>Print release included</li>
+      </ul>
+      <a href="#contact" class="btn btn-outline">Enquire</a>
+    </div>
+
+    <div class="price-card featured reveal">
+      <p class="ribbon">Most Booked</p>
+      <h3>Signature</h3>
+      <p class="price-desc">Full-day storytelling, start to finish</p>
+      <p class="price">$4,800</p>
+      <ul>
+        <li>8 hours of coverage</li>
+        <li>2 photographers + 1 assistant</li>
+        <li>400+ retouched images</li>
+        <li>Cinematic highlight film</li>
+        <li>Heirloom album, hand-bound</li>
+        <li>Engagement session included</li>
+      </ul>
+      <a href="#contact" class="btn btn-solid">Enquire</a>
+    </div>
+
+    <div class="price-card reveal">
+      <h3>Bespoke</h3>
+      <p class="price-desc">Multi-day, destination &amp; editorial work</p>
+      <p class="price">Custom</p>
+      <ul>
+        <li>Unlimited coverage</li>
+        <li>Full creative team</li>
+        <li>Fine art print collection</li>
+        <li>Global travel included</li>
+        <li>Dedicated art director</li>
+      </ul>
+      <a href="#contact" class="btn btn-outline">Let's Talk</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="about" id="about">
+  <div class="about-media reveal">
+    <img loading="lazy" src="assets/img/studio.jpg" alt="Lead photographer of AURELIA studio" />
+  </div>
+  <div class="about-text reveal">
+    <p class="section-tag">Behind the Lens</p>
+    <h2>Hello, we're <em>AURELIA.</em></h2>
+    <p>Founded in 2011 by photographer Elena Marchetti, AURELIA began as a one-woman studio shooting
+      film weddings across the Mediterranean. Today we're a small, deliberately-sized collective of
+      photographers, retouchers and album artisans — working from studios in New York, Paris and Kyoto.</p>
+    <p>We believe photography should feel like memory: imperfect, warm, and quietly beautiful. No forced
+      poses, no over-processed skies — just light, patience, and an eye trained over thousands of hours
+      to know exactly when to press the shutter.</p>
+    <div class="about-signoff">
+      <span class="sig">Elena Marchetti</span>
+      <span class="sig-role">Founder &amp; Lead Photographer</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURED IN ===== -->
+<section class="press reveal">
+  <p class="press-label">As Featured In</p>
+  <div class="press-marks">
+    <span>VOGUE</span><span>HARPER'S BAZAAR</span><span>ELLE</span><span>KINFOLK</span><span>THE KNOT</span><span>APERTURE</span>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="testimonials" id="testimonials">
+  <div class="section-head reveal light">
+    <p class="section-tag">Kind Words</p>
+    <h2>From Our Clients</h2>
+  </div>
+
+  <div class="testimonial-track" id="testimonialTrack">
+    <div class="testimonial active">
+      <p class="quote">“AURELIA didn't just document our wedding — they translated it into art. Three years
+        later, our album still stops us in our tracks.”</p>
+      <p class="author">Sofia &amp; Marcus — New York</p>
+    </div>
+    <div class="testimonial">
+      <p class="quote">“Elena has an instinct for the quiet, in-between moments. Our editorial shoot felt
+        effortless, and the images ran in three international titles.”</p>
+      <p class="author">Naomi Reyes — Creative Director, Ellery House</p>
+    </div>
+    <div class="testimonial">
+      <p class="quote">“Worth every cent. The team is calm, unobtrusive, and the final gallery genuinely made
+        my mother cry. That's the whole review.”</p>
+      <p class="author">Julien Laurent — Paris</p>
+    </div>
+  </div>
+  <div class="testimonial-dots" id="testimonialDots"></div>
+</section>
+
+<!-- ===== JOURNAL ===== -->
+<section class="journal" id="journal">
+  <div class="section-head reveal">
+    <p class="section-tag">The Journal</p>
+    <h2>Notes on Light &amp; Life</h2>
+  </div>
+  <div class="journal-grid">
+    <article class="journal-card reveal">
+      <img loading="lazy" src="assets/img/journal-01.jpg" alt="Journal post" />
+      <p class="journal-date">June 14, 2026</p>
+      <h3>Five Questions to Ask Before Booking Your Wedding Photographer</h3>
+      <a href="#" class="journal-link">Read More →</a>
+    </article>
+    <article class="journal-card reveal">
+      <img loading="lazy" src="assets/img/journal-02.jpg" alt="Journal post" />
+      <p class="journal-date">May 2, 2026</p>
+      <h3>Inside Our Kyoto Studio: A Season of Cherry Blossoms</h3>
+      <a href="#" class="journal-link">Read More →</a>
+    </article>
+    <article class="journal-card reveal">
+      <img loading="lazy" src="assets/img/journal-03.jpg" alt="Journal post" />
+      <p class="journal-date">April 18, 2026</p>
+      <h3>Film vs. Digital: What We Actually Shoot and Why</h3>
+      <a href="#" class="journal-link">Read More →</a>
+    </article>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-text reveal">
+      <p class="section-tag">Get In Touch</p>
+      <h2>Let's create something<br /><em>timeless</em> together.</h2>
+      <p class="section-sub">Tell us about your story and we'll respond within 48 hours with availability
+        and a tailored proposal.</p>
+      <div class="contact-details">
+        <div><span>Studio</span>Bond Street, New York, NY</div>
+        <div><span>Email</span>studio@aurelia-photo.example</div>
+        <div><span>Phone</span>+1 (212) 555-0148</div>
+      </div>
+      <div class="social-row">
+        <a href="#">Instagram</a><a href="#">Pinterest</a><a href="#">Vimeo</a>
+      </div>
+    </div>
+
+    <form class="contact-form reveal" id="contactForm">
+      <div class="form-row">
+        <label>Full Name
+          <input type="text" name="name" placeholder="Jane Doe" required />
+        </label>
+        <label>Email
+          <input type="email" name="email" placeholder="jane@email.com" required />
+        </label>
+      </div>
+      <div class="form-row">
+        <label>Occasion
+          <select name="occasion">
+            <option>Wedding</option>
+            <option>Editorial / Commercial</option>
+            <option>Portrait Session</option>
+            <option>Fine Art Commission</option>
+            <option>Other</option>
+          </select>
+        </label>
+        <label>Preferred Date
+          <input type="date" name="date" />
+        </label>
+      </div>
+      <label>Tell us your story
+        <textarea name="message" rows="4" placeholder="Where, when, and what you're dreaming of..."></textarea>
+      </label>
+      <button type="submit" class="btn btn-solid full">Send Enquiry</button>
+      <p class="form-note" id="formNote"></p>
+    </form>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <a href="#home" class="logo footer-logo">AUR<span>E</span>LIA</a>
+    <nav class="footer-nav">
+      <a href="#portfolio">Portfolio</a>
+      <a href="#services">Services</a>
+      <a href="#about">Studio</a>
+      <a href="#contact">Contact</a>
+      <a href="#">Privacy</a>
+    </nav>
+    <form class="newsletter" id="newsletterForm">
+      <input type="email" placeholder="Join our newsletter" required />
+      <button type="submit" aria-label="Subscribe">→</button>
+    </form>
+  </div>
+  <p class="footer-copy">© 2026 AURELIA Photography Studio. All rights reserved. Preview build.</p>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
