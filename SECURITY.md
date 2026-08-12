@@ -48,9 +48,15 @@ active and cannot be fixed from within this repository:
 GitHub Pages does serve the site over HTTPS and will redirect to it when
 *Enforce HTTPS* is enabled in repository settings.
 
-To close the remaining gaps, put the site behind a host or CDN that can set
-headers — Cloudflare, Netlify and Vercel can all do this with a small config
-file, and the CSP above can move to a real header at the same time.
+**`vercel.json` closes all four.** Deployed to Vercel, the site sends HSTS with
+preload, `nosniff`, `X-Frame-Options: DENY`, a `Permissions-Policy` denying
+camera/microphone/geolocation, cross-origin opener and resource policies, and
+the same CSP as a real header — including `frame-ancestors 'none'`, which a
+meta tag cannot express. Image and font responses are also given a one-year
+immutable cache.
+
+So: on GitHub Pages the meta-tag subset applies; on Vercel the full set does.
+Vercel is the stronger target for this reason.
 
 ## Reporting a problem
 
