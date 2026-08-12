@@ -89,10 +89,15 @@ button { background: none; border: none; cursor: pointer; }
 .wordmark-name b { font-weight: 500; font-size: 1.18rem; letter-spacing: 0.04em; }
 .wordmark-sub { font-size: 0.58rem; font-weight: 300; letter-spacing: 0.42em; color: inherit; opacity: 0.85; }
 
-.burger {
+/* language, theme and the menu button ride together, always reachable */
+.topright {
   position: fixed; top: var(--pad); right: var(--pad); z-index: 200;
-  width: 34px; height: 26px; display: grid; align-content: center; gap: 7px;
+  display: flex; align-items: center; gap: 0.75rem;
   color: var(--text); transition: color 0.35s var(--ease);
+}
+.burger {
+  width: 34px; height: 26px; display: grid; align-content: center; gap: 7px;
+  color: inherit; flex-shrink: 0;
 }
 .burger span {
   display: block; height: 1px; width: 100%; background: currentColor;
@@ -115,14 +120,25 @@ button { background: none; border: none; cursor: pointer; }
 .rail a:hover { opacity: 1; }
 
 /* over full-bleed photography, chrome is always light */
-body.on-home .wordmark, body.on-home .burger, body.on-home .rail {
+body.on-home .wordmark, body.on-home .topright, body.on-home .rail {
   color: var(--chrome); text-shadow: 0 1px 14px rgba(0, 0, 0, 0.5);
 }
 body.on-home .burger span { box-shadow: 0 1px 10px rgba(0, 0, 0, 0.5); }
-body.menu-open .wordmark, body.menu-open .burger, body.menu-open .rail {
+/* over a photograph the controls need their own contrast, not the theme's */
+body.on-home .lang-switch { border-color: rgba(255, 255, 255, 0.55); }
+body.on-home .lang-switch button { color: rgba(255, 255, 255, 0.8); text-shadow: none; }
+body.on-home .lang-switch button.is-active { background: var(--chrome); color: #141414; }
+body.on-home .theme-toggle { border-color: rgba(255, 255, 255, 0.55); }
+body.on-home .theme-icon { border-color: var(--chrome); background: var(--chrome); box-shadow: none; }
+
+body.menu-open .wordmark, body.menu-open .topright, body.menu-open .rail {
   color: var(--text); text-shadow: none;
 }
 body.menu-open .burger span { box-shadow: none; }
+body.menu-open .lang-switch { border-color: var(--line); }
+body.menu-open .lang-switch button { color: var(--muted); }
+body.menu-open .lang-switch button.is-active { background: var(--text); color: var(--bg); }
+body.menu-open .theme-toggle { border-color: var(--line); }
 
 /* ---------- menu overlay ---------- */
 .menu {
@@ -145,10 +161,6 @@ body.menu-open .burger span { box-shadow: none; }
 }
 .menu li a:hover, .menu li a.is-current { color: var(--text); }
 
-.menu-controls {
-  display: flex; justify-content: center; align-items: center; gap: 0.8rem;
-  margin-top: clamp(2rem, 6vh, 3.5rem);
-}
 .lang-switch { display: flex; border: 1px solid var(--line); }
 .lang-switch button {
   padding: 0.36rem 0.8rem; font-size: 0.68rem; letter-spacing: 0.14em; color: var(--muted);
@@ -185,13 +197,16 @@ body.menu-open .burger span { box-shadow: none; }
 
 .slide {
   position: absolute; inset: 0;
-  opacity: 0; transform: translateX(5%);
-  transition: opacity 0.9s var(--ease), transform 1.2s var(--ease);
+  opacity: 0; transform: translateX(2.5%) scale(1.02);
+  /* a long ease-in-out dissolve: one image leaves as the other arrives, with
+     only a hint of drift so the movement reads as soft rather than as a slide */
+  transition: opacity 1.8s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 2.6s cubic-bezier(0.33, 0, 0.2, 1);
   will-change: opacity, transform;
 }
-.slide.is-next    { transform: translateX(5%); }   /* waiting off to the right */
-.slide.is-prev    { transform: translateX(-5%); }  /* left after passing */
-.slide.is-current { opacity: 1; transform: none; z-index: 1; }
+.slide.is-next    { transform: translateX(2.5%) scale(1.02); }   /* waiting right */
+.slide.is-prev    { transform: translateX(-2.5%) scale(1.02); }  /* left, having passed */
+.slide.is-current { opacity: 1; transform: translateX(0) scale(1); z-index: 1; }
 
 .slide img {
   width: 100%; height: 100%; object-fit: cover;

@@ -23,13 +23,16 @@ assets/img/           placeholder plates (see below)
 Pages are sections switched by a hash router (`#/home`, `#/prints`, `#/arch`,
 `#/street`, `#/land`, `#/about`, `#/contact`) — every page is linkable and the
 browser back button works. Each document page also carries its own **BACK**
-button, which walks real history when the visitor came from elsewhere on the
-site and falls back to home on a cold deep link.
+button, which reopens the menu rather than navigating — from inside a section,
+"back" means back to the list of sections, so the next choice is one click away
+instead of a return trip through home.
 
 **Home** is a horizontal carousel over the *whole* catalogue, shuffled freshly
 on every visit, crossfading as each frame passes. It advances on its own every
-6s and by arrow keys or swipe, pauses behind the menu and in hidden tabs, and
-does not autoplay under `prefers-reduced-motion`. Only the current frame and
+7.5s and by arrow keys or swipe, pauses behind the menu and in hidden tabs, and
+does not autoplay under `prefers-reduced-motion`. Frames cross-dissolve over
+1.8s with only a hint of drift, so one image fades out as the next fades in
+rather than sliding past. Only the current frame and
 its two neighbours are ever fetched, so 24 slides cost about three images.
 
 ### Adding or changing work
@@ -68,6 +71,11 @@ opened. "Enquire" carries the work through to the contact form.
 **Menu.** The hamburger opens a full-screen overlay. The wordmark and social
 labels sit above it so the identity is never hidden. Escape closes it, as does
 choosing any link — including the page you are already on.
+
+**Always-on controls.** EN/ES and the light/dark toggle live in the fixed
+top-right beside the menu button, not inside the menu, so language can be
+changed from anywhere without opening anything. Over a photograph they take
+white borders and a white active state; elsewhere they follow the theme.
 
 ## Image protection — read this
 

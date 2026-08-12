@@ -200,7 +200,7 @@
   var homePage = document.getElementById('/home');
   var slidesHost = document.getElementById('slides');
   var countHost = document.getElementById('slideCount');
-  var SLIDE_MS = 6000;
+  var SLIDE_MS = 7500;
   var slides = [];
   var homeOrder = [];
   var slideIx = 0;
@@ -348,13 +348,12 @@
     if (target.classList.contains('page-home')) startSlides(); else stopSlides();
   }
 
-  window.addEventListener('hashchange', function () { inSiteNavs++; route(); });
+  window.addEventListener('hashchange', route);
 
   /* ---------------- back button ----------------
-     One per document page. Uses real history when the visitor arrived from
-     somewhere on the site, and falls back to home for a cold deep link, so it
-     never walks them off the site. */
-  var inSiteNavs = 0;
+     One per document page. It reopens the menu rather than navigating: from
+     inside a section, "back" means back to the list of sections, so the next
+     choice is one click away instead of a return trip through home. */
 
   function addBackButtons() {
     Array.prototype.forEach.call(document.querySelectorAll('.page-doc'), function (page) {
@@ -363,10 +362,7 @@
       b.type = 'button';
       b.className = 'back-link';
       b.innerHTML = '<span aria-hidden="true">\u2190</span><span class="back-text"></span>';
-      b.addEventListener('click', function () {
-        if (inSiteNavs > 0) { inSiteNavs--; history.back(); }
-        else location.hash = '#/home';
-      });
+      b.addEventListener('click', openMenu);
       page.insertBefore(b, page.firstChild);
     });
   }

@@ -97,9 +97,19 @@
   <span class="wordmark-sub" data-i18n="role">PHOTOGRAPHY</span>
 </a>
 
-<button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
-  <span></span><span></span>
-</button>
+<div class="topright">
+  <div class="lang-switch" role="group" aria-label="Language">
+    <button type="button" data-lang="en" class="is-active">EN</button>
+    <button type="button" data-lang="es">ES</button>
+  </div>
+  <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="false">
+    <span class="theme-icon" aria-hidden="true"></span>
+    <span class="sr-only" data-i18n="theme.label">Switch theme</span>
+  </button>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+    <span></span><span></span>
+  </button>
+</div>
 
 <div class="rail">
   <a href="https://www.behance.net/guillerbernald" target="_blank" rel="noopener noreferrer">BEHANCE</a>
@@ -117,16 +127,6 @@
     <li><a href="#/about"   data-i18n="nav.about">ABOUT</a></li>
     <li><a href="#/contact" data-i18n="nav.contact">CONTACT</a></li>
   </ul>
-  <div class="menu-controls">
-    <div class="lang-switch" role="group" aria-label="Language">
-      <button type="button" data-lang="en" class="is-active">EN</button>
-      <button type="button" data-lang="es">ES</button>
-    </div>
-    <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="false">
-      <span class="theme-icon" aria-hidden="true"></span>
-      <span class="sr-only" data-i18n="theme.label">Switch theme</span>
-    </button>
-  </div>
   <p class="menu-copy">© <span class="year">2026</span> Guillermo Bernaldo de Quirós</p>
 </nav>
 
