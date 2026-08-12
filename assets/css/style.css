@@ -177,22 +177,39 @@ body.menu-open .burger span { box-shadow: none; }
 .page { display: none; }
 .page.is-active { display: block; }
 
-/* ---------- home ---------- */
-.page-home {
-  height: 100vh; height: 100dvh; overflow-y: auto;
-  scroll-snap-type: y mandatory; scroll-behavior: smooth;
+/* ---------- home ----------
+   A horizontal carousel: every slide is stacked in the same viewport-sized
+   box. The outgoing frame fades out as it slides away, the incoming one fades
+   in from the opposite side, so they cross rather than push. */
+.page-home { position: relative; height: 100vh; height: 100dvh; overflow: hidden; }
+
+.slide {
+  position: absolute; inset: 0;
+  opacity: 0; transform: translateX(5%);
+  transition: opacity 0.9s var(--ease), transform 1.2s var(--ease);
+  will-change: opacity, transform;
 }
-.slide { height: 100vh; height: 100dvh; scroll-snap-align: start; }
+.slide.is-next    { transform: translateX(5%); }   /* waiting off to the right */
+.slide.is-prev    { transform: translateX(-5%); }  /* left after passing */
+.slide.is-current { opacity: 1; transform: none; z-index: 1; }
+
 .slide img {
   width: 100%; height: 100%; object-fit: cover;
   -webkit-user-select: none; user-select: none; -webkit-user-drag: none;
 }
-.scroll-hint {
+
+.slides { position: absolute; inset: 0; }
+
+/* a counter, not dots — there are two dozen frames */
+.slide-count {
   position: fixed; right: var(--pad); bottom: var(--pad); z-index: 120;
-  font-size: 0.6rem; letter-spacing: 0.4em; color: var(--chrome);
-  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5); animation: hint 2.6s ease-in-out infinite;
+  display: flex; align-items: baseline; gap: 0.5rem;
+  font-size: 0.62rem; letter-spacing: 0.3em; color: var(--chrome);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.55);
 }
-@keyframes hint { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
+.slide-count b { font-weight: 400; font-variant-numeric: tabular-nums; }
+.slide-count span { opacity: 0.55; font-variant-numeric: tabular-nums; }
+body.menu-open .slide-count { display: none; }
 
 /* ---------- document pages ---------- */
 .page-doc { padding: clamp(6.5rem, 14vh, 9rem) var(--pad) clamp(4rem, 10vh, 7rem); }
@@ -358,3 +375,12 @@ body.no-scroll { overflow: hidden; }
   .wordmark-name { gap: 0.3em; max-width: 62vw; }
   .rail { gap: 1rem; }
 }
+
+/* ---------- back button ---------- */
+.back-link {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  font-size: 0.64rem; letter-spacing: 0.26em; color: var(--muted);
+  transition: color 0.25s var(--ease), gap 0.25s var(--ease);
+}
+.back-link:hover { color: var(--text); gap: 0.9rem; }

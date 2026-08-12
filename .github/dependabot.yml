@@ -1,0 +1,11 @@
+# Keeps the deploy workflow's actions current. Pinned major tags still receive
+# breaking changes upstream, so this is what stops the CI supply chain going
+# stale unnoticed.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: "ci"

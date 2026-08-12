@@ -1,0 +1,9 @@
+# https://frankiedeane.github.io/willy_/
+User-agent: *
+Allow: /
+
+# The photographs are sold as limited edition prints. They are indexed for
+# image search on purpose, but the originals are not published here — only
+# preview-resolution files.
+
+Sitemap: https://frankiedeane.github.io/willy_/sitemap.xml

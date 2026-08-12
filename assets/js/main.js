@@ -68,7 +68,7 @@
       'skip': 'Skip to content', 'role': 'PHOTOGRAPHY',
       'nav.home': 'HOME', 'nav.prints': 'FINE ART PRINTS', 'nav.arch': 'ARCHITECTURE',
       'nav.street': 'STREET', 'nav.land': 'LANDSCAPE', 'nav.about': 'ABOUT', 'nav.contact': 'CONTACT',
-      'theme.label': 'Switch theme', 'home.hint': 'SCROLL',
+      'theme.label': 'Switch theme', 'nav.back': 'BACK',
       'prints.title': 'FINE ART PRINTS',
       'prints.p1': 'Photographs are printed on cotton papers with pigment inks, giving a colour life of over a century under normal exhibition conditions.',
       'prints.p2': 'Every photograph in the Fine Art collection is a limited edition, inspected, dated, numbered and signed by Guillermo Bernaldo de Quirós. A certificate of authenticity accompanies each print.',
@@ -103,7 +103,7 @@
       'skip': 'Ir al contenido', 'role': 'FOTOGRAFÍA',
       'nav.home': 'INICIO', 'nav.prints': 'COPIAS DE ARTE', 'nav.arch': 'ARQUITECTURA',
       'nav.street': 'CALLE', 'nav.land': 'PAISAJE', 'nav.about': 'SOBRE MÍ', 'nav.contact': 'CONTACTO',
-      'theme.label': 'Cambiar tema', 'home.hint': 'DESLIZÁ',
+      'theme.label': 'Cambiar tema', 'nav.back': 'VOLVER',
       'prints.title': 'COPIAS DE ARTE',
       'prints.p1': 'Las fotografías se imprimen sobre papeles de algodón con tintas de pigmento, lo que garantiza una permanencia del color de más de un siglo en condiciones normales de exhibición.',
       'prints.p2': 'Cada fotografía de la colección Fine Art es una edición limitada, revisada, fechada, numerada y firmada por Guillermo Bernaldo de Quirós. Cada copia se entrega con certificado de autenticidad.',
@@ -193,6 +193,139 @@
     });
   }
 
+  /* ---------------- home slideshow ----------------
+     Every photograph in the catalogue passes through here, in a fresh random
+     order on each visit. Only the current frame and its two neighbours are
+     ever fetched, so a 24-frame carousel costs about three images to open. */
+  var homePage = document.getElementById('/home');
+  var slidesHost = document.getElementById('slides');
+  var countHost = document.getElementById('slideCount');
+  var SLIDE_MS = 6000;
+  var slides = [];
+  var homeOrder = [];
+  var slideIx = 0;
+  var slideTimer = null;
+  var reduceMotion = window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function shuffle(list) {
+    var a = list.slice();
+    for (var i = a.length - 1; i > 0; i--) {           // Fisher-Yates
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+
+  function at(i) { return (i % slides.length + slides.length) % slides.length; }
+
+  function load(i) {
+    var k = at(i);
+    var img = slides[k].querySelector('img');
+    if (!img.getAttribute('src')) img.src = asset(homeOrder[k].src);
+  }
+
+  function syncCount() {
+    var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+    countHost.textContent = '';
+    var b = document.createElement('b');
+    b.textContent = pad(slideIx + 1);
+    var sp = document.createElement('span');
+    sp.textContent = '/ ' + pad(slides.length);
+    countHost.appendChild(b);
+    countHost.appendChild(sp);
+  }
+
+  function buildSlides() {
+    homeOrder = shuffle(WORKS);
+    slidesHost.textContent = '';
+    slides = homeOrder.map(function (w, i) {
+      var d = document.createElement('div');
+      d.className = 'slide' + (i === 0 ? ' is-current' : '');
+      var img = document.createElement('img');
+      img.alt = title(w);
+      img.draggable = false;
+      img.decoding = 'async';
+      watchMissing(img, w.src);
+      d.appendChild(img);
+      slidesHost.appendChild(d);
+      return d;
+    });
+    slideIx = 0;
+    load(0); load(1); load(-1);
+    syncCount();
+  }
+
+  function goTo(n, dir) {
+    n = at(n);
+    if (n === slideIx) return;
+    var cur = slides[slideIx];
+    var nxt = slides[n];
+    var enter = dir > 0 ? 'is-next' : 'is-prev';   // side the incoming waits on
+    var exit  = dir > 0 ? 'is-prev' : 'is-next';   // side the outgoing leaves to
+
+    load(n); load(n + dir);                        // and the one after it
+
+    nxt.classList.remove('is-current', 'is-prev', 'is-next');
+    nxt.classList.add(enter);
+    void nxt.offsetWidth;                          // commit the start position
+
+    cur.classList.remove('is-current');
+    cur.classList.add(exit);
+    nxt.classList.remove(enter);
+    nxt.classList.add('is-current');
+
+    slideIx = n;
+    syncCount();
+  }
+
+  function startSlides() {
+    if (reduceMotion || slideTimer || !slides.length) return;
+    slideTimer = setInterval(function () { goTo(slideIx + 1, 1); }, SLIDE_MS);
+  }
+  function stopSlides() {
+    if (slideTimer) { clearInterval(slideTimer); slideTimer = null; }
+  }
+  // restart the clock after a manual move, so a tap is not cut short
+  function nudge(dir) { stopSlides(); goTo(slideIx + dir, dir); startSlides(); }
+
+  var touchX = null;
+  homePage.addEventListener('touchstart', function (e) {
+    touchX = e.changedTouches[0].clientX;
+  }, { passive: true });
+  homePage.addEventListener('touchend', function (e) {
+    if (touchX === null) return;
+    var dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 45) nudge(dx < 0 ? 1 : -1);
+    touchX = null;
+  }, { passive: true });
+
+  // don't animate in a tab nobody is looking at
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) stopSlides();
+    else if (body.classList.contains('on-home') && !body.classList.contains('menu-open')) startSlides();
+  });
+
+  /* ---------------- per-route metadata ----------------
+     Hash routes are one document to a crawler, but the title and description
+     still drive what a shared or bookmarked link shows. Both are derived from
+     the page's own heading and lede, so they stay correct in either language
+     without a second set of strings to maintain. */
+  var SITE_NAME = 'Guillermo Bernaldo de Quirós';
+  var descMeta = document.querySelector('meta[name="description"]');
+  var BASE_TITLE = document.title;
+  var BASE_DESC = descMeta ? descMeta.getAttribute('content') : '';
+
+  function updateMeta(target) {
+    var h = target.querySelector('h1');
+    document.title = (target.classList.contains('page-home') || !h)
+      ? BASE_TITLE
+      : h.textContent.trim() + ' · ' + SITE_NAME;
+    if (!descMeta) return;
+    var lede = target.querySelector('.page-lede p, .about-lead');
+    descMeta.setAttribute('content', lede ? lede.textContent.replace(/\s+/g, ' ').trim() : BASE_DESC);
+  }
+
   /* ---------------- router ---------------- */
   var pages = Array.prototype.slice.call(document.querySelectorAll('.page'));
   var menu = document.getElementById('menu');
@@ -209,15 +342,39 @@
       a.classList.toggle('is-current', a.getAttribute('href') === '#' + target.id);
     });
 
+    updateMeta(target);
     closeMenu();
     window.scrollTo(0, 0);
-    if (target.classList.contains('page-home')) target.scrollTop = 0;
+    if (target.classList.contains('page-home')) startSlides(); else stopSlides();
   }
 
-  window.addEventListener('hashchange', route);
+  window.addEventListener('hashchange', function () { inSiteNavs++; route(); });
+
+  /* ---------------- back button ----------------
+     One per document page. Uses real history when the visitor arrived from
+     somewhere on the site, and falls back to home for a cold deep link, so it
+     never walks them off the site. */
+  var inSiteNavs = 0;
+
+  function addBackButtons() {
+    Array.prototype.forEach.call(document.querySelectorAll('.page-doc'), function (page) {
+      if (page.querySelector('.back-link')) return;
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'back-link';
+      b.innerHTML = '<span aria-hidden="true">\u2190</span><span class="back-text"></span>';
+      b.addEventListener('click', function () {
+        if (inSiteNavs > 0) { inSiteNavs--; history.back(); }
+        else location.hash = '#/home';
+      });
+      page.insertBefore(b, page.firstChild);
+    });
+  }
+  addBackButtons();
 
   /* ---------------- menu ---------------- */
   function openMenu() {
+    stopSlides();
     menu.classList.add('is-open');
     menu.setAttribute('aria-hidden', 'false');
     burger.classList.add('is-open');
@@ -232,6 +389,7 @@
     burger.setAttribute('aria-expanded', 'false');
     burger.setAttribute('aria-label', 'Open menu');
     body.classList.remove('menu-open');
+    if (body.classList.contains('on-home')) startSlides();
   }
   burger.addEventListener('click', function () {
     if (menu.classList.contains('is-open')) closeMenu(); else openMenu();
@@ -305,7 +463,13 @@
   });
   document.addEventListener('keydown', function (e) {
     if (menu.classList.contains('is-open') && e.key === 'Escape') { closeMenu(); return; }
-    if (!lb.classList.contains('is-open')) return;
+    if (!lb.classList.contains('is-open')) {
+      if (body.classList.contains('on-home') && !menu.classList.contains('is-open')) {
+        if (e.key === 'ArrowLeft') nudge(-1);
+        else if (e.key === 'ArrowRight') nudge(1);
+      }
+      return;
+    }
     if (e.key === 'Escape') closeLightbox();
     else if (e.key === 'ArrowLeft') step(-1);
     else if (e.key === 'ArrowRight') step(1);
@@ -350,11 +514,20 @@
     document.querySelectorAll('[data-i18n]').forEach(function (el) {
       el.textContent = t(el.getAttribute('data-i18n'));
     });
+    Array.prototype.forEach.call(document.querySelectorAll('.back-link'), function (b) {
+      b.querySelector('.back-text').textContent = t('nav.back');
+      b.setAttribute('aria-label', t('nav.back'));
+    });
+    slides.forEach(function (el, i) {
+      el.querySelector('img').alt = title(homeOrder[i]);
+    });
     document.querySelectorAll('.lang-switch button').forEach(function (b) {
       b.classList.toggle('is-active', b.getAttribute('data-lang') === lang);
     });
     buildGalleries();
     buildWorkOptions();
+    var shown = document.querySelector('.page.is-active');
+    if (shown) updateMeta(shown);
     if (current > -1) render(current);
   }
 
@@ -387,6 +560,7 @@
   Array.prototype.forEach.call(document.querySelectorAll('.year'), function (el) {
     el.textContent = new Date().getFullYear();
   });
+  buildSlides();
   applyLanguage();
   route();
 })();

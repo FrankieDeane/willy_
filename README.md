@@ -21,9 +21,16 @@ assets/img/           placeholder plates (see below)
 ```
 
 Pages are sections switched by a hash router (`#/home`, `#/prints`, `#/arch`,
-`#/land`, `#/about`, `#/contact`) — every page is linkable and the back button
-works. Home is a full-bleed scroll-snap sequence; the rest are document pages
-with a centred title, rule, intro and a photo grid.
+`#/street`, `#/land`, `#/about`, `#/contact`) — every page is linkable and the
+browser back button works. Each document page also carries its own **BACK**
+button, which walks real history when the visitor came from elsewhere on the
+site and falls back to home on a cold deep link.
+
+**Home** is a horizontal carousel over the *whole* catalogue, shuffled freshly
+on every visit, crossfading as each frame passes. It advances on its own every
+6s and by arrow keys or swipe, pauses behind the menu and in hidden tabs, and
+does not autoplay under `prefers-reduced-motion`. Only the current frame and
+its two neighbours are ever fetched, so 24 slides cost about three images.
 
 ### Adding or changing work
 
@@ -106,3 +113,29 @@ The enquiry form is front-end only — it validates, then shows a confirmation.
 **Nothing is sent anywhere.** Point it at a real endpoint before launch. There is
 also no cart or checkout: the sale path is an enquiry, by design. Prices,
 editions, titles and the About copy are placeholders for Guillermo to replace.
+
+
+## Security
+
+See **[SECURITY.md](SECURITY.md)**. In short: a strict CSP that allows no
+external origin at all, no inline script, self-hosted fonts so no visitor IP
+reaches a third party, `form-action 'none'`, and no `innerHTML` with variable
+data. The controls a static host cannot set — HSTS, `nosniff`, `frame-ancestors`
+— are listed there with the fix (put it behind a CDN that can send headers).
+
+## SEO
+
+Implemented: a descriptive title and meta description, canonical URL, Open
+Graph and Twitter cards with a real image, `max-image-preview:large` (this site
+will be found through image search more than text), JSON-LD for Person, WebSite
+and ImageGallery, `robots.txt`, and a `sitemap.xml` whose image entries are
+generated from the same `WORKS` catalogue the site renders from, so the two
+cannot drift. Title and description update per route.
+
+**The one open question.** Routing is hash-based, so search engines treat the
+whole site as a single URL — the galleries cannot rank separately, and content
+in the inactive (`display: none`) sections is discounted. For a portfolio of
+this size a single strong page is a reasonable trade. If each gallery should
+rank on its own, the fix is real paths (`/architecture/`, `/landscape/`) rather
+than fragments, which means either a small build step or one HTML file per
+section.
