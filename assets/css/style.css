@@ -214,6 +214,12 @@ h1, h2, h3 { font-family: var(--display); font-weight: 700; line-height: 1.08; l
 .about-portrait img { width: 100%; -webkit-user-select: none; user-select: none; }
 .about-body h2 { font-size: clamp(1.7rem, 3.6vw, 2.6rem); margin-bottom: 1.3rem; }
 .about-body p { color: var(--muted); max-width: 62ch; margin-bottom: 1rem; }
+.about-lead { color: var(--text) !important; font-size: 1.08rem; }
+.about-block { margin-top: 1.6rem; }
+.about-block h3 {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 0.5rem;
+}
 .link-out {
   display: inline-flex; gap: 0.45rem; align-items: center; margin-top: 0.8rem;
   font-size: 0.84rem; font-weight: 500; color: var(--text);
