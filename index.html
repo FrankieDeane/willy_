@@ -101,10 +101,10 @@
   <span></span><span></span>
 </button>
 
-<div class="rail">
+<footer class="rail">
   <a href="https://www.behance.net/guillerbernald" target="_blank" rel="noopener noreferrer">BEHANCE</a>
   <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">INSTAGRAM</a>
-</div>
+</footer>
 
 <!-- ===== MENU OVERLAY ===== -->
 <nav class="menu" id="menu" aria-hidden="true">
@@ -130,6 +130,9 @@
   <p class="menu-copy">© <span class="year">2026</span> Guillermo Bernaldo de Quirós</p>
 </nav>
 
+<main id="content">
+<h1 class="sr-only">Guillermo Bernaldo de Quirós — architecture, street and landscape photography</h1>
+
 <!-- ===== HOME ===== -->
 <section class="page page-home is-active" id="/home">
   <!-- Slides are built from the full catalogue, shuffled per visit, so the
@@ -141,13 +144,16 @@
       <img src="assets/img/Cvfw3LGPF4j.jpg" alt="A flock scattered across a dark hillside under heavy cloud" />
     </div>
   </noscript>
-  <div class="slide-count" id="slideCount" aria-live="off"></div>
+  <div class="home-controls">
+    <button type="button" class="slide-pause" id="slidePause" aria-pressed="false"></button>
+    <div class="slide-count" id="slideCount" aria-live="off"></div>
+  </div>
 </section>
 
 <!-- ===== FINE ART PRINTS ===== -->
 <section class="page page-doc" id="/prints">
   <header class="page-head">
-    <h1 data-i18n="prints.title">FINE ART PRINTS</h1>
+    <h2 data-i18n="prints.title">FINE ART PRINTS</h2>
     <span class="rule"></span>
     <div class="page-lede">
       <p data-i18n="prints.p1">Photographs are printed on cotton papers with pigment inks, giving a colour
@@ -162,12 +168,25 @@
     </div>
   </header>
   <div class="grid" data-gallery="prints"></div>
+  <noscript>
+    <div class="grid">
+      <figure class="shot"><img src="assets/img/w960/BzyYlJ-DEDE.jpg" width="1440" height="960" alt="The Great Hall" /><figcaption>The Great Hall</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/CurKNnYgEGc.jpg" width="1440" height="960" alt="Blue Hour" /><figcaption>Blue Hour</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/Cvzen1cgB5P.jpg" width="1439" height="958" alt="Romanesque Door" /><figcaption>Romanesque Door</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/B0LWt19gqWp.jpg" width="1440" height="960" alt="Mural and Bridge" /><figcaption>Mural and Bridge</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/BxdW7JJn207.jpg" width="1440" height="960" alt="Island in Mist" /><figcaption>Island in Mist</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/Ceg_iwcpO52.jpg" width="1440" height="959" alt="Weather Coming In" /><figcaption>Weather Coming In</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/Cvfw3LGPF4j.jpg" width="1440" height="960" alt="Flock and Hillside" /><figcaption>Flock and Hillside</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/CvsV48BADIr.jpg" width="1200" height="800" alt="Anchored at Dusk" /><figcaption>Anchored at Dusk</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/CwV_HHXAEEg.jpg" width="1440" height="960" alt="The Long Road" /><figcaption>The Long Road</figcaption></figure>
+    </div>
+  </noscript>
 </section>
 
 <!-- ===== ARCHITECTURE ===== -->
 <section class="page page-doc" id="/arch">
   <header class="page-head">
-    <h1 data-i18n="arch.title">ARCHITECTURE</h1>
+    <h2 data-i18n="arch.title">ARCHITECTURE</h2>
     <span class="rule"></span>
     <div class="page-lede">
       <p data-i18n="arch.lede">Cities read as structure before they read as places. This body of work follows
@@ -175,12 +194,22 @@
     </div>
   </header>
   <div class="grid" data-gallery="arch"></div>
+  <noscript>
+    <div class="grid">
+      <figure class="shot"><img src="assets/img/w960/Bwfk56PgHyD.jpg" width="1080" height="719" alt="Brick Alley" /><figcaption>Brick Alley</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/BzyYlJ-DEDE.jpg" width="1440" height="960" alt="The Great Hall" /><figcaption>The Great Hall</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/Cn2KeFZLGvt.jpg" width="1440" height="960" alt="Arcade, After Rain" /><figcaption>Arcade, After Rain</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/CurKNnYgEGc.jpg" width="1440" height="960" alt="Blue Hour" /><figcaption>Blue Hour</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/CvmniOjgevj.jpg" width="1440" height="960" alt="Evening Tramline" /><figcaption>Evening Tramline</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/Cvzen1cgB5P.jpg" width="1439" height="958" alt="Romanesque Door" /><figcaption>Romanesque Door</figcaption></figure>
+    </div>
+  </noscript>
 </section>
 
 <!-- ===== STREET ===== -->
 <section class="page page-doc" id="/street">
   <header class="page-head">
-    <h1 data-i18n="street.title">STREET</h1>
+    <h2 data-i18n="street.title">STREET</h2>
     <span class="rule"></span>
     <div class="page-lede">
       <p data-i18n="street.lede">People and the marks they leave — painted walls, shop windows, a tram
@@ -188,12 +217,24 @@
     </div>
   </header>
   <div class="grid" data-gallery="street"></div>
+  <noscript>
+    <div class="grid">
+      <figure class="shot"><img src="assets/img/w960/B0LWt19gqWp.jpg" width="1440" height="960" alt="Mural and Bridge" /><figcaption>Mural and Bridge</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/Bwm7YZCB2uf.jpg" width="1080" height="720" alt="The Knife" /><figcaption>The Knife</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/BxFL09Ug73B.jpg" width="1080" height="720" alt="Snow in the Square" /><figcaption>Snow in the Square</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/CfSf007DA-5.jpg" width="1200" height="800" alt="The Crew" /><figcaption>The Crew</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/Cia-VAmA8z0.jpg" width="1440" height="959" alt="Shop Window" /><figcaption>Shop Window</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/CvFkWfJADhi.jpg" width="1440" height="961" alt="Porchetta" /><figcaption>Porchetta</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/CvmncTqgsKb.jpg" width="1440" height="960" alt="Tram, Moving" /><figcaption>Tram, Moving</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/CvzeslrAf68.jpg" width="1439" height="958" alt="Painted Shutter" /><figcaption>Painted Shutter</figcaption></figure>
+    </div>
+  </noscript>
 </section>
 
 <!-- ===== LANDSCAPE ===== -->
 <section class="page page-doc" id="/land">
   <header class="page-head">
-    <h1 data-i18n="land.title">LANDSCAPE</h1>
+    <h2 data-i18n="land.title">LANDSCAPE</h2>
     <span class="rule"></span>
     <div class="page-lede">
       <p data-i18n="land.lede">Work made away from the city: long horizons, weather, and the open country of
@@ -201,12 +242,26 @@
     </div>
   </header>
   <div class="grid" data-gallery="land"></div>
+  <noscript>
+    <div class="grid">
+      <figure class="shot"><img src="assets/img/w960/BxdW7JJn207.jpg" width="1440" height="960" alt="Island in Mist" /><figcaption>Island in Mist</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/CeJMzMJLCI8.jpg" width="1440" height="960" alt="Bench in the Green" /><figcaption>Bench in the Green</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/Ceg_iwcpO52.jpg" width="1440" height="959" alt="Weather Coming In" /><figcaption>Weather Coming In</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/ChM5zuugwvu.jpg" width="1440" height="960" alt="Highland" /><figcaption>Highland</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/Cv4_EaegZpA.jpg" width="1440" height="960" alt="Links by the Sea" /><figcaption>Links by the Sea</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/Cvfw3LGPF4j.jpg" width="1440" height="960" alt="Flock and Hillside" /><figcaption>Flock and Hillside</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/CvsV48BADIr.jpg" width="1200" height="800" alt="Anchored at Dusk" /><figcaption>Anchored at Dusk</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/CwV_CreA4Dj.jpg" width="1440" height="960" alt="Gate and Tree" /><figcaption>Gate and Tree</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/CwV_HHXAEEg.jpg" width="1440" height="960" alt="The Long Road" /><figcaption>The Long Road</figcaption></figure>
+      <figure class="shot"><img src="assets/img/w960/CwV_MqAgpcP.jpg" width="1440" height="960" alt="Horse at the Fence" /><figcaption>Horse at the Fence</figcaption></figure>
+    </div>
+  </noscript>
 </section>
 
 <!-- ===== ABOUT ===== -->
 <section class="page page-doc" id="/about">
   <header class="page-head">
-    <h1 data-i18n="about.title">ABOUT</h1>
+    <h2 data-i18n="about.title">ABOUT</h2>
     <span class="rule"></span>
   </header>
   <div class="about">
@@ -219,7 +274,7 @@
         medicine and visual arts.</p>
 
       <div class="about-block">
-        <h2 data-i18n="about.h.med">Medical Background</h2>
+        <h3 data-i18n="about.h.med">Medical Background</h3>
         <p data-i18n="about.p.med">Dr. Bernaldo de Quirós is a recognized expert in behavioral neurology,
           specializing in childhood hyperactivity disorders (ADHD) and related conditions. He completed his
           advanced training at the Kennedy Schriver Center at Harvard University in Boston, United States,
@@ -228,7 +283,7 @@
       </div>
 
       <div class="about-block">
-        <h2 data-i18n="about.h.photo">Photography Passion</h2>
+        <h3 data-i18n="about.h.photo">Photography Passion</h3>
         <p data-i18n="about.p.photo">Alongside his medical career, Guillermo pursues a deep passion for
           architectural and landscape photography. His work captures the essence of urban architecture across
           diverse styles, from modern skyscrapers to traditional buildings, with a keen eye for composition
@@ -238,7 +293,7 @@
       </div>
 
       <div class="about-block">
-        <h2 data-i18n="about.h.bridge">Bridging Two Worlds</h2>
+        <h3 data-i18n="about.h.bridge">Bridging Two Worlds</h3>
         <p data-i18n="about.p.bridge">Guillermo's unique profile combines scientific rigor from his medical
           training with artistic sensibility from his photography practice, creating a distinctive perspective
           that informs both his clinical work and his visual documentation of architecture and urban
@@ -255,7 +310,7 @@
 <!-- ===== CONTACT ===== -->
 <section class="page page-doc" id="/contact">
   <header class="page-head">
-    <h1 data-i18n="contact.title">CONTACT</h1>
+    <h2 data-i18n="contact.title">CONTACT</h2>
     <span class="rule"></span>
     <div class="page-lede">
       <p data-i18n="contact.lede">For print orders, exhibition enquiries and commissions. Tell me which
@@ -273,6 +328,8 @@
     <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
   </form>
 </section>
+
+</main>
 
 <!-- ===== LIGHTBOX ===== -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">

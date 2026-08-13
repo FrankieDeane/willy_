@@ -34,32 +34,32 @@
     // Titles are descriptive placeholders — replace with Guillermo's own.
     // `place`, `year` and `ed` are intentionally blank: they are his facts to
     // supply, and the UI omits whatever is missing rather than inventing it.
-    { src: 'Bwfk56PgHyD.jpg', gal: ['arch'],            en: 'Brick Alley',        es: 'Callejón de ladrillo' },
-    { src: 'BzyYlJ-DEDE.jpg', gal: ['arch', 'prints'],  en: 'The Great Hall',     es: 'El gran salón' },
-    { src: 'Cn2KeFZLGvt.jpg', gal: ['arch'],            en: 'Arcade, After Rain', es: 'Galería, tras la lluvia' },
-    { src: 'CurKNnYgEGc.jpg', gal: ['arch', 'prints'],  en: 'Blue Hour',          es: 'Hora azul' },
-    { src: 'CvmniOjgevj.jpg', gal: ['arch'],            en: 'Evening Tramline',   es: 'Tranvía al atardecer' },
-    { src: 'Cvzen1cgB5P.jpg', gal: ['arch', 'prints'],  en: 'Romanesque Door',    es: 'Portada románica' },
+    { src: 'Bwfk56PgHyD.jpg', gal: ['arch'],            en: 'Brick Alley',        es: 'Callejón de ladrillo', w: 1080, h: 719 },
+    { src: 'BzyYlJ-DEDE.jpg', gal: ['arch', 'prints'],  en: 'The Great Hall',     es: 'El gran salón', w: 1440, h: 960 },
+    { src: 'Cn2KeFZLGvt.jpg', gal: ['arch'],            en: 'Arcade, After Rain', es: 'Galería, tras la lluvia', w: 1440, h: 960 },
+    { src: 'CurKNnYgEGc.jpg', gal: ['arch', 'prints'],  en: 'Blue Hour',          es: 'Hora azul', w: 1440, h: 960 },
+    { src: 'CvmniOjgevj.jpg', gal: ['arch'],            en: 'Evening Tramline',   es: 'Tranvía al atardecer', w: 1440, h: 960 },
+    { src: 'Cvzen1cgB5P.jpg', gal: ['arch', 'prints'],  en: 'Romanesque Door',    es: 'Portada románica', w: 1439, h: 958 },
 
-    { src: 'B0LWt19gqWp.jpg', gal: ['street', 'prints'],en: 'Mural and Bridge',   es: 'Mural y puente' },
-    { src: 'Bwm7YZCB2uf.jpg', gal: ['street'],          en: 'The Knife',          es: 'El cuchillo' },
-    { src: 'BxFL09Ug73B.jpg', gal: ['street'],          en: 'Snow in the Square', es: 'Nieve en la plaza' },
-    { src: 'CfSf007DA-5.jpg', gal: ['street'],          en: 'The Crew',           es: 'La tripulación' },
-    { src: 'Cia-VAmA8z0.jpg', gal: ['street'],          en: 'Shop Window',        es: 'Vidriera' },
-    { src: 'CvFkWfJADhi.jpg', gal: ['street'],          en: 'Porchetta',          es: 'Porchetta' },
-    { src: 'CvmncTqgsKb.jpg', gal: ['street'],          en: 'Tram, Moving',       es: 'Tranvía en marcha' },
-    { src: 'CvzeslrAf68.jpg', gal: ['street'],          en: 'Painted Shutter',    es: 'Persiana pintada' },
+    { src: 'B0LWt19gqWp.jpg', gal: ['street', 'prints'],en: 'Mural and Bridge',   es: 'Mural y puente', w: 1440, h: 960 },
+    { src: 'Bwm7YZCB2uf.jpg', gal: ['street'],          en: 'The Knife',          es: 'El cuchillo', w: 1080, h: 720 },
+    { src: 'BxFL09Ug73B.jpg', gal: ['street'],          en: 'Snow in the Square', es: 'Nieve en la plaza', w: 1080, h: 720 },
+    { src: 'CfSf007DA-5.jpg', gal: ['street'],          en: 'The Crew',           es: 'La tripulación', w: 1200, h: 800 },
+    { src: 'Cia-VAmA8z0.jpg', gal: ['street'],          en: 'Shop Window',        es: 'Vidriera', w: 1440, h: 959 },
+    { src: 'CvFkWfJADhi.jpg', gal: ['street'],          en: 'Porchetta',          es: 'Porchetta', w: 1440, h: 961 },
+    { src: 'CvmncTqgsKb.jpg', gal: ['street'],          en: 'Tram, Moving',       es: 'Tranvía en marcha', w: 1440, h: 960 },
+    { src: 'CvzeslrAf68.jpg', gal: ['street'],          en: 'Painted Shutter',    es: 'Persiana pintada', w: 1439, h: 958 },
 
-    { src: 'BxdW7JJn207.jpg', gal: ['land', 'prints'],  en: 'Island in Mist',     es: 'Isla entre la niebla' },
-    { src: 'CeJMzMJLCI8.jpg', gal: ['land'],            en: 'Bench in the Green', es: 'Banco entre el verde' },
-    { src: 'Ceg_iwcpO52.jpg', gal: ['land', 'prints'],  en: 'Weather Coming In',  es: 'Llega el temporal' },
-    { src: 'ChM5zuugwvu.jpg', gal: ['land'],            en: 'Highland',           es: 'Tierras altas' },
-    { src: 'Cv4_EaegZpA.jpg', gal: ['land'],            en: 'Links by the Sea',   es: 'Campo junto al mar' },
-    { src: 'Cvfw3LGPF4j.jpg', gal: ['land', 'prints'],  en: 'Flock and Hillside', es: 'Bandada y ladera' },
-    { src: 'CvsV48BADIr.jpg', gal: ['land', 'prints'],  en: 'Anchored at Dusk',   es: 'Fondeado al atardecer' },
-    { src: 'CwV_CreA4Dj.jpg', gal: ['land'],            en: 'Gate and Tree',      es: 'Tranquera y árbol' },
-    { src: 'CwV_HHXAEEg.jpg', gal: ['land', 'prints'],  en: 'The Long Road',      es: 'El camino largo' },
-    { src: 'CwV_MqAgpcP.jpg', gal: ['land'],            en: 'Horse at the Fence', es: 'Caballo en el alambrado' }
+    { src: 'BxdW7JJn207.jpg', gal: ['land', 'prints'],  en: 'Island in Mist',     es: 'Isla entre la niebla', w: 1440, h: 960 },
+    { src: 'CeJMzMJLCI8.jpg', gal: ['land'],            en: 'Bench in the Green', es: 'Banco entre el verde', w: 1440, h: 960 },
+    { src: 'Ceg_iwcpO52.jpg', gal: ['land', 'prints'],  en: 'Weather Coming In',  es: 'Llega el temporal', w: 1440, h: 959 },
+    { src: 'ChM5zuugwvu.jpg', gal: ['land'],            en: 'Highland',           es: 'Tierras altas', w: 1440, h: 960 },
+    { src: 'Cv4_EaegZpA.jpg', gal: ['land'],            en: 'Links by the Sea',   es: 'Campo junto al mar', w: 1440, h: 960 },
+    { src: 'Cvfw3LGPF4j.jpg', gal: ['land', 'prints'],  en: 'Flock and Hillside', es: 'Bandada y ladera', w: 1440, h: 960 },
+    { src: 'CvsV48BADIr.jpg', gal: ['land', 'prints'],  en: 'Anchored at Dusk',   es: 'Fondeado al atardecer', w: 1200, h: 800 },
+    { src: 'CwV_CreA4Dj.jpg', gal: ['land'],            en: 'Gate and Tree',      es: 'Tranquera y árbol', w: 1440, h: 960 },
+    { src: 'CwV_HHXAEEg.jpg', gal: ['land', 'prints'],  en: 'The Long Road',      es: 'El camino largo', w: 1440, h: 960 },
+    { src: 'CwV_MqAgpcP.jpg', gal: ['land'],            en: 'Horse at the Fence', es: 'Caballo en el alambrado', w: 1440, h: 960 }
   ];
 
   /* ---------------- translations ---------------- */
@@ -69,6 +69,7 @@
       'nav.home': 'HOME', 'nav.prints': 'FINE ART PRINTS', 'nav.arch': 'ARCHITECTURE',
       'nav.street': 'STREET', 'nav.land': 'LANDSCAPE', 'nav.about': 'ABOUT', 'nav.contact': 'CONTACT',
       'theme.label': 'Switch theme', 'nav.back': 'BACK',
+      'home.pause': 'PAUSE', 'home.play': 'PLAY',
       'prints.title': 'FINE ART PRINTS',
       'prints.p1': 'Photographs are printed on cotton papers with pigment inks, giving a colour life of over a century under normal exhibition conditions.',
       'prints.p2': 'Every photograph in the Fine Art collection is a limited edition, inspected, dated, numbered and signed by Guillermo Bernaldo de Quirós. A certificate of authenticity accompanies each print.',
@@ -104,6 +105,7 @@
       'nav.home': 'INICIO', 'nav.prints': 'COPIAS DE ARTE', 'nav.arch': 'ARQUITECTURA',
       'nav.street': 'CALLE', 'nav.land': 'PAISAJE', 'nav.about': 'SOBRE MÍ', 'nav.contact': 'CONTACTO',
       'theme.label': 'Cambiar tema', 'nav.back': 'VOLVER',
+      'home.pause': 'PAUSA', 'home.play': 'VER',
       'prints.title': 'COPIAS DE ARTE',
       'prints.p1': 'Las fotografías se imprimen sobre papeles de algodón con tintas de pigmento, lo que garantiza una permanencia del color de más de un siglo en condiciones normales de exhibición.',
       'prints.p2': 'Cada fotografía de la colección Fine Art es una edición limitada, revisada, fechada, numerada y firmada por Guillermo Bernaldo de Quirós. Cada copia se entrega con certificado de autenticidad.',
@@ -158,6 +160,17 @@
 
         var img = document.createElement('img');
         img.src = asset(w.src);
+        // width/height let the masonry reserve the right box before the file
+        // arrives, so the column does not reflow as each image loads
+        if (w.w) { img.width = w.w; img.height = w.h; }
+        // a phone has no use for a 1440px file in a full-width column; skipped
+        // in a single-file bundle, where only the full-size image is inlined
+        if (!window.__ASSETS__) {
+          img.srcset = 'assets/img/w480/' + w.src + ' 480w, ' +
+                       'assets/img/w960/' + w.src + ' 960w, ' +
+                       'assets/img/' + w.src + ' 1440w';
+          img.sizes = '(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw';
+        }
         watchMissing(img, w.src);
         img.alt = [title(w), place(w)].filter(Boolean).join(' — ');
         img.loading = 'lazy';
@@ -279,8 +292,25 @@
     syncCount();
   }
 
+  /* WCAG 2.2.2: motion that runs past five seconds needs a visible way to stop
+     it. `paused` is the visitor's explicit choice and outranks every automatic
+     start, so leaving the menu or returning to the tab cannot restart it. */
+  var paused = false;
+  var pauseBtn = document.getElementById('slidePause');
+
+  function syncPause() {
+    pauseBtn.textContent = paused ? t('home.play') : t('home.pause');
+    pauseBtn.setAttribute('aria-pressed', String(paused));
+  }
+
+  pauseBtn.addEventListener('click', function () {
+    paused = !paused;
+    if (paused) stopSlides(); else startSlides();
+    syncPause();
+  });
+
   function startSlides() {
-    if (reduceMotion || slideTimer || !slides.length) return;
+    if (paused || reduceMotion || slideTimer || !slides.length) return;
     slideTimer = setInterval(function () { goTo(slideIx + 1, 1); }, SLIDE_MS);
   }
   function stopSlides() {
@@ -317,7 +347,7 @@
   var BASE_DESC = descMeta ? descMeta.getAttribute('content') : '';
 
   function updateMeta(target) {
-    var h = target.querySelector('h1');
+    var h = target.querySelector('h2');
     document.title = (target.classList.contains('page-home') || !h)
       ? BASE_TITLE
       : h.textContent.trim() + ' · ' + SITE_NAME;
@@ -349,6 +379,27 @@
   }
 
   window.addEventListener('hashchange', route);
+
+  /* Keeps Tab inside an open overlay. Without this the lightbox says
+     aria-modal="true" while Tab quietly walks out to the page behind it. */
+  function trapFocus(e, roots) {
+    if (e.key !== 'Tab') return;
+    var items = [];
+    roots.forEach(function (r) {
+      if (!r) return;
+      Array.prototype.forEach.call(
+        r.querySelectorAll('a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'),
+        function (el) {
+          var s = getComputedStyle(el);
+          if (s.visibility !== 'hidden' && s.display !== 'none') items.push(el);
+        });
+    });
+    if (!items.length) return;
+    var first = items[0], last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    else if (items.indexOf(document.activeElement) === -1) { e.preventDefault(); first.focus(); }
+  }
 
   /* ---------------- back button ----------------
      One per document page. It reopens the menu rather than navigating: from
@@ -454,11 +505,17 @@
   });
   document.getElementById('lbEnquire').addEventListener('click', function () {
     var sel = document.getElementById('formWork');
-    if (current > -1 && sel) sel.value = order[current].src;
+    if (current > -1 && sel) sel.value = title(order[current]);
     closeLightbox();
   });
   document.addEventListener('keydown', function (e) {
-    if (menu.classList.contains('is-open') && e.key === 'Escape') { closeMenu(); return; }
+    if (menu.classList.contains('is-open')) {
+      if (e.key === 'Escape') { closeMenu(); return; }
+      // the burger doubles as the close control, so it belongs inside the trap
+      trapFocus(e, [menu, burger]);
+      return;
+    }
+    if (lb.classList.contains('is-open')) trapFocus(e, [lb]);
     if (!lb.classList.contains('is-open')) {
       if (body.classList.contains('on-home') && !menu.classList.contains('is-open')) {
         if (e.key === 'ArrowLeft') nudge(-1);
@@ -484,7 +541,7 @@
     workSelect.appendChild(any);
     WORKS.forEach(function (w) {
       var o = document.createElement('option');
-      o.value = w.src;
+      o.value = title(w);
       o.textContent = title(w) + (w.year ? ' · ' + w.year : '');
       workSelect.appendChild(o);
     });
@@ -517,6 +574,7 @@
     slides.forEach(function (el, i) {
       el.querySelector('img').alt = title(homeOrder[i]);
     });
+    syncPause();
     document.querySelectorAll('.lang-switch button').forEach(function (b) {
       b.classList.toggle('is-active', b.getAttribute('data-lang') === lang);
     });

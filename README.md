@@ -17,7 +17,7 @@ python3 -m http.server 8000   # then open http://localhost:8000
 index.html            one section per page, plus fixed chrome and the lightbox
 assets/css/style.css  design tokens + all styling
 assets/js/main.js     catalogue, router, menu, galleries, lightbox, i18n, theme
-assets/img/           placeholder plates (see below)
+assets/img/           24 photographs at 1440px, plus w480/ and w960/ variants
 ```
 
 Pages are sections switched by a hash router (`#/home`, `#/prints`, `#/arch`,
@@ -30,7 +30,9 @@ instead of a return trip through home.
 **Home** is a horizontal carousel over the *whole* catalogue, shuffled freshly
 on every visit, crossfading as each frame passes. It advances on its own every
 7.5s and by arrow keys or swipe, pauses behind the menu and in hidden tabs, and
-does not autoplay under `prefers-reduced-motion`. Frames cross-dissolve over
+does not autoplay under `prefers-reduced-motion`. A visible **PAUSE/PLAY**
+control stops it outright — required by WCAG 2.2.2 for motion running past five
+seconds — and a deliberate pause outranks every automatic restart. Frames cross-dissolve over
 1.8s with only a hint of drift, so one image fades out as the next fades in
 rather than sliding past. Only the current frame and
 its two neighbours are ever fetched, so 24 slides cost about three images.
@@ -151,3 +153,39 @@ this size a single strong page is a reasonable trade. If each gallery should
 rank on its own, the fix is real paths (`/architecture/`, `/landscape/`) rather
 than fragments, which means either a small build step or one HTML file per
 section.
+
+
+## Accessibility and performance notes
+
+Findings from an audit run in a real browser, and what was done about them.
+
+**Contrast over the carousel.** The chrome is white over whatever photograph the
+shuffle picked. Sampling the actual pixels behind the wordmark across all 24
+frames found a worst case of **1.37:1** — effectively invisible — with 9 of 48
+sampled regions under AA. Two fixed gradients now sit above the image and below
+the chrome. Re-measured: worst case **10.1:1**, median 19:1, nothing under AA.
+
+**Focus.** The lightbox declared `aria-modal="true"` while Tab quietly walked
+out to the page behind it. Focus is now trapped in both the lightbox and the
+open menu, forwards and backwards; the menu's trap includes the hamburger,
+since that doubles as its close control.
+
+**Images.** Gallery images declare `width`/`height`, so the masonry reserves
+each box before the file lands instead of reflowing as it loads. They also ship
+`srcset` at 480/960/1440 with a `sizes` hint matching the column layout — a
+phone loading a six-photo gallery now pulls **~176 KB instead of ~1.3 MB**, and
+neither a desktop nor a phone ever downloads the 1440px original for a
+thumbnail. Smaller files also suit the print-sale goal rather than working
+against it.
+
+**Semantics.** One `<h1>` naming the site, one `<main>`, one `<footer>`; section
+titles are `<h2>` and the About sub-headings `<h3>`.
+
+**Type.** The smallest text was 9.3px with wide letterspacing. The floor is now
+~11px, with tracking eased slightly to match.
+
+**Without JavaScript** each gallery ships a static `<noscript>` copy, so a
+crawler that does not execute JS still sees all 24 photographs and their titles.
+
+**Enquiry values.** The Photograph dropdown submits the work's title, not the
+filename on disk — so an enquiry reads "The Long Road", not "CwV_HHXAEEg.jpg".

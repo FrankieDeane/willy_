@@ -87,7 +87,7 @@ button { background: none; border: none; cursor: pointer; }
   font-style: normal; font-weight: 200; font-size: 1.18rem; letter-spacing: 0.08em;
 }
 .wordmark-name b { font-weight: 500; font-size: 1.18rem; letter-spacing: 0.04em; }
-.wordmark-sub { font-size: 0.58rem; font-weight: 300; letter-spacing: 0.42em; color: inherit; opacity: 0.85; }
+.wordmark-sub { font-size: 0.7rem; font-weight: 300; letter-spacing: 0.42em; color: inherit; opacity: 0.85; }
 
 .burger {
   position: fixed; top: var(--pad); right: var(--pad); z-index: 200;
@@ -109,10 +109,29 @@ button { background: none; border: none; cursor: pointer; }
 }
 .rail a {
   writing-mode: vertical-rl; transform: rotate(180deg);
-  font-size: 0.58rem; letter-spacing: 0.32em; opacity: 0.7;
+  font-size: 0.7rem; letter-spacing: 0.26em; opacity: 0.75;
   transition: opacity 0.25s;
 }
 .rail a:hover { opacity: 1; }
+
+/* Over a photograph the chrome is white, but the photograph underneath is
+   whatever the shuffle picked — measured as low as 1.37:1 on the brightest
+   frames. These two gradients sit above the image and below the chrome, so the
+   name and controls stay legible on every photo without tinting the picture. */
+body.on-home::before,
+body.on-home::after {
+  content: ""; position: fixed; left: 0; right: 0; z-index: 110;
+  pointer-events: none; transition: opacity 0.4s var(--ease);
+}
+body.on-home::before {
+  top: 0; height: clamp(120px, 22vh, 210px);
+  background: linear-gradient(rgba(0, 0, 0, 0.64), rgba(0, 0, 0, 0));
+}
+body.on-home::after {
+  bottom: 0; height: clamp(100px, 18vh, 170px);
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
+}
+body.menu-open::before, body.menu-open::after { opacity: 0; }
 
 /* over full-bleed photography, chrome is always light */
 body.on-home .wordmark, body.on-home .burger, body.on-home .rail {
@@ -151,7 +170,7 @@ body.menu-open .burger span { box-shadow: none; }
 }
 .lang-switch { display: flex; border: 1px solid var(--line); }
 .lang-switch button {
-  padding: 0.36rem 0.8rem; font-size: 0.68rem; letter-spacing: 0.14em; color: var(--muted);
+  padding: 0.4rem 0.85rem; font-size: 0.75rem; letter-spacing: 0.14em; color: var(--muted);
   transition: background 0.25s, color 0.25s;
 }
 .lang-switch button.is-active { background: var(--text); color: var(--bg); }
@@ -170,7 +189,7 @@ body.menu-open .burger span { box-shadow: none; }
 }
 .menu-copy {
   position: absolute; right: var(--pad); bottom: var(--pad);
-  font-size: 0.7rem; letter-spacing: 0.06em; color: var(--muted);
+  font-size: 0.76rem; letter-spacing: 0.06em; color: var(--muted);
 }
 
 /* ---------- routing ---------- */
@@ -204,20 +223,30 @@ body.menu-open .burger span { box-shadow: none; }
 .slides { position: absolute; inset: 0; }
 
 /* a counter, not dots — there are two dozen frames */
-.slide-count {
+.home-controls {
   position: fixed; right: var(--pad); bottom: var(--pad); z-index: 120;
+  display: flex; align-items: center; gap: 1.1rem;
+}
+.slide-pause {
+  font-size: 0.7rem; letter-spacing: 0.22em; color: var(--chrome);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.55);
+  padding: 0.35rem 0; opacity: 0.8; transition: opacity 0.25s;
+}
+.slide-pause:hover { opacity: 1; }
+.slide-count {
+  z-index: 120;
   display: flex; align-items: baseline; gap: 0.5rem;
-  font-size: 0.62rem; letter-spacing: 0.3em; color: var(--chrome);
+  font-size: 0.74rem; letter-spacing: 0.24em; color: var(--chrome);
   text-shadow: 0 1px 10px rgba(0, 0, 0, 0.55);
 }
 .slide-count b { font-weight: 400; font-variant-numeric: tabular-nums; }
 .slide-count span { opacity: 0.55; font-variant-numeric: tabular-nums; }
-body.menu-open .slide-count { display: none; }
+body.menu-open .home-controls { display: none; }
 
 /* ---------- document pages ---------- */
 .page-doc { padding: clamp(6.5rem, 14vh, 9rem) var(--pad) clamp(4rem, 10vh, 7rem); }
 .page-head { text-align: center; margin-bottom: clamp(2.5rem, 6vw, 4rem); }
-.page-head h1 {
+.page-head h2 {
   font-size: clamp(1.3rem, 2.6vw, 1.9rem); font-weight: 400; letter-spacing: 0.16em;
 }
 .rule { display: block; width: 42px; height: 1px; background: var(--text); margin: 1.1rem auto 0; }
@@ -268,6 +297,12 @@ body.menu-open .slide-count { display: none; }
 }
 .slide.is-missing::before { font-size: 0.8rem; }
 
+/* without JS the caption is a plain figcaption, not the hover overlay */
+noscript .shot { cursor: default; }
+noscript .shot figcaption {
+  padding: 0.6rem 0.2rem 0; font-size: 0.8rem; color: var(--muted);
+}
+
 /* ---------- about ---------- */
 .about {
   display: grid; grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
@@ -278,7 +313,7 @@ body.menu-open .slide-count { display: none; }
 .about-body p { color: var(--muted); font-size: 0.95rem; }
 .about-lead { color: var(--text) !important; font-size: 1.05rem !important; margin-bottom: 0.5rem; }
 .about-block { margin-top: 1.8rem; }
-.about-block h2 {
+.about-block h3 {
   font-size: 0.68rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase;
   color: var(--text); margin-bottom: 0.55rem;
 }
@@ -293,7 +328,7 @@ body.menu-open .slide-count { display: none; }
 @media (max-width: 620px) { .field-row { grid-template-columns: 1fr; } }
 #enquiryForm label { display: grid; gap: 0.45rem; }
 #enquiryForm label > span {
-  font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted);
+  font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
 }
 #enquiryForm input, #enquiryForm select, #enquiryForm textarea {
   background: transparent; border: 0; border-bottom: 1px solid var(--line);
@@ -344,7 +379,7 @@ body.menu-open .slide-count { display: none; }
 .lb-spec > div { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.8rem; }
 .lb-spec dt { color: var(--muted); }
 .lb-cta { width: 100%; }
-.lb-protect { font-size: 0.68rem; color: var(--muted); line-height: 1.5; }
+.lb-protect { font-size: 0.76rem; color: var(--muted); line-height: 1.5; }
 
 .lb-close, .lb-nav {
   position: absolute; z-index: 3; width: 42px; height: 42px;
@@ -385,7 +420,7 @@ body.no-scroll { overflow: hidden; }
 .back-link {
   display: inline-flex; align-items: center; gap: 0.6rem;
   margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
-  font-size: 0.64rem; letter-spacing: 0.26em; color: var(--muted);
+  font-size: 0.74rem; letter-spacing: 0.2em; color: var(--muted);
   transition: color 0.25s var(--ease), gap 0.25s var(--ease);
 }
 .back-link:hover { color: var(--text); gap: 0.9rem; }
