@@ -72,10 +72,14 @@ opened. "Enquire" carries the work through to the contact form.
 labels sit above it so the identity is never hidden. Escape closes it, as does
 choosing any link — including the page you are already on.
 
-**Always-on controls.** EN/ES and the light/dark toggle live in the fixed
-top-right beside the menu button, not inside the menu, so language can be
-changed from anywhere without opening anything. Over a photograph they take
-white borders and a white active state; elsewhere they follow the theme.
+**Controls live in the menu.** EN/ES and the light/dark toggle sit under the
+menu list, on desktop and mobile alike. They were briefly in the fixed chrome so
+they would be reachable without opening anything, but over a full-bleed
+photograph they cluttered the one screen that should be only the work. The only
+thing over the image is the menu button.
+
+On narrow screens the wordmark is capped at the viewport minus the gutters and
+the menu button, so his name can never collide with it — verified from 320px up.
 
 ## Image protection — read this
 
