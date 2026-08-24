@@ -1,0 +1,75 @@
+name: Process uploaded photographs
+
+# The browser-only route for adding photographs, for when there is no Node on
+# hand. Drop the Drive folders into assets/img/_incoming/ from GitHub's own
+# "Add file ▸ Upload files" and commit — this runs itself.
+#
+# It triggers on a push to any branch EXCEPT the default one, and only when
+# something under _incoming/ actually changed. Requiring a specially named
+# branch was one step too many; not excluding the default branch would let an
+# accidental upload rewrite the live site with no review.
+on:
+  push:
+    branches-ignore:
+      - main
+      - claude/photography-premium-preview-8x133v
+    paths:
+      - 'assets/img/_incoming/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write            # the one workflow that writes, and only to its own branch
+
+concurrency:
+  group: photos-${{ github.ref }}
+  cancel-in-progress: false  # let a running batch finish rather than half-committing
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install the image toolchain
+        # `npm ci` installs exactly what tools/package-lock.json pins, by
+        # integrity hash. It fails rather than resolving a newer version.
+        run: npm --prefix tools ci
+
+      - name: Rename, strip metadata, resize
+        run: node tools/prepare-photos.mjs --consume | tee /tmp/photos.log
+
+      - name: Rebuild the site
+        run: node tools/build.mjs
+
+      - name: Commit the result
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "::warning::Nothing changed. No folder under _incoming/ matched a series in tools/albums.json — check the folder names."
+            exit 0
+          fi
+          git commit -m "photos: process uploads and rebuild"
+          git push origin HEAD:${{ github.ref_name }}
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "### Photographs processed"
+            echo
+            echo '```'
+            tail -30 /tmp/photos.log 2>/dev/null || echo "(the image step did not run)"
+            echo '```'
+            echo
+            echo "When every series is in, merge this branch with **Squash and merge**"
+            echo "and then delete it. Squashing is what keeps the full-size originals"
+            echo "out of the default branch's history."
+          } >> "$GITHUB_STEP_SUMMARY"

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- ===== security =====
+     GitHub Pages cannot send response headers, so everything expressible as a
+     meta tag is set here; vercel.json and public/_headers carry the rest on
+     hosts that can. Policy is deny-by-default: 'none', then only what this
+     site genuinely uses is allowed back, and no external origin is allowed at
+     all. Fonts, styles and scripts are self-hosted, so injected markup has
+     nowhere to call out to. Trusted Types is on, which means no code path in
+     this site is allowed to assign a string to innerHTML.
+     See SECURITY.md. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'none'; base-uri 'none'; frame-src 'none'; object-src 'none'; media-src 'none'; worker-src 'none'; manifest-src 'self'; require-trusted-types-for 'script'; upgrade-insecure-requests" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+
+<!-- ===== identity ===== -->
+<title>Build Your Selection — Curate a Set of Prints</title>
+<meta name="description" content="Pick the photographs you want from the portfolio, choose a size, a paper and framing, and send the whole set as one enquiry. Nothing is charged and no account is needed." />
+<meta name="author" content="Guillermo Bernaldo de Quirós" />
+<link rel="canonical" href="https://frankiedeane.github.io/willy_/selection.html" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+<!-- ===== languages =====
+     Separate URLs per language rather than a JavaScript toggle: this is what
+     lets Google serve the English pages to the United States, Canada and the
+     UK and the Spanish ones to Spain and Latin America, instead of picking
+     one and indexing half the site. -->
+<link rel="alternate" hreflang="en" href="https://frankiedeane.github.io/willy_/selection.html" />
+<link rel="alternate" hreflang="es" href="https://frankiedeane.github.io/willy_/es/selection.html" />
+<link rel="alternate" hreflang="x-default" href="https://frankiedeane.github.io/willy_/selection.html" />
+
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d0d0d" />
+
+<!-- ===== sharing =====
+     Most of this site's discovery is image search, so max-image-preview:large
+     above and a real og:image matter more here than on an ordinary site. -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Guillermo Bernaldo de Quirós" />
+<meta property="og:title" content="Build Your Selection — Curate a Set of Prints" />
+<meta property="og:description" content="Pick the photographs you want from the portfolio, choose a size, a paper and framing, and send the whole set as one enquiry. Nothing is charged and no account is needed." />
+<meta property="og:url" content="https://frankiedeane.github.io/willy_/selection.html" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:locale:alternate" content="es_ES" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Build Your Selection — Curate a Set of Prints" />
+<meta name="twitter:description" content="Pick the photographs you want from the portfolio, choose a size, a paper and framing, and send the whole set as one enquiry. Nothing is charged and no account is needed." />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230d0d0d%22/><rect x=%2230%22 y=%2222%22 width=%2240%22 height=%2256%22 fill=%22none%22 stroke=%22%23fff%22 stroke-width=%226%22/></svg>" />
+
+<link rel="preload" href="assets/fonts/jost-300-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="assets/css/fonts.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<script src="assets/js/boot.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://frankiedeane.github.io/willy_/#person",
+      "name": "Guillermo Bernaldo de Quirós",
+      "jobTitle": [
+        "Photographer",
+        "Behavioral Neurologist"
+      ],
+      "url": "https://frankiedeane.github.io/willy_/",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Buenos Aires",
+        "addressCountry": "AR"
+      },
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Harvard University"
+      },
+      "worksFor": {
+        "@type": "MedicalOrganization",
+        "name": "CEMIC"
+      },
+      "knowsAbout": [
+        "Fine art photography",
+        "Architectural photography",
+        "Landscape photography",
+        "Behavioral neurology"
+      ],
+      "sameAs": [
+        "https://www.behance.net/guillerbernald"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://frankiedeane.github.io/willy_/#website",
+      "url": "https://frankiedeane.github.io/willy_/",
+      "name": "Guillermo Bernaldo de Quirós — Photography",
+      "inLanguage": [
+        "en",
+        "es"
+      ],
+      "author": {
+        "@id": "https://frankiedeane.github.io/willy_/#person"
+      },
+      "copyrightHolder": {
+        "@id": "https://frankiedeane.github.io/willy_/#person"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "HOME",
+          "item": "https://frankiedeane.github.io/willy_/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "BUILD YOUR SELECTION",
+          "item": "https://frankiedeane.github.io/willy_/selection.html"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "url": "https://frankiedeane.github.io/willy_/selection.html",
+      "name": "Build Your Selection — Curate a Set of Prints",
+      "description": "Pick the photographs you want from the portfolio, choose a size, a paper and framing, and send the whole set as one enquiry. Nothing is charged and no account is needed.",
+      "inLanguage": "en"
+    }
+  ]
+}
+</script>
+</head>
+<body data-page="selection" data-lang="en" data-base="">
+
+<a href="#content" class="skip-link">Skip to content</a>
+
+<!-- ===== FIXED CHROME ===== -->
+<a href="index.html" class="wordmark">
+  <span class="wordmark-name"><i>GUILLERMO</i><b>BERNALDO DE QUIRÓS</b></span>
+  <span class="wordmark-sub">PHOTOGRAPHY</span>
+</a>
+
+<div class="chrome-right">
+  <a class="sel-badge" id="selBadge" href="selection.html" hidden>
+    <span class="sel-badge-n" id="selBadgeN">0</span>
+    <span class="sr-only">BUILD YOUR SELECTION</span>
+  </a>
+  <button class="burger" id="burger" aria-label="Open menu"
+          data-open="Open menu" data-close="Close menu"
+          aria-expanded="false" aria-controls="menu">
+    <span></span><span></span>
+  </button>
+</div>
+
+<footer class="rail">
+  <a href="https://www.behance.net/guillerbernald" target="_blank" rel="noopener noreferrer">BEHANCE</a>
+</footer>
+
+<!-- ===== MENU OVERLAY ===== -->
+<nav class="menu" id="menu" aria-hidden="true" aria-label="Main">
+  <ul>
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="work.html">PORTFOLIO</a></li>
+    <li><a href="prints.html">FINE ART PRINTS</a></li>
+    <li><a href="selection.html" class="is-current" aria-current="page">BUILD YOUR SELECTION</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="contact.html">CONTACT</a></li>
+  </ul>
+  <div class="menu-controls">
+    <a class="lang-link" href="es/selection.html" hreflang="es" rel="alternate">Español</a>
+    <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="false">
+      <span class="theme-icon" aria-hidden="true"></span>
+      <span class="sr-only">Switch theme</span>
+    </button>
+  </div>
+  <p class="menu-copy">© 2026 Guillermo Bernaldo de Quirós</p>
+</nav>
+
+<main id="content" class="page-doc">
+  <header class="page-head">
+    <h1>BUILD YOUR SELECTION</h1>
+    <span class="rule"></span>
+    <div class="page-lede"><p>Add photographs as you go through the portfolio. When the set feels right, choose how you want it printed and send it as one enquiry — you will get a single quote for the whole selection.</p></div>
+  </header>
+
+  <div class="sel-empty" id="selEmpty">
+    <h2>Your selection is empty</h2>
+    <p>Open any series and use the ✛ on a photograph to add it here. Your selection stays in this browser only — it is never uploaded anywhere.</p>
+    <a class="btn" href="work.html">BROWSE THE PORTFOLIO</a>
+  </div>
+
+  <div class="sel-live" id="selLive" hidden>
+    <p class="sel-count" id="selCount" role="status" aria-live="polite"></p>
+    <div class="sel-grid" id="selGrid"></div>
+    <p class="sel-hang" id="selHang"></p>
+    <button type="button" class="link-btn" id="selClear">CLEAR SELECTION</button>
+
+    <form class="sel-form" id="selForm" novalidate>
+      <fieldset>
+        <legend>HOW YOU WANT IT PRINTED</legend>
+        <div class="field-row">
+          <label><span>Size</span>
+            <select name="size">
+              <option value="65 × 100 cm">65 × 100 cm · 26 × 39 in</option>
+              <option value="111 × 165 cm">111 × 165 cm · 44 × 65 in</option>
+              <option value="150 × 240 cm">150 × 240 cm · 59 × 94 in</option>
+            </select></label>
+          <label><span>Paper</span>
+            <select name="paper">
+              <option value="Smooth cotton rag">Smooth cotton rag</option>
+              <option value="Baryta fibre">Baryta fibre</option>
+            </select></label>
+          <label><span>Framing</span>
+            <select name="frame">
+              <option value="Unframed, rolled">Unframed, rolled</option>
+              <option value="Museum framed">Museum framed</option>
+            </select></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>YOUR DETAILS</legend>
+        <div class="field-row">
+          <label><span>Name</span><input type="text" name="name" autocomplete="name" required /></label>
+          <label><span>Email</span><input type="email" name="email" autocomplete="email" required /></label>
+          <label><span>Country</span><input type="text" name="country" autocomplete="country-name" /></label>
+        </div>
+        <label><span>Message</span><textarea name="message" rows="3"></textarea></label>
+      </fieldset>
+
+      <div class="hp" aria-hidden="true">
+        <label>Leave this field empty<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+      </div>
+      <div class="sel-actions">
+        <button type="submit" class="btn">SEND THIS SELECTION</button>
+        <button type="button" class="btn btn-ghost" id="selCopy">COPY AS TEXT</button>
+      </div>
+      <p class="form-status" id="selStatus" role="status" aria-live="polite"></p>
+      <p class="sel-privacy">Nothing on this page is sent anywhere until you press send, and the site stores no account, no cookie and no analytics.</p>
+      <noscript><p class="sel-privacy">This form needs JavaScript to send. Turn it on, or get in touch through the Behance profile linked from the About page.</p></noscript>
+    </form>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <p>© 2026 Guillermo Bernaldo de Quirós. All photographs © Guillermo Bernaldo de Quirós. All rights reserved.</p>
+</footer>
+
+<script src="assets/js/catalog.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

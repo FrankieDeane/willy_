@@ -1,191 +1,250 @@
-# Guillermo Bernaldo de Quirós — photography
+# Guillermo Bernaldo de Quirós — sitio de fotografía
 
-A gallery-first site for selling limited edition prints. Static HTML/CSS/JS, no
-build step, no dependencies — open `index.html` and it runs.
+Sitio estático de 31 series fotográficas, en inglés y español, con venta de
+copias de edición limitada.
 
-Portfolio reference: <https://www.behance.net/guillerbernald>
+- **74 páginas HTML reales** (una por sección y por serie, en cada idioma).
+  No es una single-page app: Google y un visitante sin JavaScript ven lo mismo.
+- **Cero dependencias en el sitio publicado.** Ni scripts de terceros, ni
+  fuentes externas, ni analíticas, ni cookies, ni tokens. Ver `SECURITY.md`.
+- Todo se genera desde tres archivos de datos. **Nunca edites el HTML a mano:**
+  se regenera y perdés el cambio.
 
-## Preview it
+---
+
+## Cargar las fotos
+
+Los archivos quedan con el nombre que pediste: `<serie>-gbq-<n>.jpg`.
+Por ejemplo `tuscany-gbq-1.jpg`, `edinburgh-gbq-14.jpg`.
+El `<serie>` sale del campo `slug` de `tools/albums.json`, así que el nombre
+es una decisión escrita en un archivo, no algo que el script adivine.
+
+Hay dos caminos. **El primero es el recomendado**, porque los originales nunca
+entran al repositorio ni a su historial.
+
+### Camino A — desde tu computadora (recomendado)
+
+Necesitás [Node.js](https://nodejs.org) 20 o superior instalado (una vez).
+
+1. En Drive, entrá a **La Vicuña 🦙 Agency ▸ Clientes logrados ▸ Willy ▸
+   Porfolio**, seleccioná las 31 carpetas, botón derecho ▸ **Descargar**.
+   Drive te manda un `.zip`.
+2. Descomprimilo dentro del repo en `assets/img/_incoming/`, de modo que quede
+   una carpeta por serie, **con el nombre exacto que tiene en Drive**:
+
+   ```
+   assets/img/_incoming/In Tuscany/xxxx_rw_1920.jpg
+   assets/img/_incoming/Edinburgh/yyyy_rw_1920.jpg
+   ...
+   ```
+3. Corré:
+
+   ```bash
+   npm --prefix tools ci          # solo la primera vez
+   node tools/prepare-photos.mjs --consume
+   node tools/build.mjs
+   ```
+4. Commiteá y pusheá. Listo.
+
+`prepare-photos.mjs` hace todo esto de una:
+
+- renombra a `<slug>-gbq-<n>.jpg`;
+- **descarta los duplicados** del export de Drive — la misma foto viene como
+  `…_rw_1200.jpg` y `…_rw_1920.jpg`, y a veces una tercera vez como `… (1).jpg`;
+  se queda con la versión más grande de cada grupo;
+- **borra todos los metadatos** (EXIF, IPTC, XMP, ICC). Esto importa de verdad:
+  los exports de cámara suelen llevar coordenadas GPS, y el rastro GPS de un
+  fotógrafo de paisaje es un mapa de dónde vive y dónde trabaja;
+- genera las tres medidas web: 1600 / 960 / 480 px de lado largo;
+- escribe `assets/img/dimensions.json`, que es lo que permite a las páginas
+  reservar el espacio exacto de cada foto y no saltar mientras cargan;
+- con `--consume`, borra los originales al terminar.
+
+### Camino B — solo desde el navegador, sin instalar nada
+
+1. En GitHub, parado en **cualquier rama que no sea la principal** (la del Pull
+   Request abierto sirve), entrá a `assets/img/_incoming/`.
+2. **Add file ▸ Upload files** y arrastrá las carpetas de series. Commit.
+3. El workflow `photos.yml` se dispara solo: procesa, renombra, limpia
+   metadatos, regenera el sitio y borra los originales. En la pestaña Actions
+   te deja un resumen con qué serie procesó y cuántas fotos.
+4. Se puede repetir de a tandas. Cuando estén todas, mergeá con
+   **Squash and merge** y borrá la rama.
+
+> El *squash* y el borrado de la rama no son opcionales: son lo que evita que
+> los originales en tamaño completo queden para siempre en el historial de git,
+> desde donde cualquiera podría recuperarlos. Por el camino A ni siquiera
+> llegan a git.
+
+---
+
+## Editar el contenido
+
+Tres archivos, y de ahí sale todo:
+
+| Archivo | Qué controla |
+|---|---|
+| `tools/albums.json` | Las 31 series: título EN/ES, slug, lugar, tema, texto de cada una, foto de portada |
+| `tools/i18n.json` | Absolutamente todo el texto del sitio, en los dos idiomas |
+| `tools/site.json` | Dominio, ruta base, **email de contacto**, tamaños, papeles, imagen de compartir |
+
+Después de tocar cualquiera de ellos:
 
 ```bash
-python3 -m http.server 8000   # then open http://localhost:8000
+node tools/build.mjs
 ```
 
-## Structure
+---
+
+## Que el formulario funcione
+
+Hay tres formas de que una consulta llegue, y el sitio las prueba **en este
+orden**. La primera que funcione, gana; el visitante nunca se queda con un
+formulario que no hizo nada, y nunca pierde lo que escribió.
+
+### 1. Envío real (recomendado) — `api/enquiry.js` en Vercel
+
+Es la única que manda el mail de verdad sin que el visitante salga de la
+página. La clave que envía el mail vive en una variable de entorno del
+servidor: **nunca llega al navegador**, así que no hay nada que robar del lado
+del cliente.
+
+En Vercel: **Project ▸ Settings ▸ Environment Variables**.
+
+| Variable | Para qué |
+|---|---|
+| `ENQUIRY_TO` | `gbernaldodequiros@yahoo.com`. **Obligatoria.** |
+| `RESEND_API_KEY` | Una API key de [resend.com](https://resend.com) (plan gratis: 3.000 mails/mes) |
+| `ENQUIRY_FROM` | Remitente verificado. Si no la ponés, usa el de prueba de Resend. |
+
+O, en vez de Resend:
+
+| Variable | Para qué |
+|---|---|
+| `ENQUIRY_WEBHOOK` | Cualquier URL que acepte un POST con JSON |
+
+Esa segunda opción sirve para mandar las consultas a **la planilla de Google
+que ya tenés** mediante un Apps Script, o a Zapier, o a lo que sea. No implica
+crear cuenta en ningún lado: la URL es toda la configuración.
+
+Después de cargar las variables, redesplegá una vez para que la función las lea.
+
+### 2. `mailto:` — si no hay backend pero sí hay dirección
+
+Ya está configurado: `tools/site.json` tiene `gbernaldodequiros@yahoo.com`. Al
+enviar se abre el cliente de correo del visitante con todo cargado. Es lo que
+corre hoy, y lo que va a correr siempre en GitHub Pages, que no puede ejecutar
+funciones.
+
+La dirección no viaja como una sola cadena: se parte en usuario y dominio y se
+vuelve a unir en el navegador, así un scraper que busca `@` en los archivos
+estáticos no encuentra nada. Es un badén contra los recolectores más perezosos,
+**no** una protección — cualquier cosa que ejecute JavaScript la rearma igual
+de fácil que la página. La solución de fondo es el camino 1: con `ENQUIRY_TO`
+en el servidor, se puede dejar `"email": ""` y la dirección deja de salir del
+servidor por completo.
+
+### 3. Portapapeles — si no hay ninguna de las dos
+
+Copia la consulta ya armada y le dice al visitante que la pegue en un mail.
+
+> **Estado actual:** funciona el camino 2. Para pasar al 1, cargá `ENQUIRY_TO` y
+> `RESEND_API_KEY` en Vercel y redesplegá — no hay nada que cambiar en el código.
+
+### Anti-spam
+
+Sin CAPTCHA — sería un script de terceros en un sitio cuya postura entera es
+que no carga nada de ningún lado. En su lugar: campo trampa invisible, piso de
+tiempo de envío, límites duros en cada campo, límite de frecuencia por IP, y
+**la selección se vuelve a validar contra el catálogo en el servidor**, así el
+cuerpo del mail no se puede usar para colar texto arbitrario.
+
+---
+
+## Estructura
 
 ```
-index.html            one section per page, plus fixed chrome and the lightbox
-assets/css/style.css  design tokens + all styling
-assets/js/main.js     catalogue, router, menu, galleries, lightbox, i18n, theme
-assets/img/           24 photographs at 1440px, plus w480/ and w960/ variants
+index.html  work.html  prints.html  selection.html  about.html  contact.html
+albums/<slug>.html          31 series, en inglés
+es/…                        el sitio completo en español
+assets/css  assets/js  assets/fonts  assets/img
+sitemap.xml  robots.txt  _headers  vercel.json
+tools/                      generadores y datos (no se publica)
 ```
 
-Pages are sections switched by a hash router (`#/home`, `#/prints`, `#/arch`,
-`#/street`, `#/land`, `#/about`, `#/contact`) — every page is linkable and the
-browser back button works. Each document page also carries its own **BACK**
-button, which reopens the menu rather than navigating — from inside a section,
-"back" means back to the list of sections, so the next choice is one click away
-instead of a return trip through home.
+Las páginas en español viven un nivel más abajo, así que sus rutas a `assets/`
+llevan un `../` más. Lo resuelve `assetPrefix()` en `tools/build.mjs`, y
+`tools/check-links.mjs` lo verifica en cada push — fue exactamente el bug que
+dejó a todo el español sin CSS la primera vez.
 
-**Home** is a horizontal carousel over the *whole* catalogue, shuffled freshly
-on every visit, crossfading as each frame passes. It advances on its own every
-7.5s and by arrow keys or swipe, pauses behind the menu and in hidden tabs, and
-does not autoplay under `prefers-reduced-motion`. A visible **PAUSE/PLAY**
-control stops it outright — required by WCAG 2.2.2 for motion running past five
-seconds — and a deliberate pause outranks every automatic restart. Frames cross-dissolve over
-1.8s with only a hint of drift, so one image fades out as the next fades in
-rather than sliding past. Only the current frame and
-its two neighbours are ever fetched, so 24 slides cost about three images.
+---
 
-### Adding or changing work
+## Armá tu selección
 
-Galleries are built from the `WORKS` array at the top of `main.js` — one record
-per photograph, carrying both languages, the year, the edition size and which
-galleries it belongs to. Add a row and it appears in the grid, the lightbox and
-the contact form's dropdown. No markup to touch.
+Es la parte comercial nueva. Un visitante recorre el portfolio, toca el **✛**
+sobre las fotos que le gustan, y en `selection.html` elige tamaño, papel y
+enmarcado y manda **el conjunto entero como una sola consulta**.
 
-## Design
+La página además le sugiere cómo colgarlo según cuántas eligió — una sola,
+díptico, tríptico, o serie de cinco o más —, que es la forma natural de que una
+consulta de una foto se convierta en una de tres.
 
-Monochrome by design: the photographs carry all the colour, so the interface is
-black, white and grey throughout. The one accent is reserved for focus rings and
-form errors — never decoration.
+No hay carrito, ni cuenta, ni pago, ni base de datos. La selección vive en el
+`localStorage` del visitante y no sale nunca de su navegador; la consulta se
+arma localmente y se entrega a su propio cliente de correo. Por eso no hay
+ningún token que robar: no existe.
 
-- **Jost** throughout, wide letterspacing on titles and the wordmark
-- Light `#ffffff` / dark `#0d0d0c`
-- No text hero — a photograph fills the first screen
-
-## Features
-
-**Language (EN / ES).** Interface strings live in `STRINGS` in `main.js`; photo
-titles and places live alongside each record in `WORKS`. Switching language
-re-renders the galleries, so captions, the lightbox and the contact dropdown all
-follow. Choice persists in `localStorage` and sets `<html lang>`.
-
-**Theme (light / dark).** Tokens are defined three times so all three viewer
-states resolve: bare `:root` for light, `@media (prefers-color-scheme: dark)`
-guarded by `:not([data-theme="light"])` for system-dark, and `[data-theme="dark"]`
-for an explicit choice. Applied before paint, so there's no flash.
-
-**Lightbox.** Click, or focus and press Enter. Arrow keys navigate *within the
-gallery you opened it from*, Escape closes, focus returns to the photo you
-opened. "Enquire" carries the work through to the contact form.
-
-**Menu.** The hamburger opens a full-screen overlay. The wordmark and social
-labels sit above it so the identity is never hidden. Escape closes it, as does
-choosing any link — including the page you are already on.
-
-**Controls live in the menu.** EN/ES and the light/dark toggle sit under the
-menu list, on desktop and mobile alike. They were briefly in the fixed chrome so
-they would be reachable without opening anything, but over a full-bleed
-photograph they cluttered the one screen that should be only the work. The only
-thing over the image is the menu button.
-
-On narrow screens the wordmark is capped at the viewport minus the gutters and
-the menu button, so his name can never collide with it — verified from 320px up.
-
-## Image protection — read this
-
-The photographs are for sale, so the gallery must not double as a download.
-What's implemented:
-
-- **Preview-resolution files only** (~1400px long edge, JPEG q72)
-- A repeating **GBQ watermark** over the enlarged view
-- A transparent shield above the lightbox photo, so drag-to-desktop and
-  long-press-save grab the overlay rather than the file
-- Right-click suppressed on photos (and only on photos — text still works)
-- `draggable="false"` and non-selectable images
-
-**These are deterrents, not DRM.** Anyone can screenshot the page or read the
-file out of the network tab. The protection that actually matters is the first
-one: the files served are too small to print, so what a copier gets is worthless
-at print size. Keep it that way — never upload full-resolution masters.
-
-## The photographs
-
-`assets/img/` holds 24 of Guillermo's own photographs, all 3:2 landscape at
-1440px on the long edge — already preview resolution, so nothing needs
-downsizing. Filenames are the originals as uploaded.
-
-Four of them open the site full-bleed; the rest are split across the galleries
-by the `gal` field in `WORKS`.
-
-### Still to come from Guillermo
-
-- **Titles** are descriptive placeholders written from looking at each frame.
-  They are in `WORKS` in `main.js`, in both languages.
-- **Places, years and edition sizes** are deliberately absent rather than
-  invented. Add `place_en` / `place_es`, `year` and `ed` to any record and they
-  appear automatically; leave them off and the UI omits them cleanly.
-- **A portrait of Guillermo** for the About page. There is no portrait-format
-  image in the set, so the About column currently uses one of his street
-  photographs. Drop in a vertical portrait and point `.about-portrait img` at it.
-- **The Instagram URL** in the footer rail is a placeholder.
-
-## Not implemented
-
-The enquiry form is front-end only — it validates, then shows a confirmation.
-**Nothing is sent anywhere.** Point it at a real endpoint before launch. There is
-also no cart or checkout: the sale path is an enquiry, by design. Prices,
-editions, titles and the About copy are placeholders for Guillermo to replace.
-
-
-## Security
-
-See **[SECURITY.md](SECURITY.md)**. In short: a strict CSP that allows no
-external origin at all, no inline script, self-hosted fonts so no visitor IP
-reaches a third party, `form-action 'none'`, and no `innerHTML` with variable
-data. The controls a static host cannot set — HSTS, `nosniff`, `frame-ancestors`
-— are listed there with the fix (put it behind a CDN that can send headers).
+---
 
 ## SEO
 
-Implemented: a descriptive title and meta description, canonical URL, Open
-Graph and Twitter cards with a real image, `max-image-preview:large` (this site
-will be found through image search more than text), JSON-LD for Person, WebSite
-and ImageGallery, `robots.txt`, and a `sitemap.xml` whose image entries are
-generated from the same `WORKS` catalogue the site renders from, so the two
-cannot drift. Title and description update per route.
+Pensado para Estados Unidos y Europa:
 
-**The one open question.** Routing is hash-based, so search engines treat the
-whole site as a single URL — the galleries cannot rank separately, and content
-in the inactive (`display: none`) sections is discounted. For a portfolio of
-this size a single strong page is a reasonable trade. If each gallery should
-rank on its own, the fix is real paths (`/architecture/`, `/landscape/`) rather
-than fragments, which means either a small build step or one HTML file per
-section.
+- **URLs separadas por idioma** con `hreflang` en las dos direcciones y
+  `x-default` al inglés. Es lo que permite que Google sirva el inglés en EE.UU.,
+  Canadá y el Reino Unido y el español en España y Latinoamérica, en vez de
+  elegir uno e indexar la mitad del sitio.
+- **Una URL indexable por serie.** Con rutas por hash (`#/album/…`) las 31
+  series eran una sola página para un buscador.
+- **Un `ImageObject` por fotografía** en el JSON-LD, con autor, aviso de
+  copyright, crédito y página de licencia. Para quien vende copias, esto es lo
+  más valioso del marcado: es lo que mete cada foto en Google Images con su
+  autoría atada.
+- `BreadcrumbList`, `ImageGallery`, `Person`, `Service` y `CollectionPage`.
+- `max-image-preview:large` — la mayor parte del tráfico va a llegar por
+  búsqueda de imágenes.
+- `sitemap.xml` generado con las 74 URLs y sus alternativas de idioma.
+- Títulos y descripciones distintos por página, escritos, no derivados.
 
+---
 
-## Accessibility and performance notes
+## Hosting
 
-Findings from an audit run in a real browser, and what was done about them.
+`cleanUrls` está **apagado** a propósito en `vercel.json`: las páginas se
+enlazan entre sí por su nombre `.html` real, así el mismo build funciona igual
+en GitHub Pages, Vercel, Netlify y hasta abriendo el archivo local. Con
+`cleanUrls` activado, cada enlace interno sería un redirect 308 que se aleja de
+su propia URL canónica.
 
-**Contrast over the carousel.** The chrome is white over whatever photograph the
-shuffle picked. Sampling the actual pixels behind the wordmark across all 24
-frames found a worst case of **1.37:1** — effectively invisible — with 9 of 48
-sampled regions under AA. Two fixed gradients now sit above the image and below
-the chrome. Re-measured: worst case **10.1:1**, median 19:1, nothing under AA.
+La política de seguridad vive en tres lugares porque cada host la aplica
+distinto — `vercel.json`, `_headers` y la etiqueta `<meta>` de cada página, que
+es lo único que puede hacer GitHub Pages. `tools/check-config.mjs` verifica que
+las tres digan exactamente lo mismo, y que `vercel.json` no tenga ninguna clave
+que Vercel vaya a rechazar (JSON no admite comentarios: una nota `"//"` al lado
+de una opción tira abajo el deploy entero).
 
-**Focus.** The lightbox declared `aria-modal="true"` while Tab quietly walked
-out to the page behind it. Focus is now trapped in both the lightbox and the
-open menu, forwards and backwards; the menu's trap includes the hamburger,
-since that doubles as its close control.
+---
 
-**Images.** Gallery images declare `width`/`height`, so the masonry reserves
-each box before the file lands instead of reflowing as it loads. They also ship
-`srcset` at 480/960/1440 with a `sizes` hint matching the column layout — a
-phone loading a six-photo gallery now pulls **~176 KB instead of ~1.3 MB**, and
-neither a desktop nor a phone ever downloads the 1440px original for a
-thumbnail. Smaller files also suit the print-sale goal rather than working
-against it.
+## Comandos
 
-**Semantics.** One `<h1>` naming the site, one `<main>`, one `<footer>`; section
-titles are `<h2>` and the About sub-headings `<h3>`.
+```bash
+node tools/build.mjs                       # regenerar el sitio
+node tools/prepare-photos.mjs [--consume]  # procesar assets/img/_incoming/
+node tools/check-links.mjs                 # verificar cada enlace interno
+node tools/check-config.mjs                # verificar que la CSP sea idéntica en los 3 hosts
+node tools/scan-secrets.mjs                # buscar credenciales filtradas
+```
 
-**Type.** The smallest text was 9.3px with wide letterspacing. The floor is now
-~11px, with tracking eased slightly to match.
-
-**Without JavaScript** each gallery ships a static `<noscript>` copy, so a
-crawler that does not execute JS still sees all 24 photographs and their titles.
-
-**Enquiry values.** The Photograph dropdown submits the work's title, not the
-filename on disk — so an enquiry reads "The Long Road", not "CwV_HHXAEEg.jpg".
+Los tres últimos corren solos en CI. `checks.yml` además falla si el HTML
+commiteado no coincide con lo que generan los datos, así que no puede quedar
+desincronizado sin que alguien se entere.

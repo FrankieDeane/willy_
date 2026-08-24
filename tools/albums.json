@@ -1,0 +1,236 @@
+{
+  "_readme": [
+    "Registro de álbumes. Esta es la única fuente de verdad de la estructura del sitio.",
+    "Album registry. This is the single source of truth for the site structure.",
+    "",
+    "  drive     nombre EXACTO de la carpeta en Google Drive (Porfolio/<drive>)",
+    "  slug      identificador en la URL y en los nombres de archivo: <slug>-gbq-<n>.jpg",
+    "  en / es   título mostrado en cada idioma",
+    "  place_*   lugar real. Vacío = no se muestra. NO inventar: afecta al SEO local.",
+    "  theme     architecture | landscape | street | travel  (filtros del índice)",
+    "  expected  cantidad de fotos vista en Drive el 2026-08-24. Solo se usa para",
+    "            maquetar mientras los archivos no estén en assets/img/.",
+    "  cover     número de la foto usada como portada (1 = <slug>-gbq-1.jpg)",
+    "",
+    "Editar este archivo y volver a correr `node tools/build.mjs` regenera todo el sitio."
+  ],
+  "albums": [
+    {
+      "drive": "Abandon post office", "slug": "abandoned-post-office", "theme": "architecture", "expected": 4, "cover": 1,
+      "en": "Abandoned Post Office", "es": "Oficina de correos abandonada",
+      "place_en": "", "place_es": "",
+      "blurb_en": "A public building left to itself: counters, signage and light going on working long after the last letter was sorted.",
+      "blurb_es": "Un edificio público librado a sí mismo: mostradores, cartelería y luz que siguen trabajando mucho después de la última carta."
+    },
+    {
+      "drive": "Amish", "slug": "amish", "theme": "street", "expected": 10, "cover": 1,
+      "en": "Amish", "es": "Amish",
+      "place_en": "", "place_es": "",
+      "blurb_en": "Work, road and weather photographed at a distance that leaves the subject its privacy.",
+      "blurb_es": "Trabajo, camino y clima, fotografiados a una distancia que le deja al sujeto su intimidad."
+    },
+    {
+      "drive": "As night falls", "slug": "as-night-falls", "theme": "street", "expected": 5, "cover": 1,
+      "en": "As Night Falls", "es": "Cuando cae la noche",
+      "place_en": "", "place_es": "",
+      "blurb_en": "The half hour when the street stops being lit from above and starts being lit from inside.",
+      "blurb_es": "La media hora en la que la calle deja de iluminarse desde arriba y empieza a iluminarse desde adentro."
+    },
+    {
+      "drive": "At the edge of silence", "slug": "at-the-edge-of-silence", "theme": "landscape", "expected": 10, "cover": 1,
+      "en": "At the Edge of Silence", "es": "Al borde del silencio",
+      "place_en": "", "place_es": "",
+      "blurb_en": "Wide, quiet ground where the only events are weather and distance.",
+      "blurb_es": "Terreno amplio y callado donde los únicos acontecimientos son el clima y la distancia."
+    },
+    {
+      "drive": "Between light and dark", "slug": "between-light-and-dark", "theme": "architecture", "expected": 8, "cover": 1,
+      "en": "Between Light and Dark", "es": "Entre la luz y la sombra",
+      "place_en": "", "place_es": "",
+      "blurb_en": "Interiors and thresholds read as pure contrast: what the light reaches, and what it leaves alone.",
+      "blurb_es": "Interiores y umbrales leídos como puro contraste: lo que la luz alcanza y lo que deja en paz."
+    },
+    {
+      "drive": "Calatrava", "slug": "calatrava", "theme": "architecture", "expected": 9, "cover": 1,
+      "en": "Calatrava", "es": "Calatrava",
+      "place_en": "", "place_es": "",
+      "blurb_en": "White ribs, long spans and repeated curves — engineering photographed as anatomy.",
+      "blurb_es": "Costillas blancas, grandes luces y curvas repetidas: la ingeniería fotografiada como anatomía."
+    },
+    {
+      "drive": "D.C", "slug": "washington-dc", "theme": "travel", "expected": 9, "cover": 1,
+      "en": "Washington, D.C.", "es": "Washington D. C.",
+      "place_en": "Washington, D.C., United States", "place_es": "Washington D. C., Estados Unidos",
+      "blurb_en": "Monumental scale and civic geometry in the capital of the United States.",
+      "blurb_es": "Escala monumental y geometría cívica en la capital de los Estados Unidos."
+    },
+    {
+      "drive": "Discovering the Scottish Highlands", "slug": "scottish-highlands", "theme": "landscape", "expected": 9, "cover": 1,
+      "en": "Discovering the Scottish Highlands", "es": "Descubriendo las Highlands escocesas",
+      "place_en": "Scottish Highlands, Scotland", "place_es": "Highlands, Escocia",
+      "blurb_en": "Glens, lochs and moving weather across the north of Scotland.",
+      "blurb_es": "Valles, lagos y clima en movimiento por el norte de Escocia."
+    },
+    {
+      "drive": "Echoes of War", "slug": "echoes-of-war", "theme": "travel", "expected": 6, "cover": 1,
+      "en": "Echoes of War", "es": "Ecos de la guerra",
+      "place_en": "", "place_es": "",
+      "blurb_en": "What remains standing, and what the remaining is asked to say.",
+      "blurb_es": "Lo que queda en pie, y lo que a lo que queda se le pide decir."
+    },
+    {
+      "drive": "Edinburgh", "slug": "edinburgh", "theme": "travel", "expected": 26, "cover": 1,
+      "en": "Edinburgh", "es": "Edimburgo",
+      "place_en": "Edinburgh, Scotland", "place_es": "Edimburgo, Escocia",
+      "blurb_en": "Closes, crags and stone façades — the densest body of work in the archive.",
+      "blurb_es": "Callejones, riscos y fachadas de piedra: el cuerpo de trabajo más extenso del archivo."
+    },
+    {
+      "drive": "Eternal tides", "slug": "eternal-tides", "theme": "landscape", "expected": 10, "cover": 1,
+      "en": "Eternal Tides", "es": "Mareas eternas",
+      "place_en": "", "place_es": "",
+      "blurb_en": "The one landscape that rewrites itself twice a day.",
+      "blurb_es": "El único paisaje que se reescribe dos veces por día."
+    },
+    {
+      "drive": "Geometry of silence", "slug": "geometry-of-silence", "theme": "architecture", "expected": 14, "cover": 1,
+      "en": "Geometry of Silence", "es": "Geometría del silencio",
+      "place_en": "", "place_es": "",
+      "blurb_en": "Buildings stripped back to line, plane and interval, with nobody in the frame to hurry them.",
+      "blurb_es": "Edificios reducidos a línea, plano e intervalo, sin nadie en el cuadro que los apure."
+    },
+    {
+      "drive": "In the Farm", "slug": "farm", "theme": "landscape", "expected": 6, "cover": 1,
+      "en": "On the Farm", "es": "En la granja",
+      "place_en": "", "place_es": "",
+      "blurb_en": "Working ground: fences, animals, sheds and the long light that falls across all of it.",
+      "blurb_es": "Terreno de trabajo: alambrados, animales, galpones y la luz larga que cae sobre todo eso."
+    },
+    {
+      "drive": "In Tuscany", "slug": "tuscany", "theme": "landscape", "expected": 7, "cover": 1,
+      "en": "In Tuscany", "es": "En la Toscana",
+      "place_en": "Tuscany, Italy", "place_es": "Toscana, Italia",
+      "blurb_en": "Ridge lines, cypress and cultivated hills in central Italy.",
+      "blurb_es": "Líneas de cresta, cipreses y colinas cultivadas en el centro de Italia."
+    },
+    {
+      "drive": "Inside out", "slug": "inside-out", "theme": "architecture", "expected": 4, "cover": 1,
+      "en": "Inside Out", "es": "De adentro hacia afuera",
+      "place_en": "", "place_es": "",
+      "blurb_en": "Photographed from within, looking out — the building as a frame rather than a subject.",
+      "blurb_es": "Fotografiado desde adentro, mirando hacia afuera: el edificio como marco antes que como tema."
+    },
+    {
+      "drive": "Into the mist", "slug": "into-the-mist", "theme": "landscape", "expected": 7, "cover": 1,
+      "en": "Into the Mist", "es": "Hacia la niebla",
+      "place_en": "", "place_es": "",
+      "blurb_en": "Depth removed on purpose: everything reduced to tone and the shape nearest the lens.",
+      "blurb_es": "Profundidad quitada a propósito: todo reducido al tono y a la forma más cercana al lente."
+    },
+    {
+      "drive": "Light Fading", "slug": "light-fading", "theme": "landscape", "expected": 2, "cover": 1,
+      "en": "Light Fading", "es": "La luz que se va",
+      "place_en": "", "place_es": "",
+      "blurb_en": "Two frames made at the end of the usable light.",
+      "blurb_es": "Dos tomas hechas al final de la luz aprovechable."
+    },
+    {
+      "drive": "Lines of Milano", "slug": "lines-of-milano", "theme": "architecture", "expected": 14, "cover": 1,
+      "en": "Lines of Milano", "es": "Líneas de Milán",
+      "place_en": "Milan, Italy", "place_es": "Milán, Italia",
+      "blurb_en": "Milanese façades, arcades and rooflines, followed for their edges.",
+      "blurb_es": "Fachadas, galerías y siluetas milanesas, seguidas por sus aristas."
+    },
+    {
+      "drive": "Little Paris of Italy", "slug": "little-paris-of-italy", "theme": "travel", "expected": 8, "cover": 1,
+      "en": "The Little Paris of Italy", "es": "La pequeña París de Italia",
+      "place_en": "", "place_es": "",
+      "blurb_en": "Canals, balconies and shuttered windows in a town that earned the comparison.",
+      "blurb_es": "Canales, balcones y persianas en una ciudad que se ganó la comparación."
+    },
+    {
+      "drive": "Rural Rythms", "slug": "rural-rhythms", "theme": "landscape", "expected": 12, "cover": 1,
+      "en": "Rural Rhythms", "es": "Ritmos rurales",
+      "place_en": "", "place_es": "",
+      "blurb_en": "Repetition in open country — furrows, posts, rows and the intervals between them.",
+      "blurb_es": "Repetición en campo abierto: surcos, postes, hileras y los intervalos entre ellos."
+    },
+    {
+      "drive": "San Diego Skyline", "slug": "san-diego-skyline", "theme": "architecture", "expected": 1, "cover": 1,
+      "en": "San Diego Skyline", "es": "El skyline de San Diego",
+      "place_en": "San Diego, California, United States", "place_es": "San Diego, California, Estados Unidos",
+      "blurb_en": "The southern California waterfront read as a single horizontal.",
+      "blurb_es": "La costa del sur de California leída como una sola horizontal."
+    },
+    {
+      "drive": "Santiago de Compostela", "slug": "santiago-de-compostela", "theme": "travel", "expected": 8, "cover": 1,
+      "en": "Santiago de Compostela", "es": "Santiago de Compostela",
+      "place_en": "Santiago de Compostela, Spain", "place_es": "Santiago de Compostela, España",
+      "blurb_en": "Granite, rain and the architecture at the end of a thousand-year walk.",
+      "blurb_es": "Granito, lluvia y la arquitectura al final de una caminata de mil años."
+    },
+    {
+      "drive": "Shadows of autumn", "slug": "shadows-of-autumn", "theme": "landscape", "expected": 3, "cover": 1,
+      "en": "Shadows of Autumn", "es": "Sombras de otoño",
+      "place_en": "", "place_es": "",
+      "blurb_en": "Low sun, long shadows, and the short season that produces both.",
+      "blurb_es": "Sol bajo, sombras largas y la estación breve que produce las dos cosas."
+    },
+    {
+      "drive": "Sintra Portugal", "slug": "sintra-portugal", "theme": "travel", "expected": 15, "cover": 1,
+      "en": "Sintra, Portugal", "es": "Sintra, Portugal",
+      "place_en": "Sintra, Portugal", "place_es": "Sintra, Portugal",
+      "blurb_en": "Palaces, tilework and hillside forest above Lisbon.",
+      "blurb_es": "Palacios, azulejos y bosque de ladera sobre Lisboa."
+    },
+    {
+      "drive": "Street Corner", "slug": "street-corner", "theme": "street", "expected": 3, "cover": 1,
+      "en": "Street Corner", "es": "Esquina",
+      "place_en": "", "place_es": "",
+      "blurb_en": "One position held long enough for the corner to show what it does.",
+      "blurb_es": "Una posición sostenida el tiempo suficiente para que la esquina muestre lo que hace."
+    },
+    {
+      "drive": "The clearing", "slug": "clearing", "theme": "landscape", "expected": 1, "cover": 1,
+      "en": "The Clearing", "es": "El claro",
+      "place_en": "", "place_es": "",
+      "blurb_en": "A single frame: the opening the forest leaves for the light.",
+      "blurb_es": "Una sola toma: la abertura que el bosque le deja a la luz."
+    },
+    {
+      "drive": "The eternal and the ephemeral", "slug": "eternal-and-ephemeral", "theme": "architecture", "expected": 12, "cover": 1,
+      "en": "The Eternal and the Ephemeral", "es": "Lo eterno y lo efímero",
+      "place_en": "", "place_es": "",
+      "blurb_en": "Stone that will outlast us, photographed in light that lasted four minutes.",
+      "blurb_es": "Piedra que nos va a sobrevivir, fotografiada con una luz que duró cuatro minutos."
+    },
+    {
+      "drive": "The Tavern", "slug": "tavern", "theme": "street", "expected": 1, "cover": 1,
+      "en": "The Tavern", "es": "La taberna",
+      "place_en": "", "place_es": "",
+      "blurb_en": "A single frame from the warmest room on the street.",
+      "blurb_es": "Una sola toma desde la habitación más cálida de la calle."
+    },
+    {
+      "drive": "Under highlands skies", "slug": "under-highland-skies", "theme": "landscape", "expected": 9, "cover": 1,
+      "en": "Under Highland Skies", "es": "Bajo cielos de las Highlands",
+      "place_en": "", "place_es": "",
+      "blurb_en": "Ground kept low in the frame so the weather can have the rest of it.",
+      "blurb_es": "El suelo mantenido bajo en el cuadro para que el clima se quede con el resto."
+    },
+    {
+      "drive": "Where land meet silence", "slug": "where-land-meets-silence", "theme": "landscape", "expected": 8, "cover": 1,
+      "en": "Where Land Meets Silence", "es": "Donde la tierra encuentra el silencio",
+      "place_en": "", "place_es": "",
+      "blurb_en": "The line where cultivated ground gives up and open country takes over.",
+      "blurb_es": "La línea donde el terreno cultivado se rinde y empieza el campo abierto."
+    },
+    {
+      "drive": "Winter", "slug": "winter", "theme": "landscape", "expected": 9, "cover": 1,
+      "en": "Winter", "es": "Invierno",
+      "place_en": "", "place_es": "",
+      "blurb_en": "Snow as a subtractive tool: it removes detail until only structure is left.",
+      "blurb_es": "La nieve como herramienta de resta: quita detalle hasta que solo queda la estructura."
+    }
+  ]
+}

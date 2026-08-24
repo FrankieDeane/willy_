@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- ===== security =====
+     GitHub Pages cannot send response headers, so everything expressible as a
+     meta tag is set here; vercel.json and public/_headers carry the rest on
+     hosts that can. Policy is deny-by-default: 'none', then only what this
+     site genuinely uses is allowed back, and no external origin is allowed at
+     all. Fonts, styles and scripts are self-hosted, so injected markup has
+     nowhere to call out to. Trusted Types is on, which means no code path in
+     this site is allowed to assign a string to innerHTML.
+     See SECURITY.md. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'none'; base-uri 'none'; frame-src 'none'; object-src 'none'; media-src 'none'; worker-src 'none'; manifest-src 'self'; require-trusted-types-for 'script'; upgrade-insecure-requests" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+
+<!-- ===== identity ===== -->
+<title>Ritmos rurales — Copias de arte fotográfico | Guillermo Bernaldo de Quirós</title>
+<meta name="description" content="Repetición en campo abierto: surcos, postes, hileras y los intervalos entre ellos. 12 fotografías. Copias de edición limitada firmadas." />
+<meta name="author" content="Guillermo Bernaldo de Quirós" />
+<link rel="canonical" href="https://frankiedeane.github.io/willy_/es/albums/rural-rhythms.html" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+<!-- ===== languages =====
+     Separate URLs per language rather than a JavaScript toggle: this is what
+     lets Google serve the English pages to the United States, Canada and the
+     UK and the Spanish ones to Spain and Latin America, instead of picking
+     one and indexing half the site. -->
+<link rel="alternate" hreflang="en" href="https://frankiedeane.github.io/willy_/albums/rural-rhythms.html" />
+<link rel="alternate" hreflang="es" href="https://frankiedeane.github.io/willy_/es/albums/rural-rhythms.html" />
+<link rel="alternate" hreflang="x-default" href="https://frankiedeane.github.io/willy_/albums/rural-rhythms.html" />
+
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d0d0d" />
+
+<!-- ===== sharing =====
+     Most of this site's discovery is image search, so max-image-preview:large
+     above and a real og:image matter more here than on an ordinary site. -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Guillermo Bernaldo de Quirós" />
+<meta property="og:title" content="Ritmos rurales — Copias de arte fotográfico | Guillermo Bernaldo de Quirós" />
+<meta property="og:description" content="Repetición en campo abierto: surcos, postes, hileras y los intervalos entre ellos. 12 fotografías. Copias de edición limitada firmadas." />
+<meta property="og:url" content="https://frankiedeane.github.io/willy_/es/albums/rural-rhythms.html" />
+<meta property="og:locale" content="es_ES" />
+<meta property="og:locale:alternate" content="en_US" />
+<meta property="og:image" content="https://frankiedeane.github.io/willy_/assets/img/rural-rhythms-gbq-1.jpg" />
+<meta property="og:image:alt" content="Ritmos rurales — Copias de arte fotográfico | Guillermo Bernaldo de Quirós" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Ritmos rurales — Copias de arte fotográfico | Guillermo Bernaldo de Quirós" />
+<meta name="twitter:description" content="Repetición en campo abierto: surcos, postes, hileras y los intervalos entre ellos. 12 fotografías. Copias de edición limitada firmadas." />
+<meta name="twitter:image" content="https://frankiedeane.github.io/willy_/assets/img/rural-rhythms-gbq-1.jpg" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230d0d0d%22/><rect x=%2230%22 y=%2222%22 width=%2240%22 height=%2256%22 fill=%22none%22 stroke=%22%23fff%22 stroke-width=%226%22/></svg>" />
+
+<link rel="preload" href="../../assets/fonts/jost-300-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="../../assets/css/fonts.css" />
+<link rel="stylesheet" href="../../assets/css/style.css" />
+<script src="../../assets/js/boot.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://frankiedeane.github.io/willy_/#person",
+      "name": "Guillermo Bernaldo de Quirós",
+      "jobTitle": [
+        "Photographer",
+        "Behavioral Neurologist"
+      ],
+      "url": "https://frankiedeane.github.io/willy_/",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Buenos Aires",
+        "addressCountry": "AR"
+      },
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Harvard University"
+      },
+      "worksFor": {
+        "@type": "MedicalOrganization",
+        "name": "CEMIC"
+      },
+      "knowsAbout": [
+        "Fine art photography",
+        "Architectural photography",
+        "Landscape photography",
+        "Behavioral neurology"
+      ],
+      "sameAs": [
+        "https://www.behance.net/guillerbernald"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://frankiedeane.github.io/willy_/#website",
+      "url": "https://frankiedeane.github.io/willy_/",
+      "name": "Guillermo Bernaldo de Quirós — Photography",
+      "inLanguage": [
+        "en",
+        "es"
+      ],
+      "author": {
+        "@id": "https://frankiedeane.github.io/willy_/#person"
+      },
+      "copyrightHolder": {
+        "@id": "https://frankiedeane.github.io/willy_/#person"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "INICIO",
+          "item": "https://frankiedeane.github.io/willy_/es/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "PORTFOLIO",
+          "item": "https://frankiedeane.github.io/willy_/es/work.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Ritmos rurales",
+          "item": "https://frankiedeane.github.io/willy_/es/albums/rural-rhythms.html"
+        }
+      ]
+    },
+    {
+      "@type": "ImageGallery",
+      "@id": "https://frankiedeane.github.io/willy_/es/albums/rural-rhythms.html#gallery",
+      "url": "https://frankiedeane.github.io/willy_/es/albums/rural-rhythms.html",
+      "name": "Ritmos rurales",
+      "description": "Repetición en campo abierto: surcos, postes, hileras y los intervalos entre ellos.",
+      "inLanguage": "es",
+      "author": {
+        "@id": "https://frankiedeane.github.io/willy_/#person"
+      },
+      "copyrightHolder": {
+        "@id": "https://frankiedeane.github.io/willy_/#person"
+      },
+      "associatedMedia": [
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://frankiedeane.github.io/willy_/assets/img/rural-rhythms-gbq-1.jpg",
+          "thumbnailUrl": "https://frankiedeane.github.io/willy_/assets/img/w480/rural-rhythms-gbq-1.jpg",
+          "name": "Ritmos rurales № 1",
+          "creator": {
+            "@id": "https://frankiedeane.github.io/willy_/#person"
+          },
+          "copyrightNotice": "© 2026 Guillermo Bernaldo de Quirós",
+          "creditText": "Guillermo Bernaldo de Quirós",
+          "acquireLicensePage": "https://frankiedeane.github.io/willy_/es/prints.html",
+          "license": "https://frankiedeane.github.io/willy_/es/prints.html"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://frankiedeane.github.io/willy_/assets/img/rural-rhythms-gbq-2.jpg",
+          "thumbnailUrl": "https://frankiedeane.github.io/willy_/assets/img/w480/rural-rhythms-gbq-2.jpg",
+          "name": "Ritmos rurales № 2",
+          "creator": {
+            "@id": "https://frankiedeane.github.io/willy_/#person"
+          },
+          "copyrightNotice": "© 2026 Guillermo Bernaldo de Quirós",
+          "creditText": "Guillermo Bernaldo de Quirós",
+          "acquireLicensePage": "https://frankiedeane.github.io/willy_/es/prints.html",
+          "license": "https://frankiedeane.github.io/willy_/es/prints.html"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://frankiedeane.github.io/willy_/assets/img/rural-rhythms-gbq-3.jpg",
+          "thumbnailUrl": "https://frankiedeane.github.io/willy_/assets/img/w480/rural-rhythms-gbq-3.jpg",
+          "name": "Ritmos rurales № 3",
+          "creator": {
+            "@id": "https://frankiedeane.github.io/willy_/#person"
+          },
+          "copyrightNotice": "© 2026 Guillermo Bernaldo de Quirós",
+          "creditText": "Guillermo Bernaldo de Quirós",
+          "acquireLicensePage": "https://frankiedeane.github.io/willy_/es/prints.html",
+          "license": "https://frankiedeane.github.io/willy_/es/prints.html"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://frankiedeane.github.io/willy_/assets/img/rural-rhythms-gbq-4.jpg",
+          "thumbnailUrl": "https://frankiedeane.github.io/willy_/assets/img/w480/rural-rhythms-gbq-4.jpg",
+          "name": "Ritmos rurales № 4",
+          "creator": {
+            "@id": "https://frankiedeane.github.io/willy_/#person"
+          },
+          "copyrightNotice": "© 2026 Guillermo Bernaldo de Quirós",
+          "creditText": "Guillermo Bernaldo de Quirós",
+          "acquireLicensePage": "https://frankiedeane.github.io/willy_/es/prints.html",
+          "license": "https://frankiedeane.github.io/willy_/es/prints.html"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://frankiedeane.github.io/willy_/assets/img/rural-rhythms-gbq-5.jpg",
+          "thumbnailUrl": "https://frankiedeane.github.io/willy_/assets/img/w480/rural-rhythms-gbq-5.jpg",
+          "name": "Ritmos rurales № 5",
+          "creator": {
+            "@id": "https://frankiedeane.github.io/willy_/#person"
+          },
+          "copyrightNotice": "© 2026 Guillermo Bernaldo de Quirós",
+          "creditText": "Guillermo Bernaldo de Quirós",
+          "acquireLicensePage": "https://frankiedeane.github.io/willy_/es/prints.html",
+          "license": "https://frankiedeane.github.io/willy_/es/prints.html"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://frankiedeane.github.io/willy_/assets/img/rural-rhythms-gbq-6.jpg",
+          "thumbnailUrl": "https://frankiedeane.github.io/willy_/assets/img/w480/rural-rhythms-gbq-6.jpg",
+          "name": "Ritmos rurales № 6",
+          "creator": {
+            "@id": "https://frankiedeane.github.io/willy_/#person"
+          },
+          "copyrightNotice": "© 2026 Guillermo Bernaldo de Quirós",
+          "creditText": "Guillermo Bernaldo de Quirós",
+          "acquireLicensePage": "https://frankiedeane.github.io/willy_/es/prints.html",
+          "license": "https://frankiedeane.github.io/willy_/es/prints.html"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://frankiedeane.github.io/willy_/assets/img/rural-rhythms-gbq-7.jpg",
+          "thumbnailUrl": "https://frankiedeane.github.io/willy_/assets/img/w480/rural-rhythms-gbq-7.jpg",
+          "name": "Ritmos rurales № 7",
+          "creator": {
+            "@id": "https://frankiedeane.github.io/willy_/#person"
+          },
+          "copyrightNotice": "© 2026 Guillermo Bernaldo de Quirós",
+          "creditText": "Guillermo Bernaldo de Quirós",
+          "acquireLicensePage": "https://frankiedeane.github.io/willy_/es/prints.html",
+          "license": "https://frankiedeane.github.io/willy_/es/prints.html"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://frankiedeane.github.io/willy_/assets/img/rural-rhythms-gbq-8.jpg",
+          "thumbnailUrl": "https://frankiedeane.github.io/willy_/assets/img/w480/rural-rhythms-gbq-8.jpg",
+          "name": "Ritmos rurales № 8",
+          "creator": {
+            "@id": "https://frankiedeane.github.io/willy_/#person"
+          },
+          "copyrightNotice": "© 2026 Guillermo Bernaldo de Quirós",
+          "creditText": "Guillermo Bernaldo de Quirós",
+          "acquireLicensePage": "https://frankiedeane.github.io/willy_/es/prints.html",
+          "license": "https://frankiedeane.github.io/willy_/es/prints.html"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://frankiedeane.github.io/willy_/assets/img/rural-rhythms-gbq-9.jpg",
+          "thumbnailUrl": "https://frankiedeane.github.io/willy_/assets/img/w480/rural-rhythms-gbq-9.jpg",
+          "name": "Ritmos rurales № 9",
+          "creator": {
+            "@id": "https://frankiedeane.github.io/willy_/#person"
+          },
+          "copyrightNotice": "© 2026 Guillermo Bernaldo de Quirós",
+          "creditText": "Guillermo Bernaldo de Quirós",
+          "acquireLicensePage": "https://frankiedeane.github.io/willy_/es/prints.html",
+          "license": "https://frankiedeane.github.io/willy_/es/prints.html"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://frankiedeane.github.io/willy_/assets/img/rural-rhythms-gbq-10.jpg",
+          "thumbnailUrl": "https://frankiedeane.github.io/willy_/assets/img/w480/rural-rhythms-gbq-10.jpg",
+          "name": "Ritmos rurales № 10",
+          "creator": {
+            "@id": "https://frankiedeane.github.io/willy_/#person"
+          },
+          "copyrightNotice": "© 2026 Guillermo Bernaldo de Quirós",
+          "creditText": "Guillermo Bernaldo de Quirós",
+          "acquireLicensePage": "https://frankiedeane.github.io/willy_/es/prints.html",
+          "license": "https://frankiedeane.github.io/willy_/es/prints.html"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://frankiedeane.github.io/willy_/assets/img/rural-rhythms-gbq-11.jpg",
+          "thumbnailUrl": "https://frankiedeane.github.io/willy_/assets/img/w480/rural-rhythms-gbq-11.jpg",
+          "name": "Ritmos rurales № 11",
+          "creator": {
+            "@id": "https://frankiedeane.github.io/willy_/#person"
+          },
+          "copyrightNotice": "© 2026 Guillermo Bernaldo de Quirós",
+          "creditText": "Guillermo Bernaldo de Quirós",
+          "acquireLicensePage": "https://frankiedeane.github.io/willy_/es/prints.html",
+          "license": "https://frankiedeane.github.io/willy_/es/prints.html"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://frankiedeane.github.io/willy_/assets/img/rural-rhythms-gbq-12.jpg",
+          "thumbnailUrl": "https://frankiedeane.github.io/willy_/assets/img/w480/rural-rhythms-gbq-12.jpg",
+          "name": "Ritmos rurales № 12",
+          "creator": {
+            "@id": "https://frankiedeane.github.io/willy_/#person"
+          },
+          "copyrightNotice": "© 2026 Guillermo Bernaldo de Quirós",
+          "creditText": "Guillermo Bernaldo de Quirós",
+          "acquireLicensePage": "https://frankiedeane.github.io/willy_/es/prints.html",
+          "license": "https://frankiedeane.github.io/willy_/es/prints.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body data-page="album" data-album="rural-rhythms" data-lang="es" data-base="../../">
+
+<a href="#content" class="skip-link">Ir al contenido</a>
+
+<!-- ===== FIXED CHROME ===== -->
+<a href="../index.html" class="wordmark">
+  <span class="wordmark-name"><i>GUILLERMO</i><b>BERNALDO DE QUIRÓS</b></span>
+  <span class="wordmark-sub">FOTOGRAFÍA</span>
+</a>
+
+<div class="chrome-right">
+  <a class="sel-badge" id="selBadge" href="../selection.html" hidden>
+    <span class="sel-badge-n" id="selBadgeN">0</span>
+    <span class="sr-only">ARMÁ TU SELECCIÓN</span>
+  </a>
+  <button class="burger" id="burger" aria-label="Abrir menú"
+          data-open="Abrir menú" data-close="Cerrar menú"
+          aria-expanded="false" aria-controls="menu">
+    <span></span><span></span>
+  </button>
+</div>
+
+<footer class="rail">
+  <a href="https://www.behance.net/guillerbernald" target="_blank" rel="noopener noreferrer">BEHANCE</a>
+</footer>
+
+<!-- ===== MENU OVERLAY ===== -->
+<nav class="menu" id="menu" aria-hidden="true" aria-label="Principal">
+  <ul>
+    <li><a href="../index.html">INICIO</a></li>
+    <li><a href="../work.html">PORTFOLIO</a></li>
+    <li><a href="../prints.html">COPIAS DE ARTE</a></li>
+    <li><a href="../selection.html">ARMÁ TU SELECCIÓN</a></li>
+    <li><a href="../about.html">QUIÉN ES</a></li>
+    <li><a href="../contact.html">CONTACTO</a></li>
+  </ul>
+  <div class="menu-controls">
+    <a class="lang-link" href="../../albums/rural-rhythms.html" hreflang="en" rel="alternate">English</a>
+    <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="false">
+      <span class="theme-icon" aria-hidden="true"></span>
+      <span class="sr-only">Cambiar tema</span>
+    </button>
+  </div>
+  <p class="menu-copy">© 2026 Guillermo Bernaldo de Quirós</p>
+</nav>
+
+<main id="content" class="page-doc">
+  <a class="back-link" href="../work.html"><span aria-hidden="true">←</span> TODAS LAS SERIES</a>
+
+  <header class="page-head">
+    <h1>Ritmos rurales</h1>
+    <span class="rule"></span>
+    <div class="page-lede">
+      <p>Repetición en campo abierto: surcos, postes, hileras y los intervalos entre ellos.</p>
+      
+    </div>
+  </header>
+
+  <div class="grid">
+      <figure class="shot no-dims" data-file="rural-rhythms-gbq-1.jpg" data-album="rural-rhythms">
+        <img src="../../assets/img/w960/rural-rhythms-gbq-1.jpg"
+             srcset="../../assets/img/w480/rural-rhythms-gbq-1.jpg 480w, ../../assets/img/w960/rural-rhythms-gbq-1.jpg 960w, ../../assets/img/rural-rhythms-gbq-1.jpg 1600w"
+             sizes="(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw"
+             alt="Ritmos rurales — Guillermo Bernaldo de Quirós" loading="eager" decoding="async" draggable="false" />
+        <figcaption class="shot-cap">Ritmos rurales № 1</figcaption>
+        <button type="button" class="shot-add" data-file="rural-rhythms-gbq-1.jpg" data-album="rural-rhythms"
+                aria-label="Sumar a la selección — Ritmos rurales № 1"><span aria-hidden="true">✛</span></button>
+      </figure>
+      <figure class="shot no-dims" data-file="rural-rhythms-gbq-2.jpg" data-album="rural-rhythms">
+        <img src="../../assets/img/w960/rural-rhythms-gbq-2.jpg"
+             srcset="../../assets/img/w480/rural-rhythms-gbq-2.jpg 480w, ../../assets/img/w960/rural-rhythms-gbq-2.jpg 960w, ../../assets/img/rural-rhythms-gbq-2.jpg 1600w"
+             sizes="(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw"
+             alt="Ritmos rurales — Guillermo Bernaldo de Quirós" loading="eager" decoding="async" draggable="false" />
+        <figcaption class="shot-cap">Ritmos rurales № 2</figcaption>
+        <button type="button" class="shot-add" data-file="rural-rhythms-gbq-2.jpg" data-album="rural-rhythms"
+                aria-label="Sumar a la selección — Ritmos rurales № 2"><span aria-hidden="true">✛</span></button>
+      </figure>
+      <figure class="shot no-dims" data-file="rural-rhythms-gbq-3.jpg" data-album="rural-rhythms">
+        <img src="../../assets/img/w960/rural-rhythms-gbq-3.jpg"
+             srcset="../../assets/img/w480/rural-rhythms-gbq-3.jpg 480w, ../../assets/img/w960/rural-rhythms-gbq-3.jpg 960w, ../../assets/img/rural-rhythms-gbq-3.jpg 1600w"
+             sizes="(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw"
+             alt="Ritmos rurales — Guillermo Bernaldo de Quirós" loading="eager" decoding="async" draggable="false" />
+        <figcaption class="shot-cap">Ritmos rurales № 3</figcaption>
+        <button type="button" class="shot-add" data-file="rural-rhythms-gbq-3.jpg" data-album="rural-rhythms"
+                aria-label="Sumar a la selección — Ritmos rurales № 3"><span aria-hidden="true">✛</span></button>
+      </figure>
+      <figure class="shot no-dims" data-file="rural-rhythms-gbq-4.jpg" data-album="rural-rhythms">
+        <img src="../../assets/img/w960/rural-rhythms-gbq-4.jpg"
+             srcset="../../assets/img/w480/rural-rhythms-gbq-4.jpg 480w, ../../assets/img/w960/rural-rhythms-gbq-4.jpg 960w, ../../assets/img/rural-rhythms-gbq-4.jpg 1600w"
+             sizes="(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw"
+             alt="Ritmos rurales — Guillermo Bernaldo de Quirós" loading="lazy" decoding="async" draggable="false" />
+        <figcaption class="shot-cap">Ritmos rurales № 4</figcaption>
+        <button type="button" class="shot-add" data-file="rural-rhythms-gbq-4.jpg" data-album="rural-rhythms"
+                aria-label="Sumar a la selección — Ritmos rurales № 4"><span aria-hidden="true">✛</span></button>
+      </figure>
+      <figure class="shot no-dims" data-file="rural-rhythms-gbq-5.jpg" data-album="rural-rhythms">
+        <img src="../../assets/img/w960/rural-rhythms-gbq-5.jpg"
+             srcset="../../assets/img/w480/rural-rhythms-gbq-5.jpg 480w, ../../assets/img/w960/rural-rhythms-gbq-5.jpg 960w, ../../assets/img/rural-rhythms-gbq-5.jpg 1600w"
+             sizes="(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw"
+             alt="Ritmos rurales — Guillermo Bernaldo de Quirós" loading="lazy" decoding="async" draggable="false" />
+        <figcaption class="shot-cap">Ritmos rurales № 5</figcaption>
+        <button type="button" class="shot-add" data-file="rural-rhythms-gbq-5.jpg" data-album="rural-rhythms"
+                aria-label="Sumar a la selección — Ritmos rurales № 5"><span aria-hidden="true">✛</span></button>
+      </figure>
+      <figure class="shot no-dims" data-file="rural-rhythms-gbq-6.jpg" data-album="rural-rhythms">
+        <img src="../../assets/img/w960/rural-rhythms-gbq-6.jpg"
+             srcset="../../assets/img/w480/rural-rhythms-gbq-6.jpg 480w, ../../assets/img/w960/rural-rhythms-gbq-6.jpg 960w, ../../assets/img/rural-rhythms-gbq-6.jpg 1600w"
+             sizes="(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw"
+             alt="Ritmos rurales — Guillermo Bernaldo de Quirós" loading="lazy" decoding="async" draggable="false" />
+        <figcaption class="shot-cap">Ritmos rurales № 6</figcaption>
+        <button type="button" class="shot-add" data-file="rural-rhythms-gbq-6.jpg" data-album="rural-rhythms"
+                aria-label="Sumar a la selección — Ritmos rurales № 6"><span aria-hidden="true">✛</span></button>
+      </figure>
+      <figure class="shot no-dims" data-file="rural-rhythms-gbq-7.jpg" data-album="rural-rhythms">
+        <img src="../../assets/img/w960/rural-rhythms-gbq-7.jpg"
+             srcset="../../assets/img/w480/rural-rhythms-gbq-7.jpg 480w, ../../assets/img/w960/rural-rhythms-gbq-7.jpg 960w, ../../assets/img/rural-rhythms-gbq-7.jpg 1600w"
+             sizes="(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw"
+             alt="Ritmos rurales — Guillermo Bernaldo de Quirós" loading="lazy" decoding="async" draggable="false" />
+        <figcaption class="shot-cap">Ritmos rurales № 7</figcaption>
+        <button type="button" class="shot-add" data-file="rural-rhythms-gbq-7.jpg" data-album="rural-rhythms"
+                aria-label="Sumar a la selección — Ritmos rurales № 7"><span aria-hidden="true">✛</span></button>
+      </figure>
+      <figure class="shot no-dims" data-file="rural-rhythms-gbq-8.jpg" data-album="rural-rhythms">
+        <img src="../../assets/img/w960/rural-rhythms-gbq-8.jpg"
+             srcset="../../assets/img/w480/rural-rhythms-gbq-8.jpg 480w, ../../assets/img/w960/rural-rhythms-gbq-8.jpg 960w, ../../assets/img/rural-rhythms-gbq-8.jpg 1600w"
+             sizes="(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw"
+             alt="Ritmos rurales — Guillermo Bernaldo de Quirós" loading="lazy" decoding="async" draggable="false" />
+        <figcaption class="shot-cap">Ritmos rurales № 8</figcaption>
+        <button type="button" class="shot-add" data-file="rural-rhythms-gbq-8.jpg" data-album="rural-rhythms"
+                aria-label="Sumar a la selección — Ritmos rurales № 8"><span aria-hidden="true">✛</span></button>
+      </figure>
+      <figure class="shot no-dims" data-file="rural-rhythms-gbq-9.jpg" data-album="rural-rhythms">
+        <img src="../../assets/img/w960/rural-rhythms-gbq-9.jpg"
+             srcset="../../assets/img/w480/rural-rhythms-gbq-9.jpg 480w, ../../assets/img/w960/rural-rhythms-gbq-9.jpg 960w, ../../assets/img/rural-rhythms-gbq-9.jpg 1600w"
+             sizes="(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw"
+             alt="Ritmos rurales — Guillermo Bernaldo de Quirós" loading="lazy" decoding="async" draggable="false" />
+        <figcaption class="shot-cap">Ritmos rurales № 9</figcaption>
+        <button type="button" class="shot-add" data-file="rural-rhythms-gbq-9.jpg" data-album="rural-rhythms"
+                aria-label="Sumar a la selección — Ritmos rurales № 9"><span aria-hidden="true">✛</span></button>
+      </figure>
+      <figure class="shot no-dims" data-file="rural-rhythms-gbq-10.jpg" data-album="rural-rhythms">
+        <img src="../../assets/img/w960/rural-rhythms-gbq-10.jpg"
+             srcset="../../assets/img/w480/rural-rhythms-gbq-10.jpg 480w, ../../assets/img/w960/rural-rhythms-gbq-10.jpg 960w, ../../assets/img/rural-rhythms-gbq-10.jpg 1600w"
+             sizes="(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw"
+             alt="Ritmos rurales — Guillermo Bernaldo de Quirós" loading="lazy" decoding="async" draggable="false" />
+        <figcaption class="shot-cap">Ritmos rurales № 10</figcaption>
+        <button type="button" class="shot-add" data-file="rural-rhythms-gbq-10.jpg" data-album="rural-rhythms"
+                aria-label="Sumar a la selección — Ritmos rurales № 10"><span aria-hidden="true">✛</span></button>
+      </figure>
+      <figure class="shot no-dims" data-file="rural-rhythms-gbq-11.jpg" data-album="rural-rhythms">
+        <img src="../../assets/img/w960/rural-rhythms-gbq-11.jpg"
+             srcset="../../assets/img/w480/rural-rhythms-gbq-11.jpg 480w, ../../assets/img/w960/rural-rhythms-gbq-11.jpg 960w, ../../assets/img/rural-rhythms-gbq-11.jpg 1600w"
+             sizes="(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw"
+             alt="Ritmos rurales — Guillermo Bernaldo de Quirós" loading="lazy" decoding="async" draggable="false" />
+        <figcaption class="shot-cap">Ritmos rurales № 11</figcaption>
+        <button type="button" class="shot-add" data-file="rural-rhythms-gbq-11.jpg" data-album="rural-rhythms"
+                aria-label="Sumar a la selección — Ritmos rurales № 11"><span aria-hidden="true">✛</span></button>
+      </figure>
+      <figure class="shot no-dims" data-file="rural-rhythms-gbq-12.jpg" data-album="rural-rhythms">
+        <img src="../../assets/img/w960/rural-rhythms-gbq-12.jpg"
+             srcset="../../assets/img/w480/rural-rhythms-gbq-12.jpg 480w, ../../assets/img/w960/rural-rhythms-gbq-12.jpg 960w, ../../assets/img/rural-rhythms-gbq-12.jpg 1600w"
+             sizes="(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw"
+             alt="Ritmos rurales — Guillermo Bernaldo de Quirós" loading="lazy" decoding="async" draggable="false" />
+        <figcaption class="shot-cap">Ritmos rurales № 12</figcaption>
+        <button type="button" class="shot-add" data-file="rural-rhythms-gbq-12.jpg" data-album="rural-rhythms"
+                aria-label="Sumar a la selección — Ritmos rurales № 12"><span aria-hidden="true">✛</span></button>
+      </figure>
+  </div>
+
+  <p class="album-cta">Cualquier fotografía de esta serie se imprime y se firma por encargo. <a href="../selection.html">Sumala a tu selección</a>.</p>
+
+  <nav class="album-nav" aria-label="PORTFOLIO">
+    <a class="album-nav-prev" href="../albums/little-paris-of-italy.html"><span aria-hidden="true">←</span> <span>SERIE ANTERIOR<b>La pequeña París de Italia</b></span></a>
+    <a class="album-nav-next" href="../albums/san-diego-skyline.html"><span>SERIE SIGUIENTE<b>El skyline de San Diego</b></span> <span aria-hidden="true">→</span></a>
+  </nav>
+</main>
+
+<!-- ===== LIGHTBOX ===== -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+  <button class="lb-close" id="lbClose" aria-label="Cerrar"><span aria-hidden="true">✕</span></button>
+  <figure class="lb-stage">
+    <div class="lb-frame" id="lbFrame">
+      <button class="lb-nav lb-prev" id="lbPrev" aria-label="Anterior"><span aria-hidden="true">‹</span></button>
+      <button class="lb-nav lb-next" id="lbNext" aria-label="Siguiente"><span aria-hidden="true">›</span></button>
+      <img id="lbImage" alt="" draggable="false" />
+      <div class="lb-shield" aria-hidden="true"></div>
+      <div class="lb-watermark" aria-hidden="true"><span>GBQ</span><span>GBQ</span><span>GBQ</span></div>
+    </div>
+    <figcaption class="lb-meta">
+      <h2 id="lbTitle"></h2>
+      <p id="lbPlace"></p>
+      <dl class="lb-spec">
+        <div><dt>Papel</dt><dd>Algodón, tinta de pigmento</dd></div>
+      </dl>
+      <button type="button" class="btn lb-cta" id="lbAdd">Sumar a la selección</button>
+      <p class="lb-protect">Resolución de previsualización. Sin licencia para descarga ni reproducción.</p>
+    </figcaption>
+  </figure>
+</div>
+
+<footer class="site-foot">
+  <p>© 2026 Guillermo Bernaldo de Quirós. Todas las fotografías © Guillermo Bernaldo de Quirós. Todos los derechos reservados.</p>
+</footer>
+
+<script src="../../assets/js/catalog.js"></script>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

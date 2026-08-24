@@ -1,11 +1,22 @@
-# Keeps the deploy workflow's actions current. Pinned major tags still receive
-# breaking changes upstream, so this is what stops the CI supply chain going
-# stale unnoticed.
+# Two supply chains reach this project, and both are watched here.
+#
+# A pinned major tag (@v7) still receives breaking — and compromised — changes
+# upstream, and tools/package-lock.json pins sharp's whole dependency tree by
+# integrity hash but only until one of them has a published vulnerability.
+# Dependabot is what stops either going stale unnoticed.
 version: 2
 updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: monthly
+      interval: weekly
     commit-message:
       prefix: "ci"
+
+  - package-ecosystem: npm
+    directory: /tools
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: "deps"
+    open-pull-requests-limit: 5

@@ -1,0 +1,3 @@
+# Processed photographs land here as <slug>-gbq-<n>.jpg, plus w960/ and
+# w480/. See README, "Cargar las fotos". Kept in git so the directory exists
+# in a fresh clone before any photograph has been added.

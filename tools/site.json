@@ -1,0 +1,34 @@
+{
+  "_readme": [
+    "Configuración del sitio. / Site configuration.",
+    "",
+    "  origin   dominio público, SIN barra final. Cambiarlo si se pasa a dominio propio.",
+    "  base     subcarpeta en la que vive el sitio. GitHub Pages de proyecto = /willy_",
+    "           Dominio propio o Vercel/Netlify en la raíz = \"\" (cadena vacía).",
+    "  email    dirección de reserva para el mailto:. Solo se usa cuando",
+    "           /api/enquiry no responde — en GitHub Pages, o mientras no estén",
+    "           cargadas las variables de entorno en Vercel. Una vez que el envío",
+    "           real funcione se puede dejar vacía: el servidor ya sabe a dónde",
+    "           mandar, y así la dirección deja de viajar al navegador.",
+    "",
+    "Los precios se dejan deliberadamente vacíos: se cotizan por consulta.",
+    "Prices are deliberately left empty: they are quoted on request."
+  ],
+  "origin": "https://frankiedeane.github.io",
+  "base": "/willy_",
+  "email": "gbernaldodequiros@yahoo.com",
+  "cover": "edinburgh",
+  "behance": "https://www.behance.net/guillerbernald",
+  "instagram": "",
+  "locality": "Buenos Aires",
+  "country": "AR",
+  "sizes": [
+    { "id": "65x100",  "label": "65 × 100 cm",  "inches": "26 × 39 in" },
+    { "id": "111x165", "label": "111 × 165 cm", "inches": "44 × 65 in" },
+    { "id": "150x240", "label": "150 × 240 cm", "inches": "59 × 94 in" }
+  ],
+  "papers": [
+    { "id": "cotton", "en": "Smooth cotton rag", "es": "Algodón liso" },
+    { "id": "baryta", "en": "Baryta fibre",      "es": "Fibra baritada" }
+  ]
+}

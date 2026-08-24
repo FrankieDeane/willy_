@@ -1,387 +1,105 @@
-/* ============================================================
-   Guillermo Bernaldo de Quirós
-   Hash router, overlay menu, galleries, lightbox, i18n, theme.
-   ============================================================ */
+/* ============================================================================
+   Guillermo Bernaldo de Quirós — site behaviour
+   Menu, theme, home carousel, lightbox, and the print selection.
+
+   Two rules hold everywhere in this file:
+
+   1. No innerHTML, ever. Every node is built with createElement and every
+      piece of text goes in through textContent. That is what lets the pages
+      ship `require-trusted-types-for 'script'` in their CSP: the browser
+      refuses any string-to-markup assignment, so an injected title or a
+      tampered localStorage value cannot become an element.
+
+   2. Nothing leaves the browser. There is no fetch, no analytics, no cookie
+      and no API key — an enquiry is composed locally and handed to the
+      visitor's own mail client. There is no token here to steal because the
+      site never holds one.
+   ========================================================================== */
 (function () {
   'use strict';
 
   var root = document.documentElement;
   var body = document.body;
+  var PAGE = body.getAttribute('data-page');
+  var LANG = body.getAttribute('data-lang') === 'es' ? 'es' : 'en';
+  var BASE = body.getAttribute('data-base') || '';
+  var CAT  = (window.__CATALOG__ && window.__CATALOG__.albums) || [];
 
-  /* Gallery images are created in JS, so a single-file bundle cannot rewrite
-     their paths the way it rewrites the markup. When a bundle supplies an
-     inlined asset map, resolve through it; otherwise use the normal path. */
-  function asset(file) {
-    return (window.__ASSETS__ && window.__ASSETS__[file]) || 'assets/img/' + file;
+  var BY_SLUG = {};
+  CAT.forEach(function (a) { BY_SLUG[a.slug] = a; });
+
+  function t(k) { return (STR[LANG] && STR[LANG][k]) || STR.en[k] || k; }
+  function title(a) { return a[LANG] || a.en; }
+  function place(a) { return a['place_' + LANG] || ''; }
+  function asset(size, file) { return BASE + 'assets/img/' + (size ? size + '/' : '') + file; }
+
+  /* Strings the markup cannot carry because they are only ever produced at
+     runtime. Everything else lives in the generated HTML. */
+  var STR = {
+    en: {
+      pause: 'PAUSE', play: 'PLAY', of: 'of', remove: 'Remove',
+      add: 'Add to selection', added: 'In your selection',
+      one: 'photograph selected', many: 'photographs selected',
+      hang1: 'A single photograph: one wall, one statement.',
+      hang2: 'A diptych: two frames, hung with a 6–8 cm gap, read as one work.',
+      hang3: 'A triptych: the classic set, and the most requested.',
+      hang5: 'A series of five or more: a wall, priced as a set.',
+      sending: 'Sending…',
+      failed: 'That did not go through. Use “Copy as text” and send it by email instead — nothing you typed is lost.',
+      copied: 'Copied — paste it into an email.',
+      copyfail: 'Could not copy. Select the text and copy it by hand.',
+      sent: 'Your email client should now be open with the selection filled in. If nothing happened, use “Copy as text”.',
+      invalid: 'Please add your name and a valid email address.',
+      ok: 'Thank you — your enquiry is on its way. I read every one myself and reply within a couple of days.',
+      subject: 'Print enquiry', greeting: 'Selection', spec: 'Printed as',
+      from: 'From', country: 'Country', note: 'Note'
+    },
+    es: {
+      pause: 'PAUSA', play: 'VER', of: 'de', remove: 'Quitar',
+      add: 'Sumar a la selección', added: 'En tu selección',
+      one: 'fotografía seleccionada', many: 'fotografías seleccionadas',
+      hang1: 'Una sola fotografía: una pared, una afirmación.',
+      hang2: 'Díptico: dos cuadros, con 6 a 8 cm de separación, se leen como una obra.',
+      hang3: 'Tríptico: el conjunto clásico, y el más pedido.',
+      hang5: 'Serie de cinco o más: una pared entera, cotizada como conjunto.',
+      sending: 'Enviando…',
+      failed: 'No se pudo enviar. Usá «Copiar como texto» y mandala por mail — no se perdió nada de lo que escribiste.',
+      copied: 'Copiado — pegalo en un mail.',
+      copyfail: 'No se pudo copiar. Seleccioná el texto y copialo a mano.',
+      sent: 'Se debería haber abierto tu cliente de correo con la selección cargada. Si no pasó nada, usá «Copiar como texto».',
+      invalid: 'Agregá tu nombre y un email válido, por favor.',
+      ok: 'Gracias — tu consulta ya salió. Las leo yo y respondo en un par de días.',
+      subject: 'Consulta por copias', greeting: 'Selección', spec: 'Impresa como',
+      from: 'De', country: 'País', note: 'Nota'
+    }
+  };
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
   }
 
-  /* While the image folder is being filled, a missing file shows a labelled
-     placeholder naming the file it expects, instead of a broken-image icon. */
+  /* ------------------------------------------------------------ missing art
+     Until a photograph is committed, show a labelled box naming the exact
+     file the page is waiting for, instead of a broken-image icon. */
   function watchMissing(img, file) {
     function flag() {
-      var host = img.closest('.shot, .slide, .about-portrait');
+      var host = img.closest('.shot, .slide, .card-img, .about-portrait, .sel-item');
       if (host) { host.classList.add('is-missing'); host.setAttribute('data-missing', file); }
     }
     if (img.complete && img.naturalWidth === 0) flag();
     img.addEventListener('error', flag);
   }
-
-  /* ---------------- catalogue ----------------
-     One record per photograph. Galleries are built from this, so adding work
-     means adding a row here — no markup to touch. Swap `src` for Guillermo's
-     real files and keep the rest. */
-  var WORKS = [
-    // Titles are descriptive placeholders — replace with Guillermo's own.
-    // `place`, `year` and `ed` are intentionally blank: they are his facts to
-    // supply, and the UI omits whatever is missing rather than inventing it.
-    { src: 'Bwfk56PgHyD.jpg', gal: ['arch'],            en: 'Brick Alley',        es: 'Callejón de ladrillo', w: 1080, h: 719 },
-    { src: 'BzyYlJ-DEDE.jpg', gal: ['arch', 'prints'],  en: 'The Great Hall',     es: 'El gran salón', w: 1440, h: 960 },
-    { src: 'Cn2KeFZLGvt.jpg', gal: ['arch'],            en: 'Arcade, After Rain', es: 'Galería, tras la lluvia', w: 1440, h: 960 },
-    { src: 'CurKNnYgEGc.jpg', gal: ['arch', 'prints'],  en: 'Blue Hour',          es: 'Hora azul', w: 1440, h: 960 },
-    { src: 'CvmniOjgevj.jpg', gal: ['arch'],            en: 'Evening Tramline',   es: 'Tranvía al atardecer', w: 1440, h: 960 },
-    { src: 'Cvzen1cgB5P.jpg', gal: ['arch', 'prints'],  en: 'Romanesque Door',    es: 'Portada románica', w: 1439, h: 958 },
-
-    { src: 'B0LWt19gqWp.jpg', gal: ['street', 'prints'],en: 'Mural and Bridge',   es: 'Mural y puente', w: 1440, h: 960 },
-    { src: 'Bwm7YZCB2uf.jpg', gal: ['street'],          en: 'The Knife',          es: 'El cuchillo', w: 1080, h: 720 },
-    { src: 'BxFL09Ug73B.jpg', gal: ['street'],          en: 'Snow in the Square', es: 'Nieve en la plaza', w: 1080, h: 720 },
-    { src: 'CfSf007DA-5.jpg', gal: ['street'],          en: 'The Crew',           es: 'La tripulación', w: 1200, h: 800 },
-    { src: 'Cia-VAmA8z0.jpg', gal: ['street'],          en: 'Shop Window',        es: 'Vidriera', w: 1440, h: 959 },
-    { src: 'CvFkWfJADhi.jpg', gal: ['street'],          en: 'Porchetta',          es: 'Porchetta', w: 1440, h: 961 },
-    { src: 'CvmncTqgsKb.jpg', gal: ['street'],          en: 'Tram, Moving',       es: 'Tranvía en marcha', w: 1440, h: 960 },
-    { src: 'CvzeslrAf68.jpg', gal: ['street'],          en: 'Painted Shutter',    es: 'Persiana pintada', w: 1439, h: 958 },
-
-    { src: 'BxdW7JJn207.jpg', gal: ['land', 'prints'],  en: 'Island in Mist',     es: 'Isla entre la niebla', w: 1440, h: 960 },
-    { src: 'CeJMzMJLCI8.jpg', gal: ['land'],            en: 'Bench in the Green', es: 'Banco entre el verde', w: 1440, h: 960 },
-    { src: 'Ceg_iwcpO52.jpg', gal: ['land', 'prints'],  en: 'Weather Coming In',  es: 'Llega el temporal', w: 1440, h: 959 },
-    { src: 'ChM5zuugwvu.jpg', gal: ['land'],            en: 'Highland',           es: 'Tierras altas', w: 1440, h: 960 },
-    { src: 'Cv4_EaegZpA.jpg', gal: ['land'],            en: 'Links by the Sea',   es: 'Campo junto al mar', w: 1440, h: 960 },
-    { src: 'Cvfw3LGPF4j.jpg', gal: ['land', 'prints'],  en: 'Flock and Hillside', es: 'Bandada y ladera', w: 1440, h: 960 },
-    { src: 'CvsV48BADIr.jpg', gal: ['land', 'prints'],  en: 'Anchored at Dusk',   es: 'Fondeado al atardecer', w: 1200, h: 800 },
-    { src: 'CwV_CreA4Dj.jpg', gal: ['land'],            en: 'Gate and Tree',      es: 'Tranquera y árbol', w: 1440, h: 960 },
-    { src: 'CwV_HHXAEEg.jpg', gal: ['land', 'prints'],  en: 'The Long Road',      es: 'El camino largo', w: 1440, h: 960 },
-    { src: 'CwV_MqAgpcP.jpg', gal: ['land'],            en: 'Horse at the Fence', es: 'Caballo en el alambrado', w: 1440, h: 960 }
-  ];
-
-  /* ---------------- translations ---------------- */
-  var STRINGS = {
-    en: {
-      'skip': 'Skip to content', 'role': 'PHOTOGRAPHY',
-      'nav.home': 'HOME', 'nav.prints': 'FINE ART PRINTS', 'nav.arch': 'ARCHITECTURE',
-      'nav.street': 'STREET', 'nav.land': 'LANDSCAPE', 'nav.about': 'ABOUT', 'nav.contact': 'CONTACT',
-      'theme.label': 'Switch theme', 'nav.back': 'BACK',
-      'home.pause': 'PAUSE', 'home.play': 'PLAY',
-      'prints.title': 'FINE ART PRINTS',
-      'prints.p1': 'Photographs are printed on cotton papers with pigment inks, giving a colour life of over a century under normal exhibition conditions.',
-      'prints.p2': 'Every photograph in the Fine Art collection is a limited edition, inspected, dated, numbered and signed by Guillermo Bernaldo de Quirós. A certificate of authenticity accompanies each print.',
-      'prints.p3': 'Available sizes: 65×100cm, 111×165cm and 150×240cm. Panoramic formats keep the same height, with the length varying.',
-      'prints.order': 'To order, write to', 'prints.orderlink': 'the contact page',
-      'arch.title': 'ARCHITECTURE',
-      'arch.lede': 'Cities read as structure before they read as places. This body of work follows the line, plane and shadow of urban architecture — from modern towers to older, quieter buildings.',
-      'street.title': 'STREET',
-      'street.lede': 'People and the marks they leave — painted walls, shop windows, a tram pulling away, a vendor at work. Photographed without interrupting anything.',
-      'land.title': 'LANDSCAPE',
-      'land.lede': 'Work made away from the city: long horizons, weather, and the open country of Argentina and beyond, photographed with the same attention to light and composition.',
-      'about.title': 'ABOUT',
-      'about.lead': 'Guillermo Bernaldo de Quirós is a Buenos Aires-based behavioral neurologist and architectural photographer with a distinguished dual career spanning medicine and visual arts.',
-      'about.h.med': 'Medical Background',
-      'about.p.med': 'Dr. Bernaldo de Quirós is a recognized expert in behavioral neurology, specializing in childhood hyperactivity disorders (ADHD) and related conditions. He completed his advanced training at the Kennedy Schriver Center at Harvard University in Boston, United States, bringing international expertise to his practice in Argentina. He currently serves as Director of the Center for Behavioral Neurology and works in the Pediatrics Department at CEMIC.',
-      'about.h.photo': 'Photography Passion',
-      'about.p.photo': 'Alongside his medical career, Guillermo pursues a deep passion for architectural and landscape photography. His work captures the essence of urban architecture across diverse styles, from modern skyscrapers to traditional buildings, with a keen eye for composition and light. His portfolio has been featured on international platforms including Inspiration Grid and has garnered nearly 100,000 project views, reflecting his distinctive visual perspective on cities worldwide.',
-      'about.h.bridge': 'Bridging Two Worlds',
-      'about.p.bridge': 'Guillermo\'s unique profile combines scientific rigor from his medical training with artistic sensibility from his photography practice, creating a distinctive perspective that informs both his clinical work and his visual documentation of architecture and urban landscapes.',
-      'about.behance': 'Full portfolio on Behance',
-      'contact.title': 'CONTACT',
-      'contact.lede': 'For print orders, exhibition enquiries and commissions. Tell me which photograph you have in mind and I will reply with sizes, framing and availability.',
-      'form.name': 'Name', 'form.email': 'Email', 'form.work': 'Photograph',
-      'form.message': 'Message', 'form.submit': 'SEND', 'form.any': 'Not sure yet',
-      'form.sent': 'Thank you — your enquiry has been noted. (Preview only: nothing was sent.)',
-      'form.invalid': 'Please add your name and a valid email address.',
-      'lb.edition': 'Edition', 'lb.print': 'Paper', 'lb.printval': 'Cotton rag, pigment ink',
-      'lb.enquire': 'ENQUIRE', 'lb.of': 'of',
-      'lb.protect': 'Preview resolution. Not licensed for download or reproduction.'
-    },
-    es: {
-      'skip': 'Ir al contenido', 'role': 'FOTOGRAFÍA',
-      'nav.home': 'INICIO', 'nav.prints': 'COPIAS DE ARTE', 'nav.arch': 'ARQUITECTURA',
-      'nav.street': 'CALLE', 'nav.land': 'PAISAJE', 'nav.about': 'SOBRE MÍ', 'nav.contact': 'CONTACTO',
-      'theme.label': 'Cambiar tema', 'nav.back': 'VOLVER',
-      'home.pause': 'PAUSA', 'home.play': 'VER',
-      'prints.title': 'COPIAS DE ARTE',
-      'prints.p1': 'Las fotografías se imprimen sobre papeles de algodón con tintas de pigmento, lo que garantiza una permanencia del color de más de un siglo en condiciones normales de exhibición.',
-      'prints.p2': 'Cada fotografía de la colección Fine Art es una edición limitada, revisada, fechada, numerada y firmada por Guillermo Bernaldo de Quirós. Cada copia se entrega con certificado de autenticidad.',
-      'prints.p3': 'Tamaños disponibles: 65×100cm, 111×165cm y 150×240cm. En formatos panorámicos se mantiene la altura y varía el largo.',
-      'prints.order': 'Para encargos, escribí a', 'prints.orderlink': 'la página de contacto',
-      'arch.title': 'ARQUITECTURA',
-      'arch.lede': 'Las ciudades se leen como estructura antes que como lugares. Este cuerpo de trabajo sigue la línea, el plano y la sombra de la arquitectura urbana — de las torres modernas a los edificios más antiguos y callados.',
-      'street.title': 'CALLE',
-      'street.lede': 'La gente y las marcas que deja — muros pintados, vidrieras, un tranvía que arranca, un vendedor trabajando. Fotografiado sin interrumpir nada.',
-      'land.title': 'PAISAJE',
-      'land.lede': 'Trabajo realizado lejos de la ciudad: horizontes largos, clima y el campo abierto de la Argentina y más allá, fotografiados con la misma atención a la luz y a la composición.',
-      'about.title': 'SOBRE MÍ',
-      'about.lead': 'Guillermo Bernaldo de Quirós es neurólogo conductual y fotógrafo de arquitectura radicado en Buenos Aires, con una destacada trayectoria doble entre la medicina y las artes visuales.',
-      'about.h.med': 'Trayectoria médica',
-      'about.p.med': 'El Dr. Bernaldo de Quirós es un reconocido experto en neurología del comportamiento, especializado en trastornos de hiperactividad infantil (TDAH) y afecciones relacionadas. Completó su formación avanzada en el Kennedy Schriver Center de la Universidad de Harvard, en Boston, Estados Unidos, aportando experiencia internacional a su práctica en Argentina. Actualmente es Director del Centro de Neurología del Comportamiento y trabaja en el Departamento de Pediatría del CEMIC.',
-      'about.h.photo': 'Pasión por la fotografía',
-      'about.p.photo': 'Junto a su carrera médica, Guillermo cultiva una profunda pasión por la fotografía de arquitectura y paisaje. Su obra capta la esencia de la arquitectura urbana en estilos muy diversos, desde rascacielos modernos hasta edificios tradicionales, con una mirada atenta a la composición y a la luz. Su portfolio ha sido destacado en plataformas internacionales como Inspiration Grid y acumula cerca de 100.000 visualizaciones de proyectos, reflejando su perspectiva visual distintiva sobre ciudades de todo el mundo.',
-      'about.h.bridge': 'Dos mundos que se encuentran',
-      'about.p.bridge': 'El perfil singular de Guillermo combina el rigor científico de su formación médica con la sensibilidad artística de su práctica fotográfica, creando una perspectiva distintiva que nutre tanto su trabajo clínico como su documentación visual de la arquitectura y los paisajes urbanos.',
-      'about.behance': 'Portfolio completo en Behance',
-      'contact.title': 'CONTACTO',
-      'contact.lede': 'Para encargos de copias, consultas de exhibición y trabajos por encargo. Contame qué fotografía tenés en mente y te responderé con tamaños, enmarcado y disponibilidad.',
-      'form.name': 'Nombre', 'form.email': 'Email', 'form.work': 'Fotografía',
-      'form.message': 'Mensaje', 'form.submit': 'ENVIAR', 'form.any': 'Aún no lo sé',
-      'form.sent': 'Gracias — tu consulta ha quedado registrada. (Solo previsualización: no se ha enviado nada.)',
-      'form.invalid': 'Añadí tu nombre y un email válido, por favor.',
-      'lb.edition': 'Edición', 'lb.print': 'Papel', 'lb.printval': 'Algodón, tinta de pigmento',
-      'lb.enquire': 'CONSULTAR', 'lb.of': 'de',
-      'lb.protect': 'Resolución de previsualización. Sin licencia para descarga ni reproducción.'
-    }
-  };
-
-  var lang = root.getAttribute('lang') === 'es' ? 'es' : 'en';
-  function t(k) { return (STRINGS[lang] && STRINGS[lang][k]) || STRINGS.en[k] || k; }
-  function title(w) { return w[lang] || w.en; }
-  function place(w) { return w['place_' + lang] || w.place_en || ''; }
-
-  /* ---------------- galleries ---------------- */
-  var order = [];   // lightbox navigates within the gallery on screen
-
-  function buildGalleries() {
-    document.querySelectorAll('[data-gallery]').forEach(function (host) {
-      var key = host.getAttribute('data-gallery');
-      host.innerHTML = '';
-      WORKS.forEach(function (w) {
-        if (w.gal.indexOf(key) === -1) return;
-        var fig = document.createElement('figure');
-        fig.className = 'shot';
-        fig.tabIndex = 0;
-        fig.setAttribute('role', 'button');
-        fig.dataset.src = w.src;
-
-        var img = document.createElement('img');
-        img.src = asset(w.src);
-        // width/height let the masonry reserve the right box before the file
-        // arrives, so the column does not reflow as each image loads
-        if (w.w) { img.width = w.w; img.height = w.h; }
-        // a phone has no use for a 1440px file in a full-width column; skipped
-        // in a single-file bundle, where only the full-size image is inlined
-        if (!window.__ASSETS__) {
-          img.srcset = 'assets/img/w480/' + w.src + ' 480w, ' +
-                       'assets/img/w960/' + w.src + ' 960w, ' +
-                       'assets/img/' + w.src + ' 1440w';
-          img.sizes = '(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw';
-        }
-        watchMissing(img, w.src);
-        img.alt = [title(w), place(w)].filter(Boolean).join(' — ');
-        img.loading = 'lazy';
-        img.draggable = false;
-
-        var cap = document.createElement('figcaption');
-        cap.className = 'shot-cap';
-        cap.textContent = title(w);
-
-        fig.appendChild(img);
-        fig.appendChild(cap);
-        fig.addEventListener('click', function () { openLightbox(key, w.src); });
-        fig.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(key, w.src); }
-        });
-        host.appendChild(fig);
-      });
-    });
-    observeShots();
-  }
-
-  var io = 'IntersectionObserver' in window
-    ? new IntersectionObserver(function (es) {
-        es.forEach(function (e) {
-          if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
-        });
-      }, { rootMargin: '0px 0px -40px 0px' })
-    : null;
-
-  function observeShots() {
-    document.querySelectorAll('.shot').forEach(function (s) {
-      if (io) io.observe(s); else s.classList.add('is-in');
-    });
-  }
-
-  /* ---------------- home slideshow ----------------
-     Every photograph in the catalogue passes through here, in a fresh random
-     order on each visit. Only the current frame and its two neighbours are
-     ever fetched, so a 24-frame carousel costs about three images to open. */
-  var homePage = document.getElementById('/home');
-  var slidesHost = document.getElementById('slides');
-  var countHost = document.getElementById('slideCount');
-  var SLIDE_MS = 7500;
-  var slides = [];
-  var homeOrder = [];
-  var slideIx = 0;
-  var slideTimer = null;
-  var reduceMotion = window.matchMedia &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  function shuffle(list) {
-    var a = list.slice();
-    for (var i = a.length - 1; i > 0; i--) {           // Fisher-Yates
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
-    }
-    return a;
-  }
-
-  function at(i) { return (i % slides.length + slides.length) % slides.length; }
-
-  function load(i) {
-    var k = at(i);
-    var img = slides[k].querySelector('img');
-    if (!img.getAttribute('src')) img.src = asset(homeOrder[k].src);
-  }
-
-  function syncCount() {
-    var pad = function (n) { return (n < 10 ? '0' : '') + n; };
-    countHost.textContent = '';
-    var b = document.createElement('b');
-    b.textContent = pad(slideIx + 1);
-    var sp = document.createElement('span');
-    sp.textContent = '/ ' + pad(slides.length);
-    countHost.appendChild(b);
-    countHost.appendChild(sp);
-  }
-
-  function buildSlides() {
-    homeOrder = shuffle(WORKS);
-    slidesHost.textContent = '';
-    slides = homeOrder.map(function (w, i) {
-      var d = document.createElement('div');
-      d.className = 'slide' + (i === 0 ? ' is-current' : '');
-      var img = document.createElement('img');
-      img.alt = title(w);
-      img.draggable = false;
-      img.decoding = 'async';
-      watchMissing(img, w.src);
-      d.appendChild(img);
-      slidesHost.appendChild(d);
-      return d;
-    });
-    slideIx = 0;
-    load(0); load(1); load(-1);
-    syncCount();
-  }
-
-  function goTo(n, dir) {
-    n = at(n);
-    if (n === slideIx) return;
-    var cur = slides[slideIx];
-    var nxt = slides[n];
-    var enter = dir > 0 ? 'is-next' : 'is-prev';   // side the incoming waits on
-    var exit  = dir > 0 ? 'is-prev' : 'is-next';   // side the outgoing leaves to
-
-    load(n); load(n + dir);                        // and the one after it
-
-    nxt.classList.remove('is-current', 'is-prev', 'is-next');
-    nxt.classList.add(enter);
-    void nxt.offsetWidth;                          // commit the start position
-
-    cur.classList.remove('is-current');
-    cur.classList.add(exit);
-    nxt.classList.remove(enter);
-    nxt.classList.add('is-current');
-
-    slideIx = n;
-    syncCount();
-  }
-
-  /* WCAG 2.2.2: motion that runs past five seconds needs a visible way to stop
-     it. `paused` is the visitor's explicit choice and outranks every automatic
-     start, so leaving the menu or returning to the tab cannot restart it. */
-  var paused = false;
-  var pauseBtn = document.getElementById('slidePause');
-
-  function syncPause() {
-    pauseBtn.textContent = paused ? t('home.play') : t('home.pause');
-    pauseBtn.setAttribute('aria-pressed', String(paused));
-  }
-
-  pauseBtn.addEventListener('click', function () {
-    paused = !paused;
-    if (paused) stopSlides(); else startSlides();
-    syncPause();
+  Array.prototype.forEach.call(document.images, function (img) {
+    watchMissing(img, (img.getAttribute('src') || '').split('/').pop());
   });
 
-  function startSlides() {
-    if (paused || reduceMotion || slideTimer || !slides.length) return;
-    slideTimer = setInterval(function () { goTo(slideIx + 1, 1); }, SLIDE_MS);
-  }
-  function stopSlides() {
-    if (slideTimer) { clearInterval(slideTimer); slideTimer = null; }
-  }
-  // restart the clock after a manual move, so a tap is not cut short
-  function nudge(dir) { stopSlides(); goTo(slideIx + dir, dir); startSlides(); }
-
-  var touchX = null;
-  homePage.addEventListener('touchstart', function (e) {
-    touchX = e.changedTouches[0].clientX;
-  }, { passive: true });
-  homePage.addEventListener('touchend', function (e) {
-    if (touchX === null) return;
-    var dx = e.changedTouches[0].clientX - touchX;
-    if (Math.abs(dx) > 45) nudge(dx < 0 ? 1 : -1);
-    touchX = null;
-  }, { passive: true });
-
-  // don't animate in a tab nobody is looking at
-  document.addEventListener('visibilitychange', function () {
-    if (document.hidden) stopSlides();
-    else if (body.classList.contains('on-home') && !body.classList.contains('menu-open')) startSlides();
-  });
-
-  /* ---------------- per-route metadata ----------------
-     Hash routes are one document to a crawler, but the title and description
-     still drive what a shared or bookmarked link shows. Both are derived from
-     the page's own heading and lede, so they stay correct in either language
-     without a second set of strings to maintain. */
-  var SITE_NAME = 'Guillermo Bernaldo de Quirós';
-  var descMeta = document.querySelector('meta[name="description"]');
-  var BASE_TITLE = document.title;
-  var BASE_DESC = descMeta ? descMeta.getAttribute('content') : '';
-
-  function updateMeta(target) {
-    var h = target.querySelector('h2');
-    document.title = (target.classList.contains('page-home') || !h)
-      ? BASE_TITLE
-      : h.textContent.trim() + ' · ' + SITE_NAME;
-    if (!descMeta) return;
-    var lede = target.querySelector('.page-lede p, .about-lead');
-    descMeta.setAttribute('content', lede ? lede.textContent.replace(/\s+/g, ' ').trim() : BASE_DESC);
-  }
-
-  /* ---------------- router ---------------- */
-  var pages = Array.prototype.slice.call(document.querySelectorAll('.page'));
+  /* ------------------------------------------------------------------ menu */
   var menu = document.getElementById('menu');
   var burger = document.getElementById('burger');
 
-  function route() {
-    var hash = location.hash || '#/home';
-    var target = pages.filter(function (p) { return '#' + p.id === hash; })[0] || pages[0];
-
-    pages.forEach(function (p) { p.classList.toggle('is-active', p === target); });
-    body.classList.toggle('on-home', target.classList.contains('page-home'));
-
-    document.querySelectorAll('.menu a').forEach(function (a) {
-      a.classList.toggle('is-current', a.getAttribute('href') === '#' + target.id);
-    });
-
-    updateMeta(target);
-    closeMenu();
-    window.scrollTo(0, 0);
-    if (target.classList.contains('page-home')) startSlides(); else stopSlides();
-  }
-
-  window.addEventListener('hashchange', route);
-
-  /* Keeps Tab inside an open overlay. Without this the lightbox says
-     aria-modal="true" while Tab quietly walks out to the page behind it. */
   function trapFocus(e, roots) {
     if (e.key !== 'Tab') return;
     var items = [];
@@ -389,9 +107,9 @@
       if (!r) return;
       Array.prototype.forEach.call(
         r.querySelectorAll('a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'),
-        function (el) {
-          var s = getComputedStyle(el);
-          if (s.visibility !== 'hidden' && s.display !== 'none') items.push(el);
+        function (n) {
+          var s = getComputedStyle(n);
+          if (s.visibility !== 'hidden' && s.display !== 'none') items.push(n);
         });
     });
     if (!items.length) return;
@@ -401,32 +119,13 @@
     else if (items.indexOf(document.activeElement) === -1) { e.preventDefault(); first.focus(); }
   }
 
-  /* ---------------- back button ----------------
-     One per document page. It reopens the menu rather than navigating: from
-     inside a section, "back" means back to the list of sections, so the next
-     choice is one click away instead of a return trip through home. */
-
-  function addBackButtons() {
-    Array.prototype.forEach.call(document.querySelectorAll('.page-doc'), function (page) {
-      if (page.querySelector('.back-link')) return;
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'back-link';
-      b.innerHTML = '<span aria-hidden="true">\u2190</span><span class="back-text"></span>';
-      b.addEventListener('click', openMenu);
-      page.insertBefore(b, page.firstChild);
-    });
-  }
-  addBackButtons();
-
-  /* ---------------- menu ---------------- */
   function openMenu() {
     stopSlides();
     menu.classList.add('is-open');
     menu.setAttribute('aria-hidden', 'false');
     burger.classList.add('is-open');
     burger.setAttribute('aria-expanded', 'true');
-    burger.setAttribute('aria-label', 'Close menu');
+    burger.setAttribute('aria-label', burger.getAttribute('data-close') || 'Close menu');
     body.classList.add('menu-open');
   }
   function closeMenu() {
@@ -434,187 +133,603 @@
     menu.setAttribute('aria-hidden', 'true');
     burger.classList.remove('is-open');
     burger.setAttribute('aria-expanded', 'false');
-    burger.setAttribute('aria-label', 'Open menu');
+    burger.setAttribute('aria-label', burger.getAttribute('data-open') || 'Open menu');
     body.classList.remove('menu-open');
-    if (body.classList.contains('on-home')) startSlides();
+    if (PAGE === 'home') startSlides();
   }
-  burger.addEventListener('click', function () {
-    if (menu.classList.contains('is-open')) closeMenu(); else openMenu();
-  });
-  // clicking the current page's own link does not fire hashchange, so close here too
-  menu.addEventListener('click', function (e) { if (e.target.closest('a')) closeMenu(); });
-
-  /* ---------------- image protection ----------------
-     Deterrents against casual copying, not DRM — a visitor can always
-     screenshot. The real protection is that these files are preview
-     resolution and therefore not printable. */
-  document.addEventListener('contextmenu', function (e) {
-    if (e.target.closest('.shot, .lb-frame, .about-portrait, .slide')) e.preventDefault();
-  });
-  document.addEventListener('dragstart', function (e) {
-    if (e.target.tagName === 'IMG') e.preventDefault();
-  });
-
-  /* ---------------- lightbox ---------------- */
-  var lb = document.getElementById('lightbox');
-  var lbImage = document.getElementById('lbImage');
-  var lbTitle = document.getElementById('lbTitle');
-  var lbPlace = document.getElementById('lbPlace');
-  var lbEdition = document.getElementById('lbEdition');
-  var current = -1;
-  var lastFocus = null;
-
-  function render(i) {
-    var w = order[i];
-    lbImage.src = asset(w.src);
-    lbImage.alt = [title(w), place(w)].filter(Boolean).join(' — ');
-    lbTitle.textContent = title(w);
-    lbPlace.textContent = [place(w), w.year].filter(Boolean).join(' · ');
-    var row = document.getElementById('lbEditionRow');
-    if (w.ed) { lbEdition.textContent = w.ed + ' ' + t('lb.of') + ' ' + w.ed; row.style.display = ''; }
-    else { row.style.display = 'none'; }
+  if (burger) {
+    burger.addEventListener('click', function () {
+      if (menu.classList.contains('is-open')) closeMenu(); else openMenu();
+    });
   }
 
-  function openLightbox(galKey, src) {
-    order = WORKS.filter(function (w) { return w.gal.indexOf(galKey) > -1; });
-    current = order.map(function (w) { return w.src; }).indexOf(src);
-    if (current < 0) return;
-    lastFocus = document.activeElement;
-    render(current);
-    lb.classList.add('is-open');
-    lb.setAttribute('aria-hidden', 'false');
-    body.classList.add('no-scroll');
-    document.getElementById('lbClose').focus();
-  }
-
-  function closeLightbox() {
-    lb.classList.remove('is-open');
-    lb.setAttribute('aria-hidden', 'true');
-    body.classList.remove('no-scroll');
-    current = -1;
-    if (lastFocus) lastFocus.focus();
-  }
-
-  function step(d) { current = (current + d + order.length) % order.length; render(current); }
-
-  document.getElementById('lbClose').addEventListener('click', closeLightbox);
-  document.getElementById('lbPrev').addEventListener('click', function () { step(-1); });
-  document.getElementById('lbNext').addEventListener('click', function () { step(1); });
-  lb.addEventListener('click', function (e) {
-    if (e.target === lb || e.target.classList.contains('lb-stage')) closeLightbox();
-  });
-  document.getElementById('lbEnquire').addEventListener('click', function () {
-    var sel = document.getElementById('formWork');
-    if (current > -1 && sel) sel.value = title(order[current]);
-    closeLightbox();
-  });
-  document.addEventListener('keydown', function (e) {
-    if (menu.classList.contains('is-open')) {
-      if (e.key === 'Escape') { closeMenu(); return; }
-      // the burger doubles as the close control, so it belongs inside the trap
-      trapFocus(e, [menu, burger]);
-      return;
-    }
-    if (lb.classList.contains('is-open')) trapFocus(e, [lb]);
-    if (!lb.classList.contains('is-open')) {
-      if (body.classList.contains('on-home') && !menu.classList.contains('is-open')) {
-        if (e.key === 'ArrowLeft') nudge(-1);
-        else if (e.key === 'ArrowRight') nudge(1);
-      }
-      return;
-    }
-    if (e.key === 'Escape') closeLightbox();
-    else if (e.key === 'ArrowLeft') step(-1);
-    else if (e.key === 'ArrowRight') step(1);
-  });
-
-  /* ---------------- form ---------------- */
-  var form = document.getElementById('enquiryForm');
-  var status = document.getElementById('formStatus');
-  var workSelect = document.getElementById('formWork');
-
-  function buildWorkOptions() {
-    var keep = workSelect.value;
-    workSelect.innerHTML = '';
-    var any = document.createElement('option');
-    any.value = ''; any.textContent = t('form.any');
-    workSelect.appendChild(any);
-    WORKS.forEach(function (w) {
-      var o = document.createElement('option');
-      o.value = title(w);
-      o.textContent = title(w) + (w.year ? ' · ' + w.year : '');
-      workSelect.appendChild(o);
-    });
-    workSelect.value = keep;
-  }
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var name = form.elements.name, email = form.elements.email;
-    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
-    name.setAttribute('aria-invalid', String(!name.value.trim()));
-    email.setAttribute('aria-invalid', String(!emailOk));
-    if (!name.value.trim() || !emailOk) { status.textContent = t('form.invalid'); return; }
-    status.textContent = t('form.sent');
-    form.reset();
-    name.removeAttribute('aria-invalid');
-    email.removeAttribute('aria-invalid');
-  });
-
-  /* ---------------- language + theme ---------------- */
-  function applyLanguage() {
-    root.setAttribute('lang', lang);
-    document.querySelectorAll('[data-i18n]').forEach(function (el) {
-      el.textContent = t(el.getAttribute('data-i18n'));
-    });
-    Array.prototype.forEach.call(document.querySelectorAll('.back-link'), function (b) {
-      b.querySelector('.back-text').textContent = t('nav.back');
-      b.setAttribute('aria-label', t('nav.back'));
-    });
-    slides.forEach(function (el, i) {
-      el.querySelector('img').alt = title(homeOrder[i]);
-    });
-    syncPause();
-    document.querySelectorAll('.lang-switch button').forEach(function (b) {
-      b.classList.toggle('is-active', b.getAttribute('data-lang') === lang);
-    });
-    buildGalleries();
-    buildWorkOptions();
-    var shown = document.querySelector('.page.is-active');
-    if (shown) updateMeta(shown);
-    if (current > -1) render(current);
-  }
-
-  document.querySelectorAll('.lang-switch button').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      lang = btn.getAttribute('data-lang');
-      try { localStorage.setItem('gbq-lang', lang); } catch (e) {}
-      applyLanguage();
-    });
-  });
-
+  /* ----------------------------------------------------------------- theme */
   var themeToggle = document.getElementById('themeToggle');
   function isDark() {
     var s = root.getAttribute('data-theme');
     return s ? s === 'dark'
              : !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
   }
-  themeToggle.addEventListener('click', function () {
-    var next = isDark() ? 'light' : 'dark';
-    root.setAttribute('data-theme', next);
-    try { localStorage.setItem('gbq-theme', next); } catch (e) {}
+  if (themeToggle) {
     themeToggle.setAttribute('aria-pressed', String(isDark()));
-  });
-  themeToggle.setAttribute('aria-pressed', String(isDark()));
+    themeToggle.addEventListener('click', function () {
+      root.setAttribute('data-theme', isDark() ? 'light' : 'dark');
+      try { localStorage.setItem('gbq-theme', root.getAttribute('data-theme')); } catch (e) {}
+      themeToggle.setAttribute('aria-pressed', String(isDark()));
+    });
+  }
 
-  /* ---------------- init ---------------- */
-  Array.prototype.forEach.call(document.querySelectorAll('.slide img, .about-portrait img'),
-    function (img) { watchMissing(img, (img.getAttribute('src') || '').split('/').pop()); });
+  /* ------------------------------------------------------------- selection
+     The whole commercial mechanic: a visitor collects photographs across
+     series, then sends the set as one enquiry.
 
-  Array.prototype.forEach.call(document.querySelectorAll('.year'), function (el) {
-    el.textContent = new Date().getFullYear();
+     Stored in localStorage, which is attacker-writable in the visitor's own
+     browser — so every entry is re-validated against the catalogue on read.
+     An entry naming a series or a file that does not exist is dropped, which
+     means nothing from storage can reach the DOM or an email body unless the
+     build put it in the catalogue first. */
+  var SEL_KEY = 'gbq-selection-v1';
+  var SEL_MAX = 40;
+
+  function selRead() {
+    var raw;
+    try { raw = localStorage.getItem(SEL_KEY); } catch (e) { return []; }
+    if (!raw) return [];
+    var parsed;
+    try { parsed = JSON.parse(raw); } catch (e) { return []; }
+    if (!Array.isArray(parsed)) return [];
+    var seen = {}, out = [];
+    parsed.forEach(function (x) {
+      if (!x || typeof x.a !== 'string' || typeof x.f !== 'string') return;
+      var album = BY_SLUG[x.a];
+      if (!album) return;
+      if (!album.photos.some(function (p) { return p.f === x.f; })) return;
+      if (seen[x.f]) return;
+      seen[x.f] = 1;
+      if (out.length < SEL_MAX) out.push({ a: x.a, f: x.f });
+    });
+    return out;
+  }
+  function selWrite(list) {
+    try { localStorage.setItem(SEL_KEY, JSON.stringify(list)); } catch (e) {}
+    syncSelection();
+  }
+  function selHas(file) { return selRead().some(function (x) { return x.f === file; }); }
+  function selToggle(slug, file) {
+    var list = selRead();
+    var i = list.findIndex(function (x) { return x.f === file; });
+    if (i > -1) list.splice(i, 1);
+    else if (list.length < SEL_MAX) list.push({ a: slug, f: file });
+    selWrite(list);
+    return i === -1;
+  }
+
+  var badge = document.getElementById('selBadge');
+  var badgeN = document.getElementById('selBadgeN');
+
+  function syncSelection() {
+    var list = selRead();
+    if (badge) {
+      badge.hidden = list.length === 0;
+      if (badgeN) badgeN.textContent = String(list.length);
+    }
+    Array.prototype.forEach.call(document.querySelectorAll('.shot-add'), function (b) {
+      var on = list.some(function (x) { return x.f === b.getAttribute('data-file'); });
+      b.classList.toggle('is-on', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+    if (PAGE === 'selection') renderSelection(list);
+    if (lbAdd && lbOrder.length && lbIndex > -1) syncLbAdd();
+  }
+
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('.shot-add');
+    if (!b) return;
+    e.preventDefault();
+    e.stopPropagation();
+    selToggle(b.getAttribute('data-album'), b.getAttribute('data-file'));
   });
-  buildSlides();
-  applyLanguage();
-  route();
+
+  /* ------------------------------------------------------------- lightbox */
+  var lb = document.getElementById('lightbox');
+  var lbImage = document.getElementById('lbImage');
+  var lbTitle = document.getElementById('lbTitle');
+  var lbPlace = document.getElementById('lbPlace');
+  var lbAdd = document.getElementById('lbAdd');
+  var lbOrder = [];
+  var lbIndex = -1;
+  var lbReturn = null;
+
+  function syncLbAdd() {
+    if (!lbAdd) return;
+    var cur = lbOrder[lbIndex];
+    if (!cur) return;
+    var on = selHas(cur.f);
+    lbAdd.textContent = on ? t('added') : t('add');
+    lbAdd.classList.toggle('is-on', on);
+    lbAdd.setAttribute('aria-pressed', String(on));
+  }
+
+  function lbRender(i) {
+    var cur = lbOrder[i];
+    if (!cur) return;
+    var album = BY_SLUG[cur.slug];
+    lbImage.setAttribute('src', asset('', cur.f));
+    lbImage.alt = [title(album), place(album)].filter(Boolean).join(' — ');
+    lbTitle.textContent = title(album) + ' № ' + cur.n;
+    lbPlace.textContent = place(album);
+    lbIndex = i;
+    syncLbAdd();
+  }
+  function lbOpen(file) {
+    if (!lb) return;
+    var i = lbOrder.findIndex(function (x) { return x.f === file; });
+    if (i < 0) return;
+    lbReturn = document.activeElement;
+    lbRender(i);
+    lb.classList.add('is-open');
+    lb.setAttribute('aria-hidden', 'false');
+    body.classList.add('no-scroll');
+    document.getElementById('lbClose').focus();
+  }
+  function lbClose() {
+    lb.classList.remove('is-open');
+    lb.setAttribute('aria-hidden', 'true');
+    body.classList.remove('no-scroll');
+    if (lbReturn && lbReturn.focus) lbReturn.focus();
+  }
+  function lbStep(d) {
+    if (!lbOrder.length) return;
+    lbRender((lbIndex + d + lbOrder.length) % lbOrder.length);
+  }
+
+  if (lb) {
+    var slug = body.getAttribute('data-album');
+    var album = BY_SLUG[slug];
+    if (album) {
+      lbOrder = album.photos.map(function (p) { return { slug: slug, f: p.f, n: p.n }; });
+    }
+    document.getElementById('lbClose').addEventListener('click', lbClose);
+    document.getElementById('lbPrev').addEventListener('click', function () { lbStep(-1); });
+    document.getElementById('lbNext').addEventListener('click', function () { lbStep(1); });
+    lb.addEventListener('click', function (e) {
+      if (e.target === lb || e.target.classList.contains('lb-stage')) lbClose();
+    });
+    if (lbAdd) {
+      lbAdd.addEventListener('click', function () {
+        var cur = lbOrder[lbIndex];
+        if (cur) selToggle(cur.slug, cur.f);
+      });
+    }
+    Array.prototype.forEach.call(document.querySelectorAll('.shot'), function (fig) {
+      fig.tabIndex = 0;
+      fig.setAttribute('role', 'button');
+      fig.addEventListener('click', function (e) {
+        if (e.target.closest('.shot-add')) return;      // that button has its own job
+        lbOpen(fig.getAttribute('data-file'));
+      });
+      fig.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); lbOpen(fig.getAttribute('data-file')); }
+      });
+    });
+  }
+
+  /* -------------------------------------------------------------- keyboard */
+  document.addEventListener('keydown', function (e) {
+    if (menu && menu.classList.contains('is-open')) {
+      if (e.key === 'Escape') { closeMenu(); burger.focus(); return; }
+      trapFocus(e, [menu, burger]);
+      return;
+    }
+    if (lb && lb.classList.contains('is-open')) {
+      if (e.key === 'Escape') { lbClose(); return; }
+      if (e.key === 'ArrowLeft') { lbStep(-1); return; }
+      if (e.key === 'ArrowRight') { lbStep(1); return; }
+      trapFocus(e, [lb]);
+      return;
+    }
+    if (PAGE === 'home') {
+      if (e.key === 'ArrowLeft') nudge(-1);
+      else if (e.key === 'ArrowRight') nudge(1);
+    }
+  });
+
+  /* --------------------------------------------------------- home carousel
+     Every photograph in the archive passes through here in a fresh random
+     order each visit. Only the current frame and its two neighbours are ever
+     fetched, so a 250-frame carousel costs about three images to open. */
+  var slidesHost = document.getElementById('slides');
+  var countHost = document.getElementById('slideCount');
+  var pauseBtn = document.getElementById('slidePause');
+  var SLIDE_MS = 7000;
+  var slides = [], flat = [], slideIx = 0, slideTimer = null, paused = false;
+  var reduceMotion = window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function shuffle(list) {
+    var a = list.slice();
+    for (var i = a.length - 1; i > 0; i--) {              // Fisher-Yates
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+  function at(i) { return (i % slides.length + slides.length) % slides.length; }
+  function load(i) {
+    if (!slides.length) return;
+    var k = at(i), img = slides[k].querySelector('img');
+    if (!img.getAttribute('src')) {
+      img.setAttribute('src', asset('w960', flat[k].f));
+      watchMissing(img, flat[k].f);
+    }
+  }
+  function syncCount() {
+    if (!countHost) return;
+    var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+    countHost.textContent = '';
+    var b = el('b', null, pad(slideIx + 1));
+    var sp = el('span', null, '/ ' + pad(slides.length));
+    countHost.appendChild(b);
+    countHost.appendChild(sp);
+  }
+  function syncPause() {
+    if (!pauseBtn) return;
+    pauseBtn.textContent = paused ? t('play') : t('pause');
+    pauseBtn.setAttribute('aria-pressed', String(paused));
+  }
+  function buildSlides() {
+    if (!slidesHost) return;
+    CAT.forEach(function (a) {
+      a.photos.forEach(function (p) { flat.push({ f: p.f, slug: a.slug, n: p.n }); });
+    });
+    flat = shuffle(flat).slice(0, 60);      // a visit never needs more than this
+    slidesHost.textContent = '';
+    slides = flat.map(function (x, i) {
+      var d = el('div', 'slide' + (i === 0 ? ' is-current' : ''));
+      var img = el('img');
+      img.alt = title(BY_SLUG[x.slug]);
+      img.draggable = false;
+      img.decoding = 'async';
+      d.appendChild(img);
+      slidesHost.appendChild(d);
+      return d;
+    });
+    if (!slides.length) return;
+    load(0); load(1); load(-1);
+    syncCount(); syncPause();
+  }
+  function goTo(n, dir) {
+    n = at(n);
+    if (n === slideIx || !slides.length) return;
+    var cur = slides[slideIx], nxt = slides[n];
+    var enter = dir > 0 ? 'is-next' : 'is-prev';
+    var exit  = dir > 0 ? 'is-prev' : 'is-next';
+    load(n); load(n + dir);
+    nxt.classList.remove('is-current', 'is-prev', 'is-next');
+    nxt.classList.add(enter);
+    void nxt.offsetWidth;                                  // commit start position
+    cur.classList.remove('is-current');
+    cur.classList.add(exit);
+    nxt.classList.remove(enter);
+    nxt.classList.add('is-current');
+    slideIx = n;
+    syncCount();
+  }
+  /* WCAG 2.2.2: motion running past five seconds needs a visible way to stop
+     it. `paused` is the visitor's explicit choice and outranks every automatic
+     start, so leaving the menu or returning to the tab cannot restart it. */
+  function startSlides() {
+    if (paused || reduceMotion || slideTimer || slides.length < 2) return;
+    slideTimer = setInterval(function () { goTo(slideIx + 1, 1); }, SLIDE_MS);
+  }
+  function stopSlides() { if (slideTimer) { clearInterval(slideTimer); slideTimer = null; } }
+  function nudge(d) { stopSlides(); goTo(slideIx + d, d); startSlides(); }
+
+  if (pauseBtn) {
+    pauseBtn.addEventListener('click', function () {
+      paused = !paused;
+      if (paused) stopSlides(); else startSlides();
+      syncPause();
+    });
+  }
+  if (PAGE === 'home') {
+    var hero = document.querySelector('.hero');
+    var touchX = null;
+    if (hero) {
+      hero.addEventListener('touchstart', function (e) {
+        touchX = e.changedTouches[0].clientX;
+      }, { passive: true });
+      hero.addEventListener('touchend', function (e) {
+        if (touchX === null) return;
+        var dx = e.changedTouches[0].clientX - touchX;
+        if (Math.abs(dx) > 45) nudge(dx < 0 ? 1 : -1);
+        touchX = null;
+      }, { passive: true });
+    }
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) stopSlides();
+      else if (!body.classList.contains('menu-open')) startSlides();
+    });
+    buildSlides();
+    startSlides();
+  }
+
+  /* ---------------------------------------------------------- work filters */
+  var filters = document.getElementById('filters');
+  if (filters) {
+    filters.addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-filter]');
+      if (!b) return;
+      var want = b.getAttribute('data-filter');
+      Array.prototype.forEach.call(filters.querySelectorAll('button'), function (n) {
+        var on = n === b;
+        n.classList.toggle('is-active', on);
+        n.setAttribute('aria-pressed', String(on));
+      });
+      Array.prototype.forEach.call(document.querySelectorAll('#albumGrid .card'), function (c) {
+        c.hidden = want !== 'all' && c.getAttribute('data-theme') !== want;
+      });
+    });
+  }
+
+  /* ------------------------------------------------- the selection page */
+  var selGrid = document.getElementById('selGrid');
+  var selEmpty = document.getElementById('selEmpty');
+  var selLive = document.getElementById('selLive');
+  var selCount = document.getElementById('selCount');
+  var selHang = document.getElementById('selHang');
+  var selForm = document.getElementById('selForm');
+  var selStatus = document.getElementById('selStatus');
+
+  function renderSelection(list) {
+    if (!selGrid) return;
+    if (selEmpty) selEmpty.hidden = list.length > 0;
+    if (selLive) selLive.hidden = list.length === 0;
+    if (!list.length) { selGrid.textContent = ''; return; }
+
+    selCount.textContent = list.length + ' ' + (list.length === 1 ? t('one') : t('many'));
+    selHang.textContent = list.length === 1 ? t('hang1')
+      : list.length === 2 ? t('hang2')
+      : list.length === 3 ? t('hang3')
+      : t('hang5');
+
+    selGrid.textContent = '';
+    list.forEach(function (x) {
+      var album = BY_SLUG[x.a];
+      var photo = album.photos.find(function (p) { return p.f === x.f; });
+      var fig = el('figure', 'sel-item');
+
+      var img = el('img');
+      img.setAttribute('src', asset('w480', x.f));
+      img.alt = title(album);
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.draggable = false;
+      watchMissing(img, x.f);
+
+      var cap = el('figcaption', 'sel-item-cap');
+      cap.appendChild(el('b', null, title(album) + ' № ' + photo.n));
+      if (place(album)) cap.appendChild(el('span', null, place(album)));
+
+      var rm = el('button', 'sel-item-rm');
+      rm.type = 'button';
+      rm.setAttribute('aria-label', t('remove') + ' — ' + title(album) + ' № ' + photo.n);
+      rm.appendChild(el('span', null, '✕'));
+      rm.addEventListener('click', function () { selToggle(x.a, x.f); });
+
+      fig.appendChild(img);
+      fig.appendChild(cap);
+      fig.appendChild(rm);
+      selGrid.appendChild(fig);
+    });
+  }
+
+  var selClear = document.getElementById('selClear');
+  if (selClear) selClear.addEventListener('click', function () { selWrite([]); });
+
+  /* Composes the enquiry as plain text. This is the entire "checkout": no
+     payment processor, no order database, no credentials anywhere. */
+  function selectionText(form) {
+    var list = selRead();
+    var f = form.elements;
+    var lines = [];
+    lines.push(t('greeting') + ' (' + list.length + '):');
+    list.forEach(function (x, i) {
+      var album = BY_SLUG[x.a];
+      var photo = album.photos.find(function (p) { return p.f === x.f; });
+      lines.push('  ' + (i + 1) + '. ' + title(album) + ' № ' + photo.n +
+                 (place(album) ? ' — ' + place(album) : '') + '  [' + x.f + ']');
+    });
+    lines.push('');
+    lines.push(t('spec') + ': ' + f.size.value + ' · ' + f.paper.value + ' · ' + f.frame.value);
+    lines.push('');
+    lines.push(t('from') + ': ' + f.name.value.trim() + ' <' + f.email.value.trim() + '>');
+    if (f.country && f.country.value.trim()) lines.push(t('country') + ': ' + f.country.value.trim());
+    if (f.message && f.message.value.trim()) {
+      lines.push('');
+      lines.push(t('note') + ': ' + f.message.value.trim());
+    }
+    return lines.join('\n');
+  }
+
+  function validate(form) {
+    var name = form.elements.name, email = form.elements.email;
+    var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+    name.setAttribute('aria-invalid', String(!name.value.trim()));
+    email.setAttribute('aria-invalid', String(!ok));
+    return !!name.value.trim() && ok;
+  }
+
+  /* ------------------------------------------------------------- delivery
+
+     Three ways an enquiry can reach Guillermo, tried in order. The first that
+     works, wins; the visitor is never left holding a form that did nothing.
+
+       1. POST to /api/enquiry. Real delivery, and the only route where the
+          visitor never leaves the page. The credential that sends the mail
+          lives in a server environment variable and is never in this file —
+          there is nothing here to read out of the browser.
+       2. mailto:, if the site knows an address but the endpoint is absent or
+          not configured (GitHub Pages has no functions at all).
+       3. The clipboard, if there is no address either.
+
+     Every fallback keeps what the visitor typed. Nothing is cleared until
+     something has actually succeeded. */
+
+  var MAILTO = (function () {
+    var e = window.__CATALOG__ && window.__CATALOG__.email;
+    return e && e.u && e.d ? e.u + '@' + e.d : '';
+  })();
+  var ENDPOINT = '/api/enquiry';
+  var loadedAt = Date.now();
+
+  function post(payload) {
+    return fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (res) {
+      if (res.ok) return true;
+      // 503 means nobody has configured a delivery route yet; 404/405 mean
+      // there is no function here at all. Both are "fall back", not "fail".
+      if (res.status === 503 || res.status === 404 || res.status === 405) return false;
+      throw new Error('http ' + res.status);
+    });
+  }
+
+  function mailtoOut(subject, text, status) {
+    if (!MAILTO) return copyOut(text, status);
+    window.location.href = 'mailto:' + encodeURIComponent(MAILTO) +
+      '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(text);
+    status.textContent = t('sent');
+    return true;
+  }
+
+  function copyOut(text, status) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(
+        function () { status.textContent = t('copied'); },
+        function () { status.textContent = t('copyfail'); });
+    } else {
+      status.textContent = t('copyfail');
+    }
+    return true;
+  }
+
+  function send(form, payload, subject, text, status, onSuccess) {
+    var button = form.querySelector('button[type="submit"]');
+    if (button) button.disabled = true;
+    status.textContent = t('sending');
+
+    payload.ts = loadedAt;
+    payload.lang = LANG;
+    payload.company = form.elements.company ? form.elements.company.value : '';
+
+    post(payload).then(function (delivered) {
+      if (button) button.disabled = false;
+      if (delivered) {
+        status.textContent = t('ok');
+        form.reset();
+        if (onSuccess) onSuccess();
+      } else {
+        mailtoOut(subject, text, status);       // no backend configured
+      }
+    }).catch(function () {
+      if (button) button.disabled = false;
+      if (MAILTO) mailtoOut(subject, text, status);
+      else { status.textContent = t('failed'); copyOut(text, status); }
+    });
+  }
+
+  if (selForm) {
+    selForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var list = selRead();
+      if (!list.length) return;
+      if (!validate(selForm)) { selStatus.textContent = t('invalid'); return; }
+      var f = selForm.elements;
+      send(selForm, {
+        name: f.name.value.trim(),
+        email: f.email.value.trim(),
+        country: f.country ? f.country.value.trim() : '',
+        message: f.message ? f.message.value.trim() : '',
+        spec: [f.size.value, f.paper.value, f.frame.value].join(' · '),
+        selection: list
+      }, t('subject') + ' — ' + list.length, selectionText(selForm), selStatus,
+      function () { selWrite([]); });   // only clear once it is actually sent
+    });
+    var selCopy = document.getElementById('selCopy');
+    if (selCopy) {
+      selCopy.addEventListener('click', function () {
+        if (!validate(selForm)) { selStatus.textContent = t('invalid'); return; }
+        copyOut(selectionText(selForm), selStatus);
+      });
+    }
+  }
+
+  /* ------------------------------------------------------- contact form */
+  var enquiry = document.getElementById('enquiryForm');
+  if (enquiry) {
+    var formStatus = document.getElementById('formStatus');
+
+    function enquiryText() {
+      var f = enquiry.elements;
+      var lines = [];
+      if (f.work.value) lines.push(f.work.value);
+      if (f.message.value.trim()) lines.push('', f.message.value.trim());
+      lines.push('', t('from') + ': ' + f.name.value.trim() + ' <' + f.email.value.trim() + '>');
+      if (f.country.value.trim()) lines.push(t('country') + ': ' + f.country.value.trim());
+      return lines.join('\n');
+    }
+
+    enquiry.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!validate(enquiry)) { formStatus.textContent = t('invalid'); return; }
+      var f = enquiry.elements;
+      send(enquiry, {
+        name: f.name.value.trim(),
+        email: f.email.value.trim(),
+        country: f.country.value.trim(),
+        message: f.message.value.trim(),
+        work: f.work.value
+      }, t('subject'), enquiryText(), formStatus);
+    });
+
+    var formCopy = document.getElementById('formCopy');
+    if (formCopy) {
+      formCopy.addEventListener('click', function () {
+        if (!validate(enquiry)) { formStatus.textContent = t('invalid'); return; }
+        copyOut(enquiryText(), formStatus);
+      });
+    }
+  }
+
+  /* ------------------------------------------------------ image protection
+     A deterrent against casual copying, not DRM — a visitor can always take a
+     screenshot. The real protection is that these are preview-resolution
+     files and therefore not printable. */
+  document.addEventListener('contextmenu', function (e) {
+    if (e.target.closest('.shot, .lb-frame, .card-img, .about-portrait, .slide, .sel-item')) e.preventDefault();
+  });
+  document.addEventListener('dragstart', function (e) {
+    if (e.target.tagName === 'IMG') e.preventDefault();
+  });
+
+  /* ------------------------------------------------------------- reveal in */
+  var io = 'IntersectionObserver' in window
+    ? new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+        });
+      }, { rootMargin: '0px 0px -40px 0px' })
+    : null;
+  Array.prototype.forEach.call(document.querySelectorAll('.shot, .card'), function (n) {
+    if (io) io.observe(n); else n.classList.add('is-in');
+  });
+
+  /* ------------------------------------------------------------------ init */
+  Array.prototype.forEach.call(document.querySelectorAll('.year'), function (n) {
+    n.textContent = String(new Date().getFullYear());
+  });
+  syncSelection();
 })();

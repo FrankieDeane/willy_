@@ -1,0 +1,47 @@
+name: Checks
+
+on:
+  push:
+    # An upload of raw originals is photos.yml's job, not this one's; it will
+    # push a processed commit that this workflow then checks properly.
+    paths-ignore:
+      - 'assets/img/_incoming/**'
+  pull_request:
+  schedule:
+    - cron: '0 6 * * 1'      # a weekly run catches a secret that landed via the web UI
+
+permissions:
+  contents: read             # read-only: this workflow reports, it never writes
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Scan for credentials
+        run: node tools/scan-secrets.mjs
+
+      - name: Rebuild and check for drift
+        run: |
+          node tools/build.mjs
+          if ! git diff --quiet; then
+            echo "::error::Generated pages are stale. Run 'node tools/build.mjs' and commit."
+            git diff --stat
+            exit 1
+          fi
+
+      - name: Check every internal link resolves
+        run: node tools/check-links.mjs
+
+      - name: Check the security policy is identical across hosts
+        # vercel.json, _headers and the <meta> tag in every page carry the
+        # same CSP because each host enforces it differently. This fails if
+        # they drift, and rejects a vercel.json key Vercel would refuse.
+        run: node tools/check-config.mjs
