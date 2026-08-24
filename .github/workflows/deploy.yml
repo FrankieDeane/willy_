@@ -68,7 +68,11 @@ jobs:
         run: |
           mkdir -p _site
           cp index.html work.html prints.html selection.html about.html contact.html _site/
-          cp robots.txt sitemap.xml _headers _site/
+          cp robots.txt _headers _site/
+          # sitemap.xml only exists while the site is open to crawlers — see
+          # "indexable" in tools/site.json. An unconditional cp would fail the
+          # whole deploy on the day the site is deliberately closed.
+          [ -f sitemap.xml ] && cp sitemap.xml _site/ || echo "no sitemap.xml (site is noindex)"
           cp -r albums es assets _site/
           rm -rf _site/assets/img/_incoming
           touch _site/.nojekyll

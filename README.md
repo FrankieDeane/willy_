@@ -197,6 +197,20 @@ ningún token que robar: no existe.
 ---
 
 ## SEO
+### El sitio no se indexa hasta que haya fotos
+
+`tools/site.json` tiene `"indexable": "auto"`. Mientras no haya **ninguna**
+fotografía real en `assets/img/`, cada página se genera con
+`noindex, nofollow`, `robots.txt` queda cerrado y no se publica `sitemap.xml`.
+
+No es prudencia excesiva: un portfolio de fotografía indexado **sin una sola
+foto** es peor que no estar. Google ve páginas vacías y 250 URLs de imagen que
+dan 404, y esa primera impresión tarda semanas en revertirse.
+
+Se destraba **solo** en cuanto se sube la primera foto y se regenera el sitio.
+No hay que acordarse de nada el día del lanzamiento. Para forzarlo en un
+sentido u otro, `"indexable": true` o `false`.
+
 
 Pensado para Estados Unidos y Europa:
 
