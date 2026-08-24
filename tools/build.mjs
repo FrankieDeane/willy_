@@ -86,6 +86,18 @@ function photosFor(album) {
 
 const CATALOG = ALBUMS.map((a) => ({ ...a, photos: photosFor(a) }));
 
+/* A photography portfolio indexed with no photographs in it is worse than not
+   being indexed at all: Google sees thin pages and 250 image URLs that 404,
+   and that first impression takes weeks to undo. So indexing is tied to the
+   photographs actually existing, and turns itself on the moment they land —
+   nobody has to remember to flip a switch on launch day.
+     "auto" (default) · index only once at least one photograph is on disk
+     true / false      · force it either way */
+const HAS_PHOTOS = CATALOG.some((a) => a.photos.some((p) => p.real));
+const INDEXABLE = SITE.indexable === true ? true
+                : SITE.indexable === false ? false
+                : HAS_PHOTOS;
+
 /* The image every share card and every social preview uses. Named in
    site.json so it is a decision, not an accident of sort order. */
 function coverPhoto() {
@@ -178,7 +190,9 @@ function head({ lang, id, slug, title, desc, image, depth, jsonld }) {
 <meta name="description" content="${attr(desc)}" />
 <meta name="author" content="${esc(t['site.name'])}" />
 <link rel="canonical" href="${canonical}" />
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<meta name="robots" content="${INDEXABLE
+  ? 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
+  : 'noindex, nofollow'}" />
 
 <!-- ===== languages =====
      Separate URLs per language rather than a JavaScript toggle: this is what
@@ -888,6 +902,17 @@ ${body}
 }
 
 function robots() {
+  if (!INDEXABLE) {
+    return `# ${SITE.origin}${SITE.base}/
+#
+# Closed to crawlers on purpose: the photographs are not published yet, and a
+# photography portfolio indexed with no photographs in it is worse than not
+# being indexed at all. This opens itself as soon as the first photograph is
+# committed — see "indexable" in tools/site.json.
+User-agent: *
+Disallow: /
+`;
+  }
   return `# ${SITE.origin}${SITE.base}/
 User-agent: *
 Allow: /
@@ -931,7 +956,11 @@ for (const lang of LANGS) {
 }
 written.push(write('assets/js/catalog.js', catalogJs()));
 written.push(write('api/_catalog.json', catalogJson()));
-written.push(write('sitemap.xml', sitemap()));
+if (INDEXABLE) written.push(write('sitemap.xml', sitemap()));
+else if (fs.existsSync(path.join(ROOT, 'sitemap.xml'))) {
+  fs.rmSync(path.join(ROOT, 'sitemap.xml'));
+  console.log('  removed sitemap.xml — nothing to offer a crawler yet');
+}
 written.push(write('robots.txt', robots()));
 
 console.log(`built ${written.length} files`);
@@ -939,6 +968,12 @@ console.log(`  ${CATALOG.length} series, ${TOTAL_PHOTOS} photographs, ${LANGS.le
 console.log(`  ${READY}/${CATALOG.length} series have real image files on disk`);
 if (READY < CATALOG.length) {
   console.log('  (the rest render named placeholders — see README, "Cargar las fotos")');
+}
+if (!INDEXABLE) {
+  console.log('\n  ! SEARCH ENGINES ARE BLOCKED: every page carries noindex and robots.txt is closed.');
+  console.log('    Reason: ' + (SITE.indexable === false
+    ? 'tools/site.json sets "indexable": false.'
+    : 'no photographs are on disk yet. This lifts itself when they are added.'));
 }
 if (!SITE.email) {
   console.log('\n  ! tools/site.json has no "email": enquiry pages fall back to copy-to-clipboard.');
