@@ -136,7 +136,7 @@
     "form.ok": "Thank you — your enquiry is on its way. I read every one myself and reply within a couple of days.",
     "form.fail": "That did not go through. Use “Copy as text” below and send it by email instead — nothing you typed is lost.",
     "form.hp": "Leave this field empty",
-    "form.noscript": "This form needs JavaScript. With it switched off, please email your enquiry directly.",
+    "form.noscript": "This form needs JavaScript to send. Turn it on, or get in touch through the Behance profile linked from the About page.",
     "form.sent": "Your email client should now be open. If nothing happened, write directly to the address below.",
     "form.invalid": "Please add your name and a valid email address.",
 
@@ -288,7 +288,7 @@
     "form.ok": "Gracias — tu consulta ya salió. Las leo yo y respondo en un par de días.",
     "form.fail": "No se pudo enviar. Usá «Copiar como texto» acá abajo y mandala por mail — no se perdió nada de lo que escribiste.",
     "form.hp": "Dejá este campo vacío",
-    "form.noscript": "Este formulario necesita JavaScript. Si lo tenés desactivado, escribí tu consulta directamente por mail.",
+    "form.noscript": "Este formulario necesita JavaScript para enviarse. Activalo, o escribime por el perfil de Behance que está enlazado en «Quién es».",
     "form.sent": "Se debería haber abierto tu cliente de correo. Si no pasó nada, escribí directamente a la dirección de abajo.",
     "form.invalid": "Agregá tu nombre y un email válido, por favor.",
 

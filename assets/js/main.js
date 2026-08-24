@@ -576,7 +576,10 @@
      Every fallback keeps what the visitor typed. Nothing is cleared until
      something has actually succeeded. */
 
-  var MAILTO = (window.__CATALOG__ && window.__CATALOG__.email) || '';
+  var MAILTO = (function () {
+    var e = window.__CATALOG__ && window.__CATALOG__.email;
+    return e && e.u && e.d ? e.u + '@' + e.d : '';
+  })();
   var ENDPOINT = '/api/enquiry';
   var loadedAt = Date.now();
 

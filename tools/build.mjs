@@ -837,10 +837,16 @@ function catalogJson() {
 function catalogJs() {
   const data = {
     generated: TODAY,
-    /* The enquiry address, so main.js can build a mailto:. It is a public
-       contact address by definition — there is nothing secret in this file,
-       and deliberately so: the site holds no key of any kind. */
-    email: SITE.email || '',
+    /* The fallback address, so main.js can build a mailto: when /api/enquiry
+       is absent or unconfigured. Split into its two halves rather than shipped
+       as one string: a scraper that regexes the static files for an @ finds
+       nothing. That is a speed bump against the laziest harvesters, not
+       protection — anything that runs JavaScript reassembles it as easily as
+       the page does. The real answer is to configure ENQUIRY_TO on the server
+       and blank this field, at which point the address never leaves it. */
+    email: SITE.email
+      ? { u: SITE.email.split('@')[0], d: SITE.email.split('@').slice(1).join('@') }
+      : null,
     albums: CATALOG.map((a) => ({
       slug: a.slug, theme: a.theme, en: a.en, es: a.es,
       place_en: a.place_en, place_es: a.place_es,

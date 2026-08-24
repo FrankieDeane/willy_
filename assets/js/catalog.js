@@ -3,7 +3,10 @@
    Regenerate with: node tools/build.mjs */
 window.__CATALOG__ = {
   "generated": "2026-08-24",
-  "email": "",
+  "email": {
+    "u": "gbernaldodequiros",
+    "d": "yahoo.com"
+  },
   "albums": [
     {
       "slug": "abandoned-post-office",

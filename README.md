@@ -111,7 +111,7 @@ En Vercel: **Project ▸ Settings ▸ Environment Variables**.
 
 | Variable | Para qué |
 |---|---|
-| `ENQUIRY_TO` | La dirección que recibe las consultas. **Obligatoria.** |
+| `ENQUIRY_TO` | `gbernaldodequiros@yahoo.com`. **Obligatoria.** |
 | `RESEND_API_KEY` | Una API key de [resend.com](https://resend.com) (plan gratis: 3.000 mails/mes) |
 | `ENQUIRY_FROM` | Remitente verificado. Si no la ponés, usa el de prueba de Resend. |
 
@@ -129,18 +129,25 @@ Después de cargar las variables, redesplegá una vez para que la función las l
 
 ### 2. `mailto:` — si no hay backend pero sí hay dirección
 
-Poné la dirección en `tools/site.json` (`"email"`) y corré `node tools/build.mjs`.
-Al enviar se abre el cliente de correo del visitante con todo cargado. Es lo
-que corre en GitHub Pages, que no puede ejecutar funciones.
+Ya está configurado: `tools/site.json` tiene `gbernaldodequiros@yahoo.com`. Al
+enviar se abre el cliente de correo del visitante con todo cargado. Es lo que
+corre hoy, y lo que va a correr siempre en GitHub Pages, que no puede ejecutar
+funciones.
+
+La dirección no viaja como una sola cadena: se parte en usuario y dominio y se
+vuelve a unir en el navegador, así un scraper que busca `@` en los archivos
+estáticos no encuentra nada. Es un badén contra los recolectores más perezosos,
+**no** una protección — cualquier cosa que ejecute JavaScript la rearma igual
+de fácil que la página. La solución de fondo es el camino 1: con `ENQUIRY_TO`
+en el servidor, se puede dejar `"email": ""` y la dirección deja de salir del
+servidor por completo.
 
 ### 3. Portapapeles — si no hay ninguna de las dos
 
-Es el estado actual del repo. El formulario copia la consulta ya armada y le
-dice al visitante que la pegue en un mail.
+Copia la consulta ya armada y le dice al visitante que la pegue en un mail.
 
-> **Estado actual:** `tools/site.json` tiene `"email": ""` y no hay variables de
-> entorno cargadas, así que hoy funciona el camino 3. Poner `ENQUIRY_TO` +
-> `RESEND_API_KEY` en Vercel es lo único que falta para el camino 1.
+> **Estado actual:** funciona el camino 2. Para pasar al 1, cargá `ENQUIRY_TO` y
+> `RESEND_API_KEY` en Vercel y redesplegá — no hay nada que cambiar en el código.
 
 ### Anti-spam
 
