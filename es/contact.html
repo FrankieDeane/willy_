@@ -13,7 +13,7 @@
      nowhere to call out to. Trusted Types is on, which means no code path in
      this site is allowed to assign a string to innerHTML.
      See SECURITY.md. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; frame-src 'none'; object-src 'none'; media-src 'none'; worker-src 'none'; manifest-src 'self'; require-trusted-types-for 'script'; upgrade-insecure-requests" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'none'; base-uri 'none'; frame-src 'none'; object-src 'none'; media-src 'none'; worker-src 'none'; manifest-src 'self'; require-trusted-types-for 'script'; upgrade-insecure-requests" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
 
 <!-- ===== identity ===== -->
@@ -231,8 +231,15 @@
         <option value="Invierno">Invierno</option>
       </select></label>
     <label><span>Mensaje</span><textarea name="message" rows="4"></textarea></label>
-    <button type="submit" class="btn">ENVIAR</button>
+    <div class="hp" aria-hidden="true">
+      <label>Dejá este campo vacío<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+    </div>
+    <div class="sel-actions">
+      <button type="submit" class="btn">ENVIAR</button>
+      <button type="button" class="btn btn-ghost" id="formCopy">COPIAR COMO TEXTO</button>
+    </div>
     <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+    <noscript><p class="sel-privacy">Este formulario necesita JavaScript. Si lo tenés desactivado, escribí tu consulta directamente por mail.</p></noscript>
   </form>
 </main>
 

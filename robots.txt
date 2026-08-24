@@ -7,4 +7,7 @@ Allow: /
 # preview-resolution files are published here. The originals never leave.
 Disallow: /assets/img/_incoming/
 
+# The enquiry endpoint. Nothing to index, and no reason for a crawler to POST.
+Disallow: /api/
+
 Sitemap: https://frankiedeane.github.io/willy_/sitemap.xml

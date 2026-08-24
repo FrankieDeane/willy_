@@ -92,12 +92,63 @@ Después de tocar cualquiera de ellos:
 node tools/build.mjs
 ```
 
-### Pendiente antes de publicar
+---
 
-`tools/site.json` tiene `"email": ""`. Mientras esté vacío, los formularios solo
-ofrecen **«copiar como texto»**: no arman un `mailto:` porque no hay a dónde
-mandarlo. Poné ahí la dirección a la que querés que lleguen las consultas y
-volvé a correr `node tools/build.mjs`.
+## Que el formulario funcione
+
+Hay tres formas de que una consulta llegue, y el sitio las prueba **en este
+orden**. La primera que funcione, gana; el visitante nunca se queda con un
+formulario que no hizo nada, y nunca pierde lo que escribió.
+
+### 1. Envío real (recomendado) — `api/enquiry.js` en Vercel
+
+Es la única que manda el mail de verdad sin que el visitante salga de la
+página. La clave que envía el mail vive en una variable de entorno del
+servidor: **nunca llega al navegador**, así que no hay nada que robar del lado
+del cliente.
+
+En Vercel: **Project ▸ Settings ▸ Environment Variables**.
+
+| Variable | Para qué |
+|---|---|
+| `ENQUIRY_TO` | La dirección que recibe las consultas. **Obligatoria.** |
+| `RESEND_API_KEY` | Una API key de [resend.com](https://resend.com) (plan gratis: 3.000 mails/mes) |
+| `ENQUIRY_FROM` | Remitente verificado. Si no la ponés, usa el de prueba de Resend. |
+
+O, en vez de Resend:
+
+| Variable | Para qué |
+|---|---|
+| `ENQUIRY_WEBHOOK` | Cualquier URL que acepte un POST con JSON |
+
+Esa segunda opción sirve para mandar las consultas a **la planilla de Google
+que ya tenés** mediante un Apps Script, o a Zapier, o a lo que sea. No implica
+crear cuenta en ningún lado: la URL es toda la configuración.
+
+Después de cargar las variables, redesplegá una vez para que la función las lea.
+
+### 2. `mailto:` — si no hay backend pero sí hay dirección
+
+Poné la dirección en `tools/site.json` (`"email"`) y corré `node tools/build.mjs`.
+Al enviar se abre el cliente de correo del visitante con todo cargado. Es lo
+que corre en GitHub Pages, que no puede ejecutar funciones.
+
+### 3. Portapapeles — si no hay ninguna de las dos
+
+Es el estado actual del repo. El formulario copia la consulta ya armada y le
+dice al visitante que la pegue en un mail.
+
+> **Estado actual:** `tools/site.json` tiene `"email": ""` y no hay variables de
+> entorno cargadas, así que hoy funciona el camino 3. Poner `ENQUIRY_TO` +
+> `RESEND_API_KEY` en Vercel es lo único que falta para el camino 1.
+
+### Anti-spam
+
+Sin CAPTCHA — sería un script de terceros en un sitio cuya postura entera es
+que no carga nada de ningún lado. En su lugar: campo trampa invisible, piso de
+tiempo de envío, límites duros en cada campo, límite de frecuencia por IP, y
+**la selección se vuelve a validar contra el catálogo en el servidor**, así el
+cuerpo del mail no se puede usar para colar texto arbitrario.
 
 ---
 

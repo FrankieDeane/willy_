@@ -6,22 +6,30 @@ is a list of controls — and here the answer is that **there are no tokens.**
 
 ## The design decision everything else follows from
 
-The site is plain HTML, CSS and one JavaScript file. It has:
+The pages are plain HTML, CSS and one JavaScript file. They have:
 
-- no backend, no database, no serverless function
-- no API key, access token, session, or account of any kind
+- no database, no account, no session, no payment step
+- no API key or access token **in anything the browser downloads**
 - no third-party script, font, stylesheet, image, embed, analytics or cookie
-- no network request of its own — `connect-src` is `'none'`, and nothing in
-  `assets/js/main.js` calls `fetch`, `XMLHttpRequest` or a WebSocket
+- no request to any external origin — `connect-src` is `'self'`, so the only
+  thing the page may talk to is this site's own enquiry endpoint
 
-An enquiry is composed **in the visitor's browser** and handed to their own
-mail client via `mailto:`, or copied to their clipboard. Nothing is posted
-anywhere. There is no payment step, so there is no card data and no processor
-credential.
+There is exactly **one** secret in the whole project: the key that sends the
+enquiry email. It lives in a Vercel environment variable, is read only by
+`api/enquiry.js` on the server, and never appears in a page, a response body,
+a log line, or this repository. A visitor can read every byte the site serves
+them and find nothing worth having.
 
-The consequence: there is no secret in the deployed site to steal, and no
-server-side surface to attack. The realistic risks are all somewhere else, and
-they are covered below.
+That is the honest version of "keep the tokens safe": not that no credential
+exists, but that the one that does never crosses into the browser, and that
+the scanners and the ignore rules make it hard to commit by accident.
+
+### If no key is configured
+
+The endpoint answers `503` and the page falls back — first to `mailto:`, then
+to the clipboard. The form keeps working, nothing the visitor typed is lost,
+and the same build runs unchanged on GitHub Pages, which cannot execute a
+function at all. That fallback is a tested path, not a theory.
 
 ## Real risk 1 — a credential committed by accident
 
@@ -42,7 +50,34 @@ Turn on **Settings ▸ Code security ▸ Secret scanning ▸ Push protection** a
 well. It is the only control that stops a secret *before* it reaches the
 history rather than after.
 
-## Real risk 2 — the CI supply chain
+## Real risk 2 — the enquiry endpoint
+
+`api/enquiry.js` is the only code here that runs on a server and the only thing
+that accepts input from strangers, so it treats everything it receives as
+hostile:
+
+- **Hard caps** on every field and on the whole body, checked before any work
+  is done. This is what stops a payload attack.
+- **The selection is re-validated against the generated catalogue.** A
+  photograph that is not in the catalogue is dropped, and the email is written
+  from the catalogue's own text rather than the client's — so the structured
+  part of the form cannot be used to smuggle arbitrary content into what
+  arrives looking like a verified list.
+- **Newlines are stripped** from anything that reaches a subject line or an
+  address. A newline in a name is how one header becomes two.
+- **A honeypot field and a submission-time floor**, which catch naive bots at
+  no cost to a real visitor. A bot that trips either gets a `200` and silence,
+  because telling it why would help it try again.
+- **A per-instance rate limit.** Best effort by nature — serverless instances
+  come and go — so it is a speed bump, not a control.
+- **Errors never echo the cause.** A failed provider call can quote the key
+  back in its response; the handler returns a generic code and logs only a
+  status number.
+
+There is no CAPTCHA, deliberately. Adding one means a third-party script on a
+site whose entire posture is that it loads nothing from anywhere.
+
+## Real risk 3 — the CI supply chain
 
 The workflows are where this repository has real privilege, so they are kept
 narrow:
@@ -66,7 +101,7 @@ digest is stronger and worth doing — it is the one control here that is
 deliberately left as a follow-up, because a digest has to be verified against
 the upstream repository at the moment it is written down.
 
-## Real risk 3 — the photographs themselves
+## Real risk 4 — the photographs themselves
 
 - Only preview-resolution files are published: 1600px on the long edge, which
   is not printable at 65×100cm, let alone 150×240cm. The originals never enter
@@ -102,7 +137,8 @@ microphone, geolocation, payment, USB and the rest, and the three
 cross-origin isolation headers.
 
 The one browser storage in use is `localStorage`, holding the visitor's print
-selection, theme and language. It never leaves their device. Everything read
+selection, theme and language. It leaves their device only when they press
+send, and then only as part of the enquiry they chose to send. Everything read
 back out of it is re-validated against the generated catalogue, so a value
 edited by hand is discarded rather than rendered.
 

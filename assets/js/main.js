@@ -44,10 +44,13 @@
       hang2: 'A diptych: two frames, hung with a 6–8 cm gap, read as one work.',
       hang3: 'A triptych: the classic set, and the most requested.',
       hang5: 'A series of five or more: a wall, priced as a set.',
+      sending: 'Sending…',
+      failed: 'That did not go through. Use “Copy as text” and send it by email instead — nothing you typed is lost.',
       copied: 'Copied — paste it into an email.',
       copyfail: 'Could not copy. Select the text and copy it by hand.',
       sent: 'Your email client should now be open with the selection filled in. If nothing happened, use “Copy as text”.',
       invalid: 'Please add your name and a valid email address.',
+      ok: 'Thank you — your enquiry is on its way. I read every one myself and reply within a couple of days.',
       subject: 'Print enquiry', greeting: 'Selection', spec: 'Printed as',
       from: 'From', country: 'Country', note: 'Note'
     },
@@ -59,10 +62,13 @@
       hang2: 'Díptico: dos cuadros, con 6 a 8 cm de separación, se leen como una obra.',
       hang3: 'Tríptico: el conjunto clásico, y el más pedido.',
       hang5: 'Serie de cinco o más: una pared entera, cotizada como conjunto.',
+      sending: 'Enviando…',
+      failed: 'No se pudo enviar. Usá «Copiar como texto» y mandala por mail — no se perdió nada de lo que escribiste.',
       copied: 'Copiado — pegalo en un mail.',
       copyfail: 'No se pudo copiar. Seleccioná el texto y copialo a mano.',
       sent: 'Se debería haber abierto tu cliente de correo con la selección cargada. Si no pasó nada, usá «Copiar como texto».',
       invalid: 'Agregá tu nombre y un email válido, por favor.',
+      ok: 'Gracias — tu consulta ya salió. Las leo yo y respondo en un par de días.',
       subject: 'Consulta por copias', greeting: 'Selección', spec: 'Impresa como',
       from: 'De', country: 'País', note: 'Nota'
     }
@@ -554,17 +560,48 @@
     return !!name.value.trim() && ok;
   }
 
-  /* site.json may deliberately carry no address yet; then only copy works. */
-  var MAILTO = (window.__CATALOG__ && window.__CATALOG__.email) || '';
+  /* ------------------------------------------------------------- delivery
 
-  function handOff(subject, text, status) {
-    if (!MAILTO) return copyOut(text, status);
-    var href = 'mailto:' + encodeURIComponent(MAILTO) +
-               '?subject=' + encodeURIComponent(subject) +
-               '&body=' + encodeURIComponent(text);
-    window.location.href = href;
-    status.textContent = t('sent');
+     Three ways an enquiry can reach Guillermo, tried in order. The first that
+     works, wins; the visitor is never left holding a form that did nothing.
+
+       1. POST to /api/enquiry. Real delivery, and the only route where the
+          visitor never leaves the page. The credential that sends the mail
+          lives in a server environment variable and is never in this file —
+          there is nothing here to read out of the browser.
+       2. mailto:, if the site knows an address but the endpoint is absent or
+          not configured (GitHub Pages has no functions at all).
+       3. The clipboard, if there is no address either.
+
+     Every fallback keeps what the visitor typed. Nothing is cleared until
+     something has actually succeeded. */
+
+  var MAILTO = (window.__CATALOG__ && window.__CATALOG__.email) || '';
+  var ENDPOINT = '/api/enquiry';
+  var loadedAt = Date.now();
+
+  function post(payload) {
+    return fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (res) {
+      if (res.ok) return true;
+      // 503 means nobody has configured a delivery route yet; 404/405 mean
+      // there is no function here at all. Both are "fall back", not "fail".
+      if (res.status === 503 || res.status === 404 || res.status === 405) return false;
+      throw new Error('http ' + res.status);
+    });
   }
+
+  function mailtoOut(subject, text, status) {
+    if (!MAILTO) return copyOut(text, status);
+    window.location.href = 'mailto:' + encodeURIComponent(MAILTO) +
+      '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(text);
+    status.textContent = t('sent');
+    return true;
+  }
+
   function copyOut(text, status) {
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(
@@ -573,14 +610,50 @@
     } else {
       status.textContent = t('copyfail');
     }
+    return true;
+  }
+
+  function send(form, payload, subject, text, status, onSuccess) {
+    var button = form.querySelector('button[type="submit"]');
+    if (button) button.disabled = true;
+    status.textContent = t('sending');
+
+    payload.ts = loadedAt;
+    payload.lang = LANG;
+    payload.company = form.elements.company ? form.elements.company.value : '';
+
+    post(payload).then(function (delivered) {
+      if (button) button.disabled = false;
+      if (delivered) {
+        status.textContent = t('ok');
+        form.reset();
+        if (onSuccess) onSuccess();
+      } else {
+        mailtoOut(subject, text, status);       // no backend configured
+      }
+    }).catch(function () {
+      if (button) button.disabled = false;
+      if (MAILTO) mailtoOut(subject, text, status);
+      else { status.textContent = t('failed'); copyOut(text, status); }
+    });
   }
 
   if (selForm) {
     selForm.addEventListener('submit', function (e) {
       e.preventDefault();
-      if (!selRead().length) return;
+      var list = selRead();
+      if (!list.length) return;
       if (!validate(selForm)) { selStatus.textContent = t('invalid'); return; }
-      handOff(t('subject') + ' — ' + selRead().length, selectionText(selForm), selStatus);
+      var f = selForm.elements;
+      send(selForm, {
+        name: f.name.value.trim(),
+        email: f.email.value.trim(),
+        country: f.country ? f.country.value.trim() : '',
+        message: f.message ? f.message.value.trim() : '',
+        spec: [f.size.value, f.paper.value, f.frame.value].join(' · '),
+        selection: list
+      }, t('subject') + ' — ' + list.length, selectionText(selForm), selStatus,
+      function () { selWrite([]); });   // only clear once it is actually sent
     });
     var selCopy = document.getElementById('selCopy');
     if (selCopy) {
@@ -595,17 +668,37 @@
   var enquiry = document.getElementById('enquiryForm');
   if (enquiry) {
     var formStatus = document.getElementById('formStatus');
-    enquiry.addEventListener('submit', function (e) {
-      e.preventDefault();
-      if (!validate(enquiry)) { formStatus.textContent = t('invalid'); return; }
+
+    function enquiryText() {
       var f = enquiry.elements;
       var lines = [];
       if (f.work.value) lines.push(f.work.value);
       if (f.message.value.trim()) lines.push('', f.message.value.trim());
       lines.push('', t('from') + ': ' + f.name.value.trim() + ' <' + f.email.value.trim() + '>');
       if (f.country.value.trim()) lines.push(t('country') + ': ' + f.country.value.trim());
-      handOff(t('subject'), lines.join('\n'), formStatus);
+      return lines.join('\n');
+    }
+
+    enquiry.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!validate(enquiry)) { formStatus.textContent = t('invalid'); return; }
+      var f = enquiry.elements;
+      send(enquiry, {
+        name: f.name.value.trim(),
+        email: f.email.value.trim(),
+        country: f.country.value.trim(),
+        message: f.message.value.trim(),
+        work: f.work.value
+      }, t('subject'), enquiryText(), formStatus);
     });
+
+    var formCopy = document.getElementById('formCopy');
+    if (formCopy) {
+      formCopy.addEventListener('click', function () {
+        if (!validate(enquiry)) { formStatus.textContent = t('invalid'); return; }
+        copyOut(enquiryText(), formStatus);
+      });
+    }
   }
 
   /* ------------------------------------------------------ image protection

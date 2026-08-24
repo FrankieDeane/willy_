@@ -657,3 +657,13 @@ body[data-page="home"] .site-foot { border-top: 0; }
   color: var(--text); margin-bottom: 0.55rem;
 }
 .card-img.is-empty, .card-img.is-missing { border: 1px dashed var(--line); }
+
+/* ---------- honeypot ----------
+   Off-screen rather than display:none — some bots skip anything that is not
+   rendered at all, and this field only works if they find it and fill it in.
+   aria-hidden and tabindex="-1" in the markup keep it away from real people. */
+.hp {
+  position: absolute; left: -9999px; top: auto;
+  width: 1px; height: 1px; overflow: hidden;
+}
+button[disabled] { opacity: 0.5; cursor: progress; }

@@ -170,7 +170,7 @@ function head({ lang, id, slug, title, desc, image, depth, jsonld }) {
      nowhere to call out to. Trusted Types is on, which means no code path in
      this site is allowed to assign a string to innerHTML.
      See SECURITY.md. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; frame-src 'none'; object-src 'none'; media-src 'none'; worker-src 'none'; manifest-src 'self'; require-trusted-types-for 'script'; upgrade-insecure-requests" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'none'; base-uri 'none'; frame-src 'none'; object-src 'none'; media-src 'none'; worker-src 'none'; manifest-src 'self'; require-trusted-types-for 'script'; upgrade-insecure-requests" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
 
 <!-- ===== identity ===== -->
@@ -704,12 +704,16 @@ ${SITE.papers.map((p) => `              <option value="${esc(p[lang])}">${esc(p[
         <label><span>${esc(t['form.message'])}</span><textarea name="message" rows="3"></textarea></label>
       </fieldset>
 
+      <div class="hp" aria-hidden="true">
+        <label>${esc(t['form.hp'])}<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+      </div>
       <div class="sel-actions">
         <button type="submit" class="btn">${esc(t['sel.send'])}</button>
         <button type="button" class="btn btn-ghost" id="selCopy">${esc(t['sel.copy'])}</button>
       </div>
       <p class="form-status" id="selStatus" role="status" aria-live="polite"></p>
       <p class="sel-privacy">${esc(t['sel.privacy'])}</p>
+      <noscript><p class="sel-privacy">${esc(t['form.noscript'])}</p></noscript>
     </form>
   </div>
 </main>
@@ -803,14 +807,32 @@ function pageContact(lang) {
 ${CATALOG.map((a) => `        <option value="${esc(a[lang])}">${esc(a[lang])}</option>`).join('\n')}
       </select></label>
     <label><span>${esc(t['form.message'])}</span><textarea name="message" rows="4"></textarea></label>
-    <button type="submit" class="btn">${esc(t['form.submit'])}</button>
+    <div class="hp" aria-hidden="true">
+      <label>${esc(t['form.hp'])}<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+    </div>
+    <div class="sel-actions">
+      <button type="submit" class="btn">${esc(t['form.submit'])}</button>
+      <button type="button" class="btn btn-ghost" id="formCopy">${esc(t['sel.copy'])}</button>
+    </div>
     <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+    <noscript><p class="sel-privacy">${esc(t['form.noscript'])}</p></noscript>
   </form>
 </main>
 ` + foot({ lang, depth });
 }
 
 /* ------------------------------------------------------------- catalog.js */
+
+function catalogJson() {
+  return json({
+    generated: TODAY,
+    albums: CATALOG.map((a) => ({
+      slug: a.slug, en: a.en, es: a.es,
+      place_en: a.place_en, place_es: a.place_es,
+      photos: a.photos.map((p) => ({ f: p.f, n: p.n }))
+    }))
+  }) + '\n';
+}
 
 function catalogJs() {
   const data = {
@@ -869,6 +891,9 @@ Allow: /
 # preview-resolution files are published here. The originals never leave.
 Disallow: /assets/img/_incoming/
 
+# The enquiry endpoint. Nothing to index, and no reason for a crawler to POST.
+Disallow: /api/
+
 Sitemap: ${SITE.origin}${SITE.base}/sitemap.xml
 `;
 }
@@ -899,6 +924,7 @@ for (const lang of LANGS) {
   });
 }
 written.push(write('assets/js/catalog.js', catalogJs()));
+written.push(write('api/_catalog.json', catalogJson()));
 written.push(write('sitemap.xml', sitemap()));
 written.push(write('robots.txt', robots()));
 
