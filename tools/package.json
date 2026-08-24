@@ -1,0 +1,15 @@
+{
+  "name": "gbq-photo-tools",
+  "private": true,
+  "type": "module",
+  "description": "Build tooling for the site. sharp is the only dependency in the whole project, and only the image step needs it — build.mjs and scan-secrets.mjs run on plain Node.",
+  "scripts": {
+    "photos": "node prepare-photos.mjs --consume && node build.mjs",
+    "build": "node build.mjs",
+    "scan": "node scan-secrets.mjs"
+  },
+  "dependencies": {
+    "sharp": "0.33.5"
+  },
+  "engines": { "node": ">=20" }
+}

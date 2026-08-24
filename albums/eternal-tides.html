@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- ===== security =====
+     GitHub Pages cannot send response headers, so everything expressible as a
+     meta tag is set here; vercel.json and public/_headers carry the rest on
+     hosts that can. Policy is deny-by-default: 'none', then only what this
+     site genuinely uses is allowed back, and no external origin is allowed at
+     all. Fonts, styles and scripts are self-hosted, so injected markup has
+     nowhere to call out to. Trusted Types is on, which means no code path in
+     this site is allowed to assign a string to innerHTML.
+     See SECURITY.md. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'; frame-src 'none'; object-src 'none'; media-src 'none'; worker-src 'none'; manifest-src 'self'; require-trusted-types-for 'script'; upgrade-insecure-requests" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+
+<!-- ===== identity ===== -->
+<title>Eternal Tides — Fine Art Photography Prints | Guillermo Bernaldo de Quirós</title>
+<meta name="description" content="The one landscape that rewrites itself twice a day. 10 photographs. Signed limited edition prints." />
+<meta name="author" content="Guillermo Bernaldo de Quirós" />
+<link rel="canonical" href="https://frankiedeane.github.io/willy_/albums/eternal-tides.html" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+<!-- ===== languages =====
+     Separate URLs per language rather than a JavaScript toggle: this is what
+     lets Google serve the English pages to the United States, Canada and the
+     UK and the Spanish ones to Spain and Latin America, instead of picking
+     one and indexing half the site. -->
+<link rel="alternate" hreflang="en" href="https://frankiedeane.github.io/willy_/albums/eternal-tides.html" />
+<link rel="alternate" hreflang="es" href="https://frankiedeane.github.io/willy_/es/albums/eternal-tides.html" />
+<link rel="alternate" hreflang="x-default" href="https://frankiedeane.github.io/willy_/albums/eternal-tides.html" />
+
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d0d0d" />
+
+<!-- ===== sharing =====
+     Most of this site's discovery is image search, so max-image-preview:large
+     above and a real og:image matter more here than on an ordinary site. -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Guillermo Bernaldo de Quirós" />
+<meta property="og:title" content="Eternal Tides — Fine Art Photography Prints | Guillermo Bernaldo de Quirós" />
+<meta property="og:description" content="The one landscape that rewrites itself twice a day. 10 photographs. Signed limited edition prints." />
+<meta property="og:url" content="https://frankiedeane.github.io/willy_/albums/eternal-tides.html" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:locale:alternate" content="es_ES" />
+<meta property="og:image" content="https://frankiedeane.github.io/willy_/assets/img/eternal-tides-gbq-1.jpg" />
+<meta property="og:image:alt" content="Eternal Tides — Fine Art Photography Prints | Guillermo Bernaldo de Quirós" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Eternal Tides — Fine Art Photography Prints | Guillermo Bernaldo de Quirós" />
+<meta name="twitter:description" content="The one landscape that rewrites itself twice a day. 10 photographs. Signed limited edition prints." />
+<meta name="twitter:image" content="https://frankiedeane.github.io/willy_/assets/img/eternal-tides-gbq-1.jpg" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230d0d0d%22/><rect x=%2230%22 y=%2222%22 width=%2240%22 height=%2256%22 fill=%22none%22 stroke=%22%23fff%22 stroke-width=%226%22/></svg>" />
+
+<link rel="preload" href="../assets/fonts/jost-300-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="../assets/css/fonts.css" />
+<link rel="stylesheet" href="../assets/css/style.css" />
+<script src="../assets/js/boot.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://frankiedeane.github.io/willy_/#person",
+      "name": "Guillermo Bernaldo de Quirós",
+      "jobTitle": [
+        "Photographer",
+        "Behavioral Neurologist"
+      ],
+      "url": "https://frankiedeane.github.io/willy_/",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Buenos Aires",
+        "addressCountry": "AR"
+      },
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Harvard University"
+      },
+      "worksFor": {
+        "@type": "MedicalOrganization",
+        "name": "CEMIC"
+      },
+      "knowsAbout": [
+        "Fine art photography",
+        "Architectural photography",
+        "Landscape photography",
+        "Behavioral neurology"
+      ],
+      "sameAs": [
+        "https://www.behance.net/guillerbernald"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://frankiedeane.github.io/willy_/#website",
+      "url": "https://frankiedeane.github.io/willy_/",
+      "name": "Guillermo Bernaldo de Quirós — Photography",
+      "inLanguage": [
+        "en",
+        "es"
+      ],
+      "author": {
+        "@id": "https://frankiedeane.github.io/willy_/#person"
+      },
+      "copyrightHolder": {
+        "@id": "https://frankiedeane.github.io/willy_/#person"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "HOME",
+          "item": "https://frankiedeane.github.io/willy_/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "PORTFOLIO",
+          "item": "https://frankiedeane.github.io/willy_/work.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Eternal Tides",
+          "item": "https://frankiedeane.github.io/willy_/albums/eternal-tides.html"
+        }
+      ]
+    },
+    {
+      "@type": "ImageGallery",
+      "@id": "https://frankiedeane.github.io/willy_/albums/eternal-tides.html#gallery",
+      "url": "https://frankiedeane.github.io/willy_/albums/eternal-tides.html",
+      "name": "Eternal Tides",
+      "description": "The one landscape that rewrites itself twice a day.",
+      "inLanguage": "en",
+      "author": {
+        "@id": "https://frankiedeane.github.io/willy_/#person"
+      },
+      "copyrightHolder": {
+        "@id": "https://frankiedeane.github.io/willy_/#person"
+      },
+      "associatedMedia": [
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://frankiedeane.github.io/willy_/assets/img/eternal-tides-gbq-1.jpg",
+          "thumbnailUrl": "https://frankiedeane.github.io/willy_/assets/img/w480/eternal-tides-gbq-1.jpg",
+          "name": "Eternal Tides № 1",
+          "creator": {
+            "@id": "https://frankiedeane.github.io/willy_/#person"
+          },
+          "copyrightNotice": "© 2026 Guillermo Bernaldo de Quirós",
+          "creditText": "Guillermo Bernaldo de Quirós",
+          "acquireLicensePage": "https://frankiedeane.github.io/willy_/prints.html",
+          "license": "https://frankiedeane.github.io/willy_/prints.html"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://frankiedeane.github.io/willy_/assets/img/eternal-tides-gbq-2.jpg",
+          "thumbnailUrl": "https://frankiedeane.github.io/willy_/assets/img/w480/eternal-tides-gbq-2.jpg",
+          "name": "Eternal Tides № 2",
+          "creator": {
+            "@id": "https://frankiedeane.github.io/willy_/#person"
+          },
+          "copyrightNotice": "© 2026 Guillermo Bernaldo de Quirós",
+          "creditText": "Guillermo Bernaldo de Quirós",
+          "acquireLicensePage": "https://frankiedeane.github.io/willy_/prints.html",
+          "license": "https://frankiedeane.github.io/willy_/prints.html"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://frankiedeane.github.io/willy_/assets/img/eternal-tides-gbq-3.jpg",
+          "thumbnailUrl": "https://frankiedeane.github.io/willy_/assets/img/w480/eternal-tides-gbq-3.jpg",
+          "name": "Eternal Tides № 3",
+          "creator": {
+            "@id": "https://frankiedeane.github.io/willy_/#person"
+          },
+          "copyrightNotice": "© 2026 Guillermo Bernaldo de Quirós",
+          "creditText": "Guillermo Bernaldo de Quirós",
+          "acquireLicensePage": "https://frankiedeane.github.io/willy_/prints.html",
+          "license": "https://frankiedeane.github.io/willy_/prints.html"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://frankiedeane.github.io/willy_/assets/img/eternal-tides-gbq-4.jpg",
+          "thumbnailUrl": "https://frankiedeane.github.io/willy_/assets/img/w480/eternal-tides-gbq-4.jpg",
+          "name": "Eternal Tides № 4",
+          "creator": {
+            "@id": "https://frankiedeane.github.io/willy_/#person"
+          },
+          "copyrightNotice": "© 2026 Guillermo Bernaldo de Quirós",
+          "creditText": "Guillermo Bernaldo de Quirós",
+          "acquireLicensePage": "https://frankiedeane.github.io/willy_/prints.html",
+          "license": "https://frankiedeane.github.io/willy_/prints.html"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://frankiedeane.github.io/willy_/assets/img/eternal-tides-gbq-5.jpg",
+          "thumbnailUrl": "https://frankiedeane.github.io/willy_/assets/img/w480/eternal-tides-gbq-5.jpg",
+          "name": "Eternal Tides № 5",
+          "creator": {
+            "@id": "https://frankiedeane.github.io/willy_/#person"
+          },
+          "copyrightNotice": "© 2026 Guillermo Bernaldo de Quirós",
+          "creditText": "Guillermo Bernaldo de Quirós",
+          "acquireLicensePage": "https://frankiedeane.github.io/willy_/prints.html",
+          "license": "https://frankiedeane.github.io/willy_/prints.html"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://frankiedeane.github.io/willy_/assets/img/eternal-tides-gbq-6.jpg",
+          "thumbnailUrl": "https://frankiedeane.github.io/willy_/assets/img/w480/eternal-tides-gbq-6.jpg",
+          "name": "Eternal Tides № 6",
+          "creator": {
+            "@id": "https://frankiedeane.github.io/willy_/#person"
+          },
+          "copyrightNotice": "© 2026 Guillermo Bernaldo de Quirós",
+          "creditText": "Guillermo Bernaldo de Quirós",
+          "acquireLicensePage": "https://frankiedeane.github.io/willy_/prints.html",
+          "license": "https://frankiedeane.github.io/willy_/prints.html"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://frankiedeane.github.io/willy_/assets/img/eternal-tides-gbq-7.jpg",
+          "thumbnailUrl": "https://frankiedeane.github.io/willy_/assets/img/w480/eternal-tides-gbq-7.jpg",
+          "name": "Eternal Tides № 7",
+          "creator": {
+            "@id": "https://frankiedeane.github.io/willy_/#person"
+          },
+          "copyrightNotice": "© 2026 Guillermo Bernaldo de Quirós",
+          "creditText": "Guillermo Bernaldo de Quirós",
+          "acquireLicensePage": "https://frankiedeane.github.io/willy_/prints.html",
+          "license": "https://frankiedeane.github.io/willy_/prints.html"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://frankiedeane.github.io/willy_/assets/img/eternal-tides-gbq-8.jpg",
+          "thumbnailUrl": "https://frankiedeane.github.io/willy_/assets/img/w480/eternal-tides-gbq-8.jpg",
+          "name": "Eternal Tides № 8",
+          "creator": {
+            "@id": "https://frankiedeane.github.io/willy_/#person"
+          },
+          "copyrightNotice": "© 2026 Guillermo Bernaldo de Quirós",
+          "creditText": "Guillermo Bernaldo de Quirós",
+          "acquireLicensePage": "https://frankiedeane.github.io/willy_/prints.html",
+          "license": "https://frankiedeane.github.io/willy_/prints.html"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://frankiedeane.github.io/willy_/assets/img/eternal-tides-gbq-9.jpg",
+          "thumbnailUrl": "https://frankiedeane.github.io/willy_/assets/img/w480/eternal-tides-gbq-9.jpg",
+          "name": "Eternal Tides № 9",
+          "creator": {
+            "@id": "https://frankiedeane.github.io/willy_/#person"
+          },
+          "copyrightNotice": "© 2026 Guillermo Bernaldo de Quirós",
+          "creditText": "Guillermo Bernaldo de Quirós",
+          "acquireLicensePage": "https://frankiedeane.github.io/willy_/prints.html",
+          "license": "https://frankiedeane.github.io/willy_/prints.html"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://frankiedeane.github.io/willy_/assets/img/eternal-tides-gbq-10.jpg",
+          "thumbnailUrl": "https://frankiedeane.github.io/willy_/assets/img/w480/eternal-tides-gbq-10.jpg",
+          "name": "Eternal Tides № 10",
+          "creator": {
+            "@id": "https://frankiedeane.github.io/willy_/#person"
+          },
+          "copyrightNotice": "© 2026 Guillermo Bernaldo de Quirós",
+          "creditText": "Guillermo Bernaldo de Quirós",
+          "acquireLicensePage": "https://frankiedeane.github.io/willy_/prints.html",
+          "license": "https://frankiedeane.github.io/willy_/prints.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body data-page="album" data-album="eternal-tides" data-lang="en" data-base="../">
+
+<a href="#content" class="skip-link">Skip to content</a>
+
+<!-- ===== FIXED CHROME ===== -->
+<a href="../index.html" class="wordmark">
+  <span class="wordmark-name"><i>GUILLERMO</i><b>BERNALDO DE QUIRÓS</b></span>
+  <span class="wordmark-sub">PHOTOGRAPHY</span>
+</a>
+
+<div class="chrome-right">
+  <a class="sel-badge" id="selBadge" href="../selection.html" hidden>
+    <span class="sel-badge-n" id="selBadgeN">0</span>
+    <span class="sr-only">BUILD YOUR SELECTION</span>
+  </a>
+  <button class="burger" id="burger" aria-label="Open menu"
+          data-open="Open menu" data-close="Close menu"
+          aria-expanded="false" aria-controls="menu">
+    <span></span><span></span>
+  </button>
+</div>
+
+<footer class="rail">
+  <a href="https://www.behance.net/guillerbernald" target="_blank" rel="noopener noreferrer">BEHANCE</a>
+</footer>
+
+<!-- ===== MENU OVERLAY ===== -->
+<nav class="menu" id="menu" aria-hidden="true" aria-label="Main">
+  <ul>
+    <li><a href="../index.html">HOME</a></li>
+    <li><a href="../work.html">PORTFOLIO</a></li>
+    <li><a href="../prints.html">FINE ART PRINTS</a></li>
+    <li><a href="../selection.html">BUILD YOUR SELECTION</a></li>
+    <li><a href="../about.html">ABOUT</a></li>
+    <li><a href="../contact.html">CONTACT</a></li>
+  </ul>
+  <div class="menu-controls">
+    <a class="lang-link" href="../es/albums/eternal-tides.html" hreflang="es" rel="alternate">Español</a>
+    <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="false">
+      <span class="theme-icon" aria-hidden="true"></span>
+      <span class="sr-only">Switch theme</span>
+    </button>
+  </div>
+  <p class="menu-copy">© 2026 Guillermo Bernaldo de Quirós</p>
+</nav>
+
+<main id="content" class="page-doc">
+  <a class="back-link" href="../work.html"><span aria-hidden="true">←</span> ALL SERIES</a>
+
+  <header class="page-head">
+    <h1>Eternal Tides</h1>
+    <span class="rule"></span>
+    <div class="page-lede">
+      <p>The one landscape that rewrites itself twice a day.</p>
+      
+    </div>
+  </header>
+
+  <div class="grid">
+      <figure class="shot no-dims" data-file="eternal-tides-gbq-1.jpg" data-album="eternal-tides">
+        <img src="../assets/img/w960/eternal-tides-gbq-1.jpg"
+             srcset="../assets/img/w480/eternal-tides-gbq-1.jpg 480w, ../assets/img/w960/eternal-tides-gbq-1.jpg 960w, ../assets/img/eternal-tides-gbq-1.jpg 1600w"
+             sizes="(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw"
+             alt="Eternal Tides — Guillermo Bernaldo de Quirós" loading="eager" decoding="async" draggable="false" />
+        <figcaption class="shot-cap">Eternal Tides № 1</figcaption>
+        <button type="button" class="shot-add" data-file="eternal-tides-gbq-1.jpg" data-album="eternal-tides"
+                aria-label="Add to selection — Eternal Tides № 1"><span aria-hidden="true">✛</span></button>
+      </figure>
+      <figure class="shot no-dims" data-file="eternal-tides-gbq-2.jpg" data-album="eternal-tides">
+        <img src="../assets/img/w960/eternal-tides-gbq-2.jpg"
+             srcset="../assets/img/w480/eternal-tides-gbq-2.jpg 480w, ../assets/img/w960/eternal-tides-gbq-2.jpg 960w, ../assets/img/eternal-tides-gbq-2.jpg 1600w"
+             sizes="(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw"
+             alt="Eternal Tides — Guillermo Bernaldo de Quirós" loading="eager" decoding="async" draggable="false" />
+        <figcaption class="shot-cap">Eternal Tides № 2</figcaption>
+        <button type="button" class="shot-add" data-file="eternal-tides-gbq-2.jpg" data-album="eternal-tides"
+                aria-label="Add to selection — Eternal Tides № 2"><span aria-hidden="true">✛</span></button>
+      </figure>
+      <figure class="shot no-dims" data-file="eternal-tides-gbq-3.jpg" data-album="eternal-tides">
+        <img src="../assets/img/w960/eternal-tides-gbq-3.jpg"
+             srcset="../assets/img/w480/eternal-tides-gbq-3.jpg 480w, ../assets/img/w960/eternal-tides-gbq-3.jpg 960w, ../assets/img/eternal-tides-gbq-3.jpg 1600w"
+             sizes="(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw"
+             alt="Eternal Tides — Guillermo Bernaldo de Quirós" loading="eager" decoding="async" draggable="false" />
+        <figcaption class="shot-cap">Eternal Tides № 3</figcaption>
+        <button type="button" class="shot-add" data-file="eternal-tides-gbq-3.jpg" data-album="eternal-tides"
+                aria-label="Add to selection — Eternal Tides № 3"><span aria-hidden="true">✛</span></button>
+      </figure>
+      <figure class="shot no-dims" data-file="eternal-tides-gbq-4.jpg" data-album="eternal-tides">
+        <img src="../assets/img/w960/eternal-tides-gbq-4.jpg"
+             srcset="../assets/img/w480/eternal-tides-gbq-4.jpg 480w, ../assets/img/w960/eternal-tides-gbq-4.jpg 960w, ../assets/img/eternal-tides-gbq-4.jpg 1600w"
+             sizes="(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw"
+             alt="Eternal Tides — Guillermo Bernaldo de Quirós" loading="lazy" decoding="async" draggable="false" />
+        <figcaption class="shot-cap">Eternal Tides № 4</figcaption>
+        <button type="button" class="shot-add" data-file="eternal-tides-gbq-4.jpg" data-album="eternal-tides"
+                aria-label="Add to selection — Eternal Tides № 4"><span aria-hidden="true">✛</span></button>
+      </figure>
+      <figure class="shot no-dims" data-file="eternal-tides-gbq-5.jpg" data-album="eternal-tides">
+        <img src="../assets/img/w960/eternal-tides-gbq-5.jpg"
+             srcset="../assets/img/w480/eternal-tides-gbq-5.jpg 480w, ../assets/img/w960/eternal-tides-gbq-5.jpg 960w, ../assets/img/eternal-tides-gbq-5.jpg 1600w"
+             sizes="(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw"
+             alt="Eternal Tides — Guillermo Bernaldo de Quirós" loading="lazy" decoding="async" draggable="false" />
+        <figcaption class="shot-cap">Eternal Tides № 5</figcaption>
+        <button type="button" class="shot-add" data-file="eternal-tides-gbq-5.jpg" data-album="eternal-tides"
+                aria-label="Add to selection — Eternal Tides № 5"><span aria-hidden="true">✛</span></button>
+      </figure>
+      <figure class="shot no-dims" data-file="eternal-tides-gbq-6.jpg" data-album="eternal-tides">
+        <img src="../assets/img/w960/eternal-tides-gbq-6.jpg"
+             srcset="../assets/img/w480/eternal-tides-gbq-6.jpg 480w, ../assets/img/w960/eternal-tides-gbq-6.jpg 960w, ../assets/img/eternal-tides-gbq-6.jpg 1600w"
+             sizes="(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw"
+             alt="Eternal Tides — Guillermo Bernaldo de Quirós" loading="lazy" decoding="async" draggable="false" />
+        <figcaption class="shot-cap">Eternal Tides № 6</figcaption>
+        <button type="button" class="shot-add" data-file="eternal-tides-gbq-6.jpg" data-album="eternal-tides"
+                aria-label="Add to selection — Eternal Tides № 6"><span aria-hidden="true">✛</span></button>
+      </figure>
+      <figure class="shot no-dims" data-file="eternal-tides-gbq-7.jpg" data-album="eternal-tides">
+        <img src="../assets/img/w960/eternal-tides-gbq-7.jpg"
+             srcset="../assets/img/w480/eternal-tides-gbq-7.jpg 480w, ../assets/img/w960/eternal-tides-gbq-7.jpg 960w, ../assets/img/eternal-tides-gbq-7.jpg 1600w"
+             sizes="(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw"
+             alt="Eternal Tides — Guillermo Bernaldo de Quirós" loading="lazy" decoding="async" draggable="false" />
+        <figcaption class="shot-cap">Eternal Tides № 7</figcaption>
+        <button type="button" class="shot-add" data-file="eternal-tides-gbq-7.jpg" data-album="eternal-tides"
+                aria-label="Add to selection — Eternal Tides № 7"><span aria-hidden="true">✛</span></button>
+      </figure>
+      <figure class="shot no-dims" data-file="eternal-tides-gbq-8.jpg" data-album="eternal-tides">
+        <img src="../assets/img/w960/eternal-tides-gbq-8.jpg"
+             srcset="../assets/img/w480/eternal-tides-gbq-8.jpg 480w, ../assets/img/w960/eternal-tides-gbq-8.jpg 960w, ../assets/img/eternal-tides-gbq-8.jpg 1600w"
+             sizes="(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw"
+             alt="Eternal Tides — Guillermo Bernaldo de Quirós" loading="lazy" decoding="async" draggable="false" />
+        <figcaption class="shot-cap">Eternal Tides № 8</figcaption>
+        <button type="button" class="shot-add" data-file="eternal-tides-gbq-8.jpg" data-album="eternal-tides"
+                aria-label="Add to selection — Eternal Tides № 8"><span aria-hidden="true">✛</span></button>
+      </figure>
+      <figure class="shot no-dims" data-file="eternal-tides-gbq-9.jpg" data-album="eternal-tides">
+        <img src="../assets/img/w960/eternal-tides-gbq-9.jpg"
+             srcset="../assets/img/w480/eternal-tides-gbq-9.jpg 480w, ../assets/img/w960/eternal-tides-gbq-9.jpg 960w, ../assets/img/eternal-tides-gbq-9.jpg 1600w"
+             sizes="(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw"
+             alt="Eternal Tides — Guillermo Bernaldo de Quirós" loading="lazy" decoding="async" draggable="false" />
+        <figcaption class="shot-cap">Eternal Tides № 9</figcaption>
+        <button type="button" class="shot-add" data-file="eternal-tides-gbq-9.jpg" data-album="eternal-tides"
+                aria-label="Add to selection — Eternal Tides № 9"><span aria-hidden="true">✛</span></button>
+      </figure>
+      <figure class="shot no-dims" data-file="eternal-tides-gbq-10.jpg" data-album="eternal-tides">
+        <img src="../assets/img/w960/eternal-tides-gbq-10.jpg"
+             srcset="../assets/img/w480/eternal-tides-gbq-10.jpg 480w, ../assets/img/w960/eternal-tides-gbq-10.jpg 960w, ../assets/img/eternal-tides-gbq-10.jpg 1600w"
+             sizes="(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw"
+             alt="Eternal Tides — Guillermo Bernaldo de Quirós" loading="lazy" decoding="async" draggable="false" />
+        <figcaption class="shot-cap">Eternal Tides № 10</figcaption>
+        <button type="button" class="shot-add" data-file="eternal-tides-gbq-10.jpg" data-album="eternal-tides"
+                aria-label="Add to selection — Eternal Tides № 10"><span aria-hidden="true">✛</span></button>
+      </figure>
+  </div>
+
+  <p class="album-cta">Any photograph in this series can be printed and signed to order. <a href="../selection.html">Add it to your selection</a>.</p>
+
+  <nav class="album-nav" aria-label="PORTFOLIO">
+    <a class="album-nav-prev" href="../albums/edinburgh.html"><span aria-hidden="true">←</span> <span>PREVIOUS SERIES<b>Edinburgh</b></span></a>
+    <a class="album-nav-next" href="../albums/geometry-of-silence.html"><span>NEXT SERIES<b>Geometry of Silence</b></span> <span aria-hidden="true">→</span></a>
+  </nav>
+</main>
+
+<!-- ===== LIGHTBOX ===== -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+  <button class="lb-close" id="lbClose" aria-label="Close"><span aria-hidden="true">✕</span></button>
+  <figure class="lb-stage">
+    <div class="lb-frame" id="lbFrame">
+      <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous"><span aria-hidden="true">‹</span></button>
+      <button class="lb-nav lb-next" id="lbNext" aria-label="Next"><span aria-hidden="true">›</span></button>
+      <img id="lbImage" alt="" draggable="false" />
+      <div class="lb-shield" aria-hidden="true"></div>
+      <div class="lb-watermark" aria-hidden="true"><span>GBQ</span><span>GBQ</span><span>GBQ</span></div>
+    </div>
+    <figcaption class="lb-meta">
+      <h2 id="lbTitle"></h2>
+      <p id="lbPlace"></p>
+      <dl class="lb-spec">
+        <div><dt>Paper</dt><dd>Cotton rag, pigment ink</dd></div>
+      </dl>
+      <button type="button" class="btn lb-cta" id="lbAdd">Add to selection</button>
+      <p class="lb-protect">Preview resolution. Not licensed for download or reproduction.</p>
+    </figcaption>
+  </figure>
+</div>
+
+<footer class="site-foot">
+  <p>© 2026 Guillermo Bernaldo de Quirós. All photographs © Guillermo Bernaldo de Quirós. All rights reserved.</p>
+</footer>
+
+<script src="../assets/js/catalog.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

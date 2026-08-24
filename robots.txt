@@ -2,8 +2,9 @@
 User-agent: *
 Allow: /
 
-# The photographs are sold as limited edition prints. They are indexed for
-# image search on purpose, but the originals are not published here — only
-# preview-resolution files.
+# The photographs are sold as signed limited edition prints. They are indexed
+# for image search on purpose — that is how buyers find them — but only
+# preview-resolution files are published here. The originals never leave.
+Disallow: /assets/img/_incoming/
 
 Sitemap: https://frankiedeane.github.io/willy_/sitemap.xml

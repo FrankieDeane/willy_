@@ -1,19 +1,25 @@
 name: Deploy to GitHub Pages
 
+# The default branch of this repository is currently the long claude/… branch
+# below. If it is ever renamed (to `main`, say), add the new name here — both
+# are listed so a rename does not silently stop deploys.
 on:
   push:
-    branches: [claude/photography-premium-preview-8x133v]
+    branches:
+      - main
+      - claude/photography-premium-preview-8x133v
   workflow_dispatch:
 
+# Least privilege: the job can read the code and publish Pages, nothing else.
+# It cannot push a commit, open a pull request, or touch another repository.
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Let a running deploy finish rather than cancelling it mid-publish.
 concurrency:
   group: pages
-  cancel-in-progress: false
+  cancel-in-progress: false          # let a running publish finish
 
 jobs:
   deploy:
@@ -23,22 +29,44 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v7
-
-      - name: Configure Pages
-        # enablement turns Pages on for the repo if it is not already,
-        # so this deploys without anyone visiting the settings screen
-        uses: actions/configure-pages@v6
         with:
-          enablement: true
+          # No git credential is left behind in the runner's checkout. Nothing
+          # in this job pushes, so nothing needs one.
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Verify the committed pages match their sources
+        # The HTML is generated, so it can drift from tools/*.json if someone
+        # edits a page by hand. Rebuilding and diffing turns that into a failed
+        # check instead of a silent inconsistency between the two languages.
+        run: |
+          node tools/build.mjs
+          if ! git diff --quiet; then
+            echo "::error::The committed pages do not match tools/. Run 'node tools/build.mjs' and commit the result."
+            git diff --stat
+            exit 1
+          fi
+
+      - name: Scan for credentials
+        run: node tools/scan-secrets.mjs
+
+      - uses: actions/configure-pages@v6
+        with:
+          enablement: true           # turns Pages on without a visit to Settings
 
       - name: Assemble site
-        # Ship only what the site needs — no .git, no README, no workflow
+        # Ship only what a visitor needs: no build tooling, no docs, no git.
         run: |
           mkdir -p _site
-          cp index.html _site/
-          cp -r assets _site/
+          cp index.html work.html prints.html selection.html about.html contact.html _site/
+          cp robots.txt sitemap.xml _headers _site/
+          cp -r albums es assets _site/
+          rm -rf _site/assets/img/_incoming
           touch _site/.nojekyll
-          echo "assembled $(find _site -type f | wc -l) files"
+          echo "assembled $(find _site -type f | wc -l) files, $(du -sh _site | cut -f1)"
 
       - uses: actions/upload-pages-artifact@v5
         with:

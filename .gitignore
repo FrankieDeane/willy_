@@ -1,5 +1,35 @@
+# Dependencies. tools/package-lock.json is deliberately NOT ignored: the lock
+# file is what pins every transitive dependency of the image step to an exact
+# version and integrity hash, which is the whole supply-chain control here.
 node_modules/
-package-lock.json
-package.json
+
+# Build output that is assembled fresh on every deploy
+_site/
 dist/
+
+# Originals downloaded from Drive. These are full-size files: they are the
+# input to tools/prepare-photos.mjs, never something to commit. Keeping them
+# out of git also keeps them out of git history, which is the only place a
+# deleted file is still readable.
+assets/img/_incoming/
+
+# Credentials. Nothing in this project needs one, so anything matching these
+# arrived by accident — which is exactly when a leak happens.
+.env
+.env.*
+!.env.example
+credentials.json
+token.json
+client_secret*.json
+service-account*.json
+*.pem
+*.key
+*.p12
+*.pfx
+.npmrc
+.netrc
+id_rsa
+id_ed25519
+
 .DS_Store
+Thumbs.db

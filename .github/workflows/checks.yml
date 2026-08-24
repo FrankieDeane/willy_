@@ -1,0 +1,38 @@
+name: Checks
+
+on:
+  push:
+    branches-ignore: ['photos', 'photos-**']   # that branch has its own workflow
+  pull_request:
+  schedule:
+    - cron: '0 6 * * 1'      # a weekly run catches a secret that landed via the web UI
+
+permissions:
+  contents: read             # read-only: this workflow reports, it never writes
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Scan for credentials
+        run: node tools/scan-secrets.mjs
+
+      - name: Rebuild and check for drift
+        run: |
+          node tools/build.mjs
+          if ! git diff --quiet; then
+            echo "::error::Generated pages are stale. Run 'node tools/build.mjs' and commit."
+            git diff --stat
+            exit 1
+          fi
+
+      - name: Check every internal link resolves
+        run: node tools/check-links.mjs

@@ -89,8 +89,11 @@ button { background: none; border: none; cursor: pointer; }
 .wordmark-name b { font-weight: 500; font-size: 1.18rem; letter-spacing: 0.04em; }
 .wordmark-sub { font-size: 0.7rem; font-weight: 300; letter-spacing: 0.42em; color: inherit; opacity: 0.85; }
 
-.burger {
+.chrome-right {
   position: fixed; top: var(--pad); right: var(--pad); z-index: 200;
+  display: flex; align-items: center; gap: 1.1rem;
+}
+.burger {
   width: 34px; height: 26px; display: grid; align-content: center; gap: 7px;
   color: var(--text); transition: color 0.35s var(--ease);
 }
@@ -101,8 +104,10 @@ button { background: none; border: none; cursor: pointer; }
 .burger.is-open span:first-child { transform: translateY(4px) rotate(45deg); }
 .burger.is-open span:last-child  { transform: translateY(-4px) rotate(-45deg); }
 
-/* vertical labels, reading bottom-to-top */
-.rail {
+/* vertical labels, reading bottom-to-top. Only over the home image: on a
+   document page it would sit on top of the first column. */
+.rail { display: none; }
+body[data-page="home"] .rail {
   position: fixed; left: var(--pad); bottom: var(--pad); z-index: 200;
   display: flex; gap: 1.4rem; align-items: flex-end;
   color: var(--text); transition: color 0.35s var(--ease);
@@ -118,26 +123,28 @@ button { background: none; border: none; cursor: pointer; }
    whatever the shuffle picked — measured as low as 1.37:1 on the brightest
    frames. These two gradients sit above the image and below the chrome, so the
    name and controls stay legible on every photo without tinting the picture. */
-body.on-home::before,
-body.on-home::after {
+body[data-page="home"]::before,
+body[data-page="home"]::after {
   content: ""; position: fixed; left: 0; right: 0; z-index: 110;
   pointer-events: none; transition: opacity 0.4s var(--ease);
 }
-body.on-home::before {
+body[data-page="home"]::before {
   top: 0; height: clamp(120px, 22vh, 210px);
   background: linear-gradient(rgba(0, 0, 0, 0.64), rgba(0, 0, 0, 0));
 }
-body.on-home::after {
+body[data-page="home"]::after {
   bottom: 0; height: clamp(100px, 18vh, 170px);
   background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
 }
 body.menu-open::before, body.menu-open::after { opacity: 0; }
 
 /* over full-bleed photography, chrome is always light */
-body.on-home .wordmark, body.on-home .burger, body.on-home .rail {
+body[data-page="home"] .wordmark,
+body[data-page="home"] .burger,
+body[data-page="home"] .rail {
   color: var(--chrome); text-shadow: 0 1px 14px rgba(0, 0, 0, 0.5);
 }
-body.on-home .burger span { box-shadow: 0 1px 10px rgba(0, 0, 0, 0.5); }
+body[data-page="home"] .burger span { box-shadow: 0 1px 10px rgba(0, 0, 0, 0.5); }
 body.menu-open .wordmark, body.menu-open .burger, body.menu-open .rail {
   color: var(--text); text-shadow: none;
 }
@@ -168,12 +175,12 @@ body.menu-open .burger span { box-shadow: none; }
   display: flex; justify-content: center; align-items: center; gap: 0.8rem;
   margin-top: clamp(2rem, 6vh, 3.5rem);
 }
-.lang-switch { display: flex; border: 1px solid var(--line); }
-.lang-switch button {
-  padding: 0.4rem 0.85rem; font-size: 0.75rem; letter-spacing: 0.14em; color: var(--muted);
+.lang-link {
+  border: 1px solid var(--line); padding: 0.4rem 0.85rem;
+  font-size: 0.75rem; letter-spacing: 0.14em; color: var(--muted);
   transition: background 0.25s, color 0.25s;
 }
-.lang-switch button.is-active { background: var(--text); color: var(--bg); }
+.lang-link:hover { background: var(--text); color: var(--bg); }
 .theme-toggle {
   width: 32px; height: 32px; border: 1px solid var(--line);
   display: grid; place-items: center;
@@ -192,15 +199,11 @@ body.menu-open .burger span { box-shadow: none; }
   font-size: 0.76rem; letter-spacing: 0.06em; color: var(--muted);
 }
 
-/* ---------- routing ---------- */
-.page { display: none; }
-.page.is-active { display: block; }
-
 /* ---------- home ----------
    A horizontal carousel: every slide is stacked in the same viewport-sized
    box. The outgoing frame fades out as it slides away, the incoming one fades
    in from the opposite side, so they cross rather than push. */
-.page-home { position: relative; height: 100vh; height: 100dvh; overflow: hidden; }
+.hero { position: relative; height: 100vh; height: 100dvh; overflow: hidden; }
 
 .slide {
   position: absolute; inset: 0;
@@ -256,12 +259,16 @@ body.menu-open .home-controls { display: none; }
 .lede-cta a { border-bottom: 1px solid var(--accent); }
 
 /* ---------- grids ---------- */
-.grid { columns: 3; column-gap: 1.1rem; max-width: 1500px; margin: 0 auto; }
-@media (max-width: 1000px) { .grid { columns: 2; } }
-@media (max-width: 620px)  { .grid { columns: 1; } }
+.grid {
+  display: grid; gap: 1.1rem; align-items: start;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 1500px; margin: 0 auto;
+}
+@media (max-width: 1000px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px)  { .grid { grid-template-columns: 1fr; } }
 
 .shot {
-  break-inside: avoid; margin: 0 0 1.1rem; position: relative;
+  margin: 0; position: relative;
   background: var(--sunken); overflow: hidden; cursor: zoom-in;
 }
 .shot img {
@@ -402,7 +409,7 @@ body.no-scroll { overflow: hidden; }
 
 @media (prefers-reduced-motion: reduce) {
   .js .shot img { opacity: 1; }
-  .page-home { scroll-behavior: auto; }
+  .hero { scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important; transition-duration: 0.01ms !important;
   }
@@ -410,8 +417,8 @@ body.no-scroll { overflow: hidden; }
 
 @media (max-width: 700px) {
   .wordmark-name i, .wordmark-name b { font-size: 0.95rem; }
-  /* leave room for the menu button: its 34px plus both gutters and breathing space */
-  .wordmark { max-width: calc(100vw - var(--pad) * 2 - 34px - 1.5rem); }
+  /* leave room for the badge and the menu button, plus both gutters */
+  .wordmark { max-width: calc(100vw - var(--pad) * 2 - 34px - 30px - 2.5rem); }
   .wordmark-name { gap: 0.3em; }
   .rail { gap: 1rem; }
 }
@@ -424,3 +431,229 @@ body.no-scroll { overflow: hidden; }
   transition: color 0.25s var(--ease), gap 0.25s var(--ease);
 }
 .back-link:hover { color: var(--text); gap: 0.9rem; }
+
+/* ============================================================
+   Components added with the album structure
+   ============================================================ */
+
+/* ---------- home hero ---------- */
+.hero-copy {
+  position: absolute; left: var(--pad); bottom: calc(var(--pad) + 3.2rem); z-index: 120;
+  max-width: 34ch; display: grid; gap: 1.4rem; justify-items: start;
+}
+.hero-tag {
+  color: var(--chrome); font-size: 0.95rem; line-height: 1.5;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.6);
+}
+.btn-light {
+  border-color: var(--chrome); color: var(--chrome);
+  backdrop-filter: blur(2px);
+}
+.btn-light:hover { background: var(--chrome); color: #111; }
+@media (max-width: 700px) {
+  .hero-copy { right: var(--pad); bottom: calc(var(--pad) + 4.5rem); }
+  .hero-tag { font-size: 0.86rem; }
+}
+
+/* ---------- bands ---------- */
+.band { padding: clamp(3.5rem, 9vh, 6rem) var(--pad); max-width: 1500px; margin: 0 auto; }
+.band-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap; margin-bottom: clamp(1.6rem, 4vw, 2.4rem);
+}
+.band-head h2 { font-size: 0.72rem; font-weight: 400; letter-spacing: 0.28em; }
+.band-more { font-size: 0.74rem; letter-spacing: 0.14em; color: var(--muted); transition: color 0.25s; }
+.band-more:hover { color: var(--text); }
+
+.band-sell { border-top: 1px solid var(--line-soft); }
+.sell { max-width: 62ch; margin: 0 auto; text-align: center; display: grid; gap: 1.1rem; justify-items: center; }
+.sell h2 { font-size: clamp(1.2rem, 2.6vw, 1.7rem); font-weight: 300; letter-spacing: 0.04em; }
+.sell p { color: var(--muted); font-size: 0.95rem; }
+
+/* ---------- album cards ---------- */
+.cards {
+  display: grid; gap: clamp(1rem, 2vw, 1.6rem);
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+.cards-all { max-width: 1500px; margin: 0 auto; }
+.card { display: grid; gap: 0.75rem; opacity: 0; transform: translateY(10px); }
+.card.is-in { opacity: 1; transform: none; transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+.card[hidden] { display: none; }
+.card-img {
+  display: block; position: relative; overflow: hidden;
+  background: var(--sunken); aspect-ratio: 3 / 2;
+}
+.card-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  -webkit-user-select: none; user-select: none; -webkit-user-drag: none;
+  transition: transform 0.8s var(--ease);
+}
+.card:hover .card-img img, .card:focus-visible .card-img img { transform: scale(1.04); }
+.card-body { display: grid; gap: 0.2rem; }
+.card-title { font-size: 0.92rem; letter-spacing: 0.02em; }
+.card-meta { font-size: 0.74rem; letter-spacing: 0.08em; color: var(--muted); }
+
+/* ---------- filters ---------- */
+.filters {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem;
+  margin: 0 auto clamp(2rem, 5vw, 3rem);
+}
+.filters button {
+  border: 1px solid var(--line); padding: 0.42rem 1rem;
+  font-size: 0.68rem; letter-spacing: 0.18em; color: var(--muted);
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+}
+.filters button:hover { border-color: var(--text); color: var(--text); }
+.filters button.is-active { background: var(--text); border-color: var(--text); color: var(--bg); }
+
+/* ---------- shots: add-to-selection control ---------- */
+.shot.no-dims img { aspect-ratio: 3 / 2; object-fit: cover; }
+.shot-add {
+  position: absolute; top: 0.6rem; right: 0.6rem; z-index: 3;
+  width: 34px; height: 34px; display: grid; place-items: center;
+  font-size: 1rem; line-height: 1; color: #fff;
+  background: rgba(0, 0, 0, 0.45); backdrop-filter: blur(3px);
+  border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 50%;
+  opacity: 0; transform: scale(0.9);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), background 0.25s;
+}
+.shot:hover .shot-add, .shot:focus-within .shot-add, .shot-add:focus-visible { opacity: 1; transform: none; }
+.shot-add:hover { background: rgba(0, 0, 0, 0.75); }
+.shot-add.is-on {
+  opacity: 1; transform: none;
+  background: var(--accent); border-color: var(--accent);
+}
+.shot-add.is-on span { transform: rotate(45deg); display: block; }
+@media (hover: none) { .shot-add { opacity: 1; transform: none; } }
+
+.empty-note, .album-cta {
+  text-align: center; color: var(--muted); font-size: 0.9rem;
+  max-width: 60ch; margin: clamp(2rem, 5vw, 3rem) auto 0;
+}
+.album-cta a { border-bottom: 1px solid var(--accent); color: var(--text); }
+.page-place { font-size: 0.78rem !important; letter-spacing: 0.14em; text-transform: uppercase; }
+
+/* ---------- prev / next series ---------- */
+.album-nav {
+  display: flex; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
+  max-width: 1100px; margin: clamp(3rem, 8vh, 5rem) auto 0;
+  padding-top: clamp(1.5rem, 4vw, 2.2rem); border-top: 1px solid var(--line-soft);
+}
+.album-nav a {
+  display: flex; align-items: center; gap: 0.7rem;
+  font-size: 0.68rem; letter-spacing: 0.2em; color: var(--muted);
+  transition: color 0.25s var(--ease);
+}
+.album-nav a:hover { color: var(--text); }
+.album-nav a span { display: grid; gap: 0.3rem; }
+.album-nav-next span { text-align: right; }
+.album-nav b { font-size: 0.86rem; font-weight: 300; letter-spacing: 0.02em; color: var(--text); }
+
+/* ---------- prints specs ---------- */
+.specs {
+  display: grid; gap: clamp(2rem, 5vw, 3.5rem);
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  max-width: 1100px; margin: 0 auto;
+}
+.spec h2 {
+  font-size: 0.68rem; font-weight: 400; letter-spacing: 0.22em;
+  padding-bottom: 0.7rem; border-bottom: 1px solid var(--line); margin-bottom: 1.1rem;
+}
+.spec p, .spec dd { color: var(--muted); font-size: 0.9rem; }
+.spec-list { list-style: none; display: grid; gap: 0.55rem; }
+.spec-list li { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.9rem; }
+.spec-list b { font-weight: 400; }
+.spec-list span { color: var(--muted); }
+.spec-dl { display: grid; gap: 0.4rem; }
+.spec-dl dt { font-size: 0.9rem; margin-top: 0.6rem; }
+.spec-note, .spec-price { margin-top: 0.9rem; font-size: 0.82rem !important; }
+.spec-price b { color: var(--text); font-weight: 400; }
+.center-cta { text-align: center; margin-top: clamp(2.5rem, 6vw, 4rem); }
+.center-cta .btn { justify-self: center; }
+
+/* ---------- selection badge ---------- */
+.sel-badge {
+  display: grid; place-items: center; width: 30px; height: 30px;
+  border: 1px solid currentColor; border-radius: 50%;
+  font-size: 0.7rem; font-variant-numeric: tabular-nums;
+  transition: background 0.25s, color 0.25s;
+}
+.sel-badge[hidden] { display: none; }
+.sel-badge:hover { background: var(--text); color: var(--bg); }
+body[data-page="home"] .sel-badge:hover { background: var(--chrome); color: #111; }
+
+/* ---------- selection page ---------- */
+.sel-empty { max-width: 52ch; margin: 0 auto; text-align: center; display: grid; gap: 1rem; justify-items: center; }
+.sel-empty[hidden], .sel-live[hidden] { display: none; }
+.sel-empty h2 { font-size: 1.1rem; font-weight: 300; letter-spacing: 0.04em; }
+.sel-empty p { color: var(--muted); font-size: 0.92rem; }
+
+.sel-live { max-width: 1100px; margin: 0 auto; }
+.sel-count { font-size: 0.7rem; letter-spacing: 0.22em; color: var(--muted); text-transform: uppercase; }
+.sel-grid {
+  display: grid; gap: 1rem; margin: 1.2rem 0 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+.sel-item { position: relative; background: var(--sunken); }
+.sel-item img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; -webkit-user-select: none; user-select: none; }
+.sel-item.is-missing { min-height: 140px; }
+.sel-item-cap { display: grid; gap: 0.15rem; padding: 0.55rem 0.1rem 0; }
+.sel-item-cap b { font-size: 0.78rem; font-weight: 400; }
+.sel-item-cap span { font-size: 0.7rem; color: var(--muted); }
+.sel-item-rm {
+  position: absolute; top: 0.4rem; right: 0.4rem;
+  width: 26px; height: 26px; display: grid; place-items: center;
+  font-size: 0.75rem; color: #fff; background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 50%;
+  transition: background 0.25s;
+}
+.sel-item-rm:hover { background: var(--accent); }
+.sel-hang { color: var(--muted); font-size: 0.9rem; margin-bottom: 0.9rem; }
+.link-btn {
+  font-size: 0.68rem; letter-spacing: 0.2em; color: var(--muted);
+  border-bottom: 1px solid var(--line); padding-bottom: 2px; transition: color 0.25s;
+}
+.link-btn:hover { color: var(--accent); }
+
+.sel-form { display: grid; gap: 1.8rem; margin-top: clamp(2.5rem, 6vw, 3.5rem); }
+.sel-form fieldset { border: 0; display: grid; gap: 1.1rem; }
+.sel-form legend {
+  font-size: 0.68rem; letter-spacing: 0.22em; color: var(--muted);
+  padding-bottom: 0.7rem; border-bottom: 1px solid var(--line); width: 100%; margin-bottom: 0.4rem;
+}
+.sel-form label { display: grid; gap: 0.45rem; }
+.sel-form label > span {
+  font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
+}
+.sel-form input, .sel-form select, .sel-form textarea {
+  background: transparent; border: 0; border-bottom: 1px solid var(--line);
+  padding: 0.6rem 0; font-size: 0.95rem; width: 100%; resize: vertical; border-radius: 0;
+}
+.sel-form input:focus, .sel-form select:focus, .sel-form textarea:focus {
+  outline: none; border-bottom-color: var(--text);
+}
+.sel-form [aria-invalid="true"] { border-bottom-color: var(--accent); }
+.sel-form .field-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1.2rem; }
+.sel-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+.btn-ghost { border-color: var(--line); color: var(--muted); }
+.btn-ghost:hover { background: var(--muted); border-color: var(--muted); color: var(--bg); }
+.sel-privacy { font-size: 0.78rem; color: var(--muted); max-width: 60ch; }
+.lb-cta.is-on { background: var(--text); color: var(--bg); }
+
+/* ---------- site footer ---------- */
+.site-foot {
+  padding: clamp(2rem, 5vh, 3rem) var(--pad);
+  border-top: 1px solid var(--line-soft); text-align: center;
+}
+.site-foot p { font-size: 0.74rem; letter-spacing: 0.06em; color: var(--muted); }
+body[data-page="home"] .site-foot { border-top: 0; }
+
+/* ---------- page headings ---------- */
+.page-head h1 {
+  font-size: clamp(1.3rem, 2.6vw, 1.9rem); font-weight: 400; letter-spacing: 0.16em;
+}
+.about-block h2 {
+  font-size: 0.68rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--text); margin-bottom: 0.55rem;
+}
+.card-img.is-empty, .card-img.is-missing { border: 1px dashed var(--line); }
