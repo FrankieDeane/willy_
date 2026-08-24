@@ -145,7 +145,15 @@ for (const folder of folders) {
   }
 }
 
-fs.writeFileSync(dimsPath, JSON.stringify(dims, null, 2) + '\n');
+/* Only record dimensions once there are some. Writing an empty {} makes a
+   run that processed nothing look like a run that did something: the workflow
+   sees a changed file, commits it, and the history grows a "process uploads"
+   commit for an upload that never happened. Ask me how I know. */
+if (Object.keys(dims).length) {
+  fs.writeFileSync(dimsPath, JSON.stringify(dims, null, 2) + '\n');
+} else if (fs.existsSync(dimsPath)) {
+  fs.rmSync(dimsPath);
+}
 
 console.log(`\n${made} photographs written, ${skipped} already present, ${dropped} duplicate exports discarded`);
 if (empty.length) {
