@@ -62,14 +62,23 @@ Necesitás [Node.js](https://nodejs.org) 20 o superior instalado (una vez).
 
 ### Camino B — solo desde el navegador, sin instalar nada
 
-1. En GitHub, parado en **cualquier rama que no sea la principal** (la del Pull
-   Request abierto sirve), entrá a `assets/img/_incoming/`.
-2. **Add file ▸ Upload files** y arrastrá las carpetas de series. Commit.
+Las **31 carpetas ya están creadas** en `assets/img/_incoming/`, una por serie,
+con el nombre exacto que tiene en Drive. Cada una tiene adentro un README con
+el enlace a su carpeta de Drive y con qué nombres van a quedar sus fotos.
+
+1. En GitHub, parado en **cualquier rama que no sea la principal**, abrí la
+   carpeta de la serie: `assets/img/_incoming/In Tuscany/`, por ejemplo.
+2. **Add file ▸ Upload files**, arrastrá las fotos de esa serie. Commit.
 3. El workflow `photos.yml` se dispara solo: procesa, renombra, limpia
    metadatos, regenera el sitio y borra los originales. En la pestaña Actions
    te deja un resumen con qué serie procesó y cuántas fotos.
-4. Se puede repetir de a tandas. Cuando estén todas, mergeá con
-   **Squash and merge** y borrá la rama.
+4. Repetí serie por serie. Las carpetas quedan en su lugar entre tanda y tanda.
+   Cuando estén todas, mergeá con **Squash and merge** y borrá la rama.
+
+Están pre-creadas porque **el nombre de la carpeta es la clave**: es lo que
+vincula una foto con su serie. Una carpeta con el nombre apenas distinto se
+deja intacta y se reporta, que es seguro pero no hace nada. Subiendo dentro de
+una que ya existe y ya es correcta, ese error no puede pasar.
 
 > El *squash* y el borrado de la rama no son opcionales: son lo que evita que
 > los originales en tamaño completo queden para siempre en el historial de git,

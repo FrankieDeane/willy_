@@ -1,44 +1,40 @@
-# Soltá acá las carpetas de Drive
+# Bandeja de entrada de las fotos
 
-Esta carpeta es la bandeja de entrada de las fotos. Está vacía a propósito.
+Las **31 carpetas ya están creadas**, una por serie, con el nombre exacto que
+tiene cada una en Google Drive. No hace falta crear ninguna: entrá a la que
+corresponda y soltá las fotos adentro.
 
-## Qué va acá
-
-Una carpeta por serie, **con el nombre exacto que tiene en Google Drive**
-(La Vicuña 🦙 Agency ▸ Clientes logrados ▸ Willy ▸ Porfolio):
-
-```
-_incoming/In Tuscany/xxxxxxxx_rw_1920.jpg
-_incoming/In Tuscany/yyyyyyyy_rw_1920.jpg
-_incoming/Edinburgh/zzzzzzzz_rw_1920.jpg
-...
-```
-
-Los nombres de archivo no importan — el que sale del export de Drive está bien.
-Lo que importa es **el nombre de la carpeta**, porque es lo que se cruza contra
-el campo `drive` de `tools/albums.json` para saber a qué serie pertenece cada
-foto. Si una carpeta no coincide con ninguna, el proceso la deja intacta y te
-avisa cuál fue, en vez de adivinar.
+Cada carpeta tiene su propio README con el enlace directo a la carpeta de
+Drive, cuántas fotos había ahí, y con qué nombre van a quedar.
 
 ## Cómo subirlas desde el navegador, sin instalar nada
 
-1. En GitHub, parado en **cualquier rama que no sea la principal**, entrá a
-   esta carpeta y usá **Add file ▸ Upload files**.
-2. Arrastrá las carpetas de series. Hacé commit.
-3. El workflow `photos.yml` se dispara solo: renombra a `<slug>-gbq-<n>.jpg`,
-   descarta los duplicados del export, borra los metadatos, genera las tres
-   medidas web, regenera las páginas y **borra los originales**. En la pestaña
-   Actions queda un resumen de qué procesó.
+1. Abrí la carpeta de la serie, por ejemplo `In Tuscany/`.
+2. **Add file ▸ Upload files** y arrastrá las fotos de esa serie desde Drive.
+3. Commit, en **cualquier rama que no sea la principal**.
 
-Se puede subir de a tandas. No hace falta mandar las 31 series juntas.
+El workflow `photos.yml` se dispara solo y hace todo lo demás: renombra a
+`<slug>-gbq-<n>.jpg`, descarta los duplicados del export (`_rw_1200` y
+`_rw_1920` de la misma foto), borra los metadatos, genera las tres medidas web,
+regenera las páginas y borra los originales. En la pestaña **Actions** queda un
+resumen de qué serie procesó y cuántas fotos salieron.
+
+Se puede subir de a una serie por vez. Las carpetas quedan en su lugar después
+de cada tanda, listas para la siguiente.
+
+## Por qué importa el nombre de la carpeta
+
+Es la clave que vincula lo que subís con la serie correcta: se cruza contra el
+campo `drive` de `tools/albums.json`. Si una carpeta no coincide con ninguna,
+el proceso la deja intacta y te avisa cuál fue, en vez de adivinar. Por eso
+están pre-creadas — así ese error no puede ocurrir.
 
 ## Qué pasa con los originales
 
 Se borran del árbol apenas se procesan, así que nunca quedan publicados. Pero
-siguen existiendo en el historial de git de esta rama hasta que el Pull Request
-se cierre con **Squash and merge** — por eso el README principal insiste con
-eso. El squash deja un solo commit con el resultado final, sin los originales.
+siguen existiendo en el historial de git de esa rama hasta que el Pull Request
+se cierre con **Squash and merge**. El squash deja un solo commit con el
+resultado final, sin los originales.
 
-Desde la computadora, en cambio, ni siquiera llegan a git: `.gitignore` los
-excluye y `prepare-photos.mjs --consume` los borra al terminar. Es el camino
-recomendado si tenés Node instalado.
+Desde la computadora ni siquiera llegan a git: `.gitignore` los excluye y
+`node tools/prepare-photos.mjs --consume` los borra al terminar.

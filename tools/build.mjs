@@ -874,6 +874,50 @@ window.__CATALOG__ = ${json(data)};
 `;
 }
 
+/* ------------------------------------------------- the drop folders
+
+   One folder per series under assets/img/_incoming/, named exactly as it is
+   in Drive, each with a README saying what belongs in it and what will come
+   out. Generated from albums.json rather than made by hand, so adding a series
+   to the registry creates its drop folder on the next build and the two can
+   never drift apart.
+
+   Pre-making them matters because the folder NAME is the key: it is what
+   matches an upload to a series. A folder dropped in with a slightly different
+   name is left untouched and reported, which is safe but means nothing
+   happens. Uploading into a folder that is already there and already correct
+   removes that failure entirely. */
+function dropFolders() {
+  const made = [];
+  for (const a of CATALOG) {
+    const dir = `assets/img/_incoming/${a.drive}`;
+    const out = a.expected
+      ? `\`${a.slug}-gbq-1.jpg\` … \`${a.slug}-gbq-${a.expected}.jpg\``
+      : `\`${a.slug}-gbq-1.jpg\`, \`${a.slug}-gbq-2.jpg\`, …`;
+    made.push(write(`${dir}/README.md`, `# ${a.en}
+
+**Soltá acá las fotos de esta serie, y solo de esta serie.**
+
+|  |  |
+|---|---|
+| Serie | ${a.en} · ${a.es} |
+| Carpeta en Drive | [${a.drive}](https://drive.google.com/drive/folders/${a.driveId}) |
+| Fotos que había en Drive | ${a.expected} |
+| Van a quedar como | ${out} |
+
+Los nombres que traen los archivos de Drive no importan: el proceso los
+renombra. Los duplicados del export (\`_rw_1200\` y \`_rw_1920\` de la misma
+foto) se descartan solos, y se queda con la versión más grande.
+
+No cambies el nombre de esta carpeta — es lo que la vincula con la serie
+\`${a.slug}\` en \`tools/albums.json\`.
+
+Este archivo se regenera desde \`tools/albums.json\`; editarlo a mano no sirve.
+`));
+  }
+  return made;
+}
+
 /* --------------------------------------------------------------- sitemap */
 
 function sitemap() {
@@ -956,6 +1000,7 @@ for (const lang of LANGS) {
 }
 written.push(write('assets/js/catalog.js', catalogJs()));
 written.push(write('api/_catalog.json', catalogJson()));
+written.push(...dropFolders());
 if (INDEXABLE) written.push(write('sitemap.xml', sitemap()));
 else if (fs.existsSync(path.join(ROOT, 'sitemap.xml'))) {
   fs.rmSync(path.join(ROOT, 'sitemap.xml'));
@@ -964,6 +1009,7 @@ else if (fs.existsSync(path.join(ROOT, 'sitemap.xml'))) {
 written.push(write('robots.txt', robots()));
 
 console.log(`built ${written.length} files`);
+console.log(`  ${CATALOG.length} drop folders under assets/img/_incoming/`);
 console.log(`  ${CATALOG.length} series, ${TOTAL_PHOTOS} photographs, ${LANGS.length} languages`);
 console.log(`  ${READY}/${CATALOG.length} series have real image files on disk`);
 if (READY < CATALOG.length) {

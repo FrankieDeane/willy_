@@ -89,6 +89,7 @@ if (!folders.length) { console.log(`no series folders inside ${path.relative(ROO
 
 let made = 0, skipped = 0, dropped = 0;
 const unknown = [];
+const empty = [];
 
 for (const folder of folders) {
   const album = byFolder.get(norm(folder));
@@ -108,7 +109,14 @@ for (const folder of folders) {
   }
 
   const picked = [...groups.values()].map((g) => g.f).sort((a, b) => a.localeCompare(b, 'en'));
-  console.log(`\n${album[ 'en' ]}  (${folder})  →  ${album.slug}-gbq-1..${picked.length}`);
+
+  /* Every series has a drop folder whether or not anything has been put in it
+     yet, so most of them are empty most of the time. Announcing each one would
+     bury the handful that actually did something under thirty lines of noise —
+     and "winter-gbq-1..0" is not a sentence. */
+  if (!picked.length) { empty.push(album.en); continue; }
+
+  console.log(`\n${album.en}  (${folder})  →  ${album.slug}-gbq-1..${picked.length}`);
 
   for (let i = 0; i < picked.length; i++) {
     const src = path.join(dir, picked[i]);
@@ -140,18 +148,29 @@ for (const folder of folders) {
 fs.writeFileSync(dimsPath, JSON.stringify(dims, null, 2) + '\n');
 
 console.log(`\n${made} photographs written, ${skipped} already present, ${dropped} duplicate exports discarded`);
+if (empty.length) {
+  console.log(`${empty.length} series still have no photographs${empty.length <= 6 ? ': ' + empty.join(', ') : ''}`);
+}
 if (unknown.length) {
   console.log('\n! these folders match no "drive" value in tools/albums.json and were left alone:');
   unknown.forEach((f) => console.log(`    ${f}`));
   console.log('  fix the folder name, or add the series to tools/albums.json.');
 }
 if (CONSUME) {
-  /* Remove the series folders, not the drop folder itself: its README is the
-     instructions for the next batch, and deleting it means whoever uploads in
-     three months finds an empty directory and no idea what goes in it. */
-  for (const entry of fs.readdirSync(IN, { withFileTypes: true })) {
-    if (entry.isDirectory()) fs.rmSync(path.join(IN, entry.name), { recursive: true, force: true });
-  }
-  console.log('\noriginals removed — they are not kept in the repository');
+  /* Remove the photographs, and nothing else. The drop folders and their
+     READMEs are the scaffolding for the next batch: deleting them means
+     whoever uploads in three months finds an empty directory and no idea what
+     goes where. Only image files go. */
+  let removed = 0;
+  const sweep = (dir) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) sweep(full);
+      else if (/\.(jpe?g|png|tiff?|webp)$/i.test(entry.name)) { fs.rmSync(full); removed++; }
+    }
+  };
+  sweep(IN);
+  console.log(`\n${removed} original(s) removed — they are not kept in the repository`);
+  console.log('the drop folders stay, ready for the next batch');
 }
 console.log('\nnow run:  node tools/build.mjs');
