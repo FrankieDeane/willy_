@@ -53,10 +53,18 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then
-            echo "::warning::Nothing changed. No folder under _incoming/ matched a series in tools/albums.json — check the folder names."
+            echo "::notice::No photographs to process — nothing was uploaded, or no folder under _incoming/ matched a series in tools/albums.json. Nothing committed."
             exit 0
           fi
-          git commit -m "photos: process uploads and rebuild"
+          # Name what actually happened. This job also fires on a push that only
+          # touches a README under _incoming/, and a commit claiming to have
+          # processed uploads when it processed none is a lie in the history.
+          n=$(git diff --cached --name-only | grep -c '^assets/img/.*\.jpg$' || true)
+          if [ "$n" -gt 0 ]; then
+            git commit -m "photos: add ${n} processed image files and rebuild"
+          else
+            git commit -m "photos: rebuild after a change under _incoming/"
+          fi
           git push origin HEAD:${{ github.ref_name }}
 
       - name: Summary
