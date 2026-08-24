@@ -1,6 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "//": "cleanUrls is off on purpose: the generated pages link to each other by their real .html names so the exact same build works on GitHub Pages, Netlify and a plain file:// preview. Turning it on here would make every internal link a 308 redirect away from its own canonical URL.",
   "cleanUrls": false,
   "trailingSlash": false,
   "headers": [

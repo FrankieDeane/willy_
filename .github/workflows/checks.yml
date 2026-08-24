@@ -36,3 +36,9 @@ jobs:
 
       - name: Check every internal link resolves
         run: node tools/check-links.mjs
+
+      - name: Check the security policy is identical across hosts
+        # vercel.json, _headers and the <meta> tag in every page carry the
+        # same CSP because each host enforces it differently. This fails if
+        # they drift, and rejects a vercel.json key Vercel would refuse.
+        run: node tools/check-config.mjs

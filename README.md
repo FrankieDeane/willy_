@@ -158,12 +158,30 @@ Pensado para Estados Unidos y Europa:
 
 ---
 
+## Hosting
+
+`cleanUrls` está **apagado** a propósito en `vercel.json`: las páginas se
+enlazan entre sí por su nombre `.html` real, así el mismo build funciona igual
+en GitHub Pages, Vercel, Netlify y hasta abriendo el archivo local. Con
+`cleanUrls` activado, cada enlace interno sería un redirect 308 que se aleja de
+su propia URL canónica.
+
+La política de seguridad vive en tres lugares porque cada host la aplica
+distinto — `vercel.json`, `_headers` y la etiqueta `<meta>` de cada página, que
+es lo único que puede hacer GitHub Pages. `tools/check-config.mjs` verifica que
+las tres digan exactamente lo mismo, y que `vercel.json` no tenga ninguna clave
+que Vercel vaya a rechazar (JSON no admite comentarios: una nota `"//"` al lado
+de una opción tira abajo el deploy entero).
+
+---
+
 ## Comandos
 
 ```bash
 node tools/build.mjs                       # regenerar el sitio
 node tools/prepare-photos.mjs [--consume]  # procesar assets/img/_incoming/
 node tools/check-links.mjs                 # verificar cada enlace interno
+node tools/check-config.mjs                # verificar que la CSP sea idéntica en los 3 hosts
 node tools/scan-secrets.mjs                # buscar credenciales filtradas
 ```
 
