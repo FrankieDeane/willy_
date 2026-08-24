@@ -62,17 +62,19 @@ Necesitás [Node.js](https://nodejs.org) 20 o superior instalado (una vez).
 
 ### Camino B — solo desde el navegador, sin instalar nada
 
-1. En GitHub, creá una rama llamada exactamente **`photos`**.
-2. Con esa rama seleccionada: **Add file ▸ Upload files**, y arrastrá las
-   carpetas de series dentro de `assets/img/_incoming/`.
-3. Al hacer commit, el workflow `photos.yml` se dispara solo: procesa, renombra,
-   limpia metadatos, regenera el sitio y borra los originales.
-4. Abrí un Pull Request de `photos` a la rama principal y mergealo con
-   **Squash and merge**. Después **borrá la rama `photos`**.
+1. En GitHub, parado en **cualquier rama que no sea la principal** (la del Pull
+   Request abierto sirve), entrá a `assets/img/_incoming/`.
+2. **Add file ▸ Upload files** y arrastrá las carpetas de series. Commit.
+3. El workflow `photos.yml` se dispara solo: procesa, renombra, limpia
+   metadatos, regenera el sitio y borra los originales. En la pestaña Actions
+   te deja un resumen con qué serie procesó y cuántas fotos.
+4. Se puede repetir de a tandas. Cuando estén todas, mergeá con
+   **Squash and merge** y borrá la rama.
 
 > El *squash* y el borrado de la rama no son opcionales: son lo que evita que
 > los originales en tamaño completo queden para siempre en el historial de git,
-> desde donde cualquiera podría recuperarlos.
+> desde donde cualquiera podría recuperarlos. Por el camino A ni siquiera
+> llegan a git.
 
 ---
 

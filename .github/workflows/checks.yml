@@ -2,7 +2,10 @@ name: Checks
 
 on:
   push:
-    branches-ignore: ['photos', 'photos-**']   # that branch has its own workflow
+    # An upload of raw originals is photos.yml's job, not this one's; it will
+    # push a processed commit that this workflow then checks properly.
+    paths-ignore:
+      - 'assets/img/_incoming/**'
   pull_request:
   schedule:
     - cron: '0 6 * * 1'      # a weekly run catches a secret that landed via the web UI

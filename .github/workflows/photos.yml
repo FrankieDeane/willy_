@@ -1,16 +1,20 @@
 name: Process uploaded photographs
 
 # The browser-only route for adding photographs, for when there is no Node on
-# hand. Drop the Drive folders into assets/img/_incoming/ on a branch called
-# `photos` (see README, "Cargar las fotos"). This job renames them, strips
-# their metadata, writes the three web sizes, regenerates the pages, and
-# deletes the originals it consumed.
+# hand. Drop the Drive folders into assets/img/_incoming/ from GitHub's own
+# "Add file ▸ Upload files" and commit — this runs itself.
 #
-# It runs only on that branch, never on the default one, so an accidental
-# upload cannot rewrite the live site on its own.
+# It triggers on a push to any branch EXCEPT the default one, and only when
+# something under _incoming/ actually changed. Requiring a specially named
+# branch was one step too many; not excluding the default branch would let an
+# accidental upload rewrite the live site with no review.
 on:
   push:
-    branches: ['photos', 'photos-**']
+    branches-ignore:
+      - main
+      - claude/photography-premium-preview-8x133v
+    paths:
+      - 'assets/img/_incoming/**'
   workflow_dispatch:
 
 permissions:
@@ -18,7 +22,7 @@ permissions:
 
 concurrency:
   group: photos-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false  # let a running batch finish rather than half-committing
 
 jobs:
   process:
@@ -38,7 +42,7 @@ jobs:
         run: npm --prefix tools ci
 
       - name: Rename, strip metadata, resize
-        run: node tools/prepare-photos.mjs --consume
+        run: node tools/prepare-photos.mjs --consume | tee /tmp/photos.log
 
       - name: Rebuild the site
         run: node tools/build.mjs
@@ -49,14 +53,23 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then
-            echo "nothing changed — no folders matched a series in tools/albums.json"
+            echo "::warning::Nothing changed. No folder under _incoming/ matched a series in tools/albums.json — check the folder names."
             exit 0
           fi
           git commit -m "photos: process uploads and rebuild"
           git push origin HEAD:${{ github.ref_name }}
 
-      - name: What to do next
+      - name: Summary
+        if: always()
         run: |
-          echo "::notice::Open a pull request from '${{ github.ref_name }}' and use **Squash and merge**."
-          echo "::notice::Squashing keeps the full-size originals out of the default branch's history."
-          echo "::notice::Then delete the '${{ github.ref_name }}' branch — the originals leave with it."
+          {
+            echo "### Photographs processed"
+            echo
+            echo '```'
+            tail -30 /tmp/photos.log 2>/dev/null || echo "(the image step did not run)"
+            echo '```'
+            echo
+            echo "When every series is in, merge this branch with **Squash and merge**"
+            echo "and then delete it. Squashing is what keeps the full-size originals"
+            echo "out of the default branch's history."
+          } >> "$GITHUB_STEP_SUMMARY"

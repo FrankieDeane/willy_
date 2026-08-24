@@ -11,7 +11,8 @@ dist/
 # input to tools/prepare-photos.mjs, never something to commit. Keeping them
 # out of git also keeps them out of git history, which is the only place a
 # deleted file is still readable.
-assets/img/_incoming/
+assets/img/_incoming/*
+!assets/img/_incoming/README.md
 
 # Credentials. Nothing in this project needs one, so anything matching these
 # arrived by accident — which is exactly when a leak happens.

@@ -146,7 +146,12 @@ if (unknown.length) {
   console.log('  fix the folder name, or add the series to tools/albums.json.');
 }
 if (CONSUME) {
-  fs.rmSync(IN, { recursive: true, force: true });
-  console.log('\n_incoming/ removed — the originals are not kept in the repository');
+  /* Remove the series folders, not the drop folder itself: its README is the
+     instructions for the next batch, and deleting it means whoever uploads in
+     three months finds an empty directory and no idea what goes in it. */
+  for (const entry of fs.readdirSync(IN, { withFileTypes: true })) {
+    if (entry.isDirectory()) fs.rmSync(path.join(IN, entry.name), { recursive: true, force: true });
+  }
+  console.log('\noriginals removed — they are not kept in the repository');
 }
 console.log('\nnow run:  node tools/build.mjs');
