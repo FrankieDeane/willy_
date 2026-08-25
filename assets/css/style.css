@@ -387,6 +387,15 @@ noscript .shot figcaption {
 .lb-spec > div { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.8rem; }
 .lb-spec dt { color: var(--muted); }
 .lb-cta { width: 100%; }
+/* Only rendered when the series was opened from the home grid, so the visitor
+   can go from a preview to the series' own page in one step. */
+.lb-series {
+  display: inline-block; padding: 0.25rem 0;   /* 24px minimum target height */
+  font-size: 0.74rem; letter-spacing: 0.14em; color: var(--muted);
+  transition: color 0.25s; margin-top: -0.4rem;
+}
+.lb-series:hover { color: var(--text); }
+.lb-series[hidden] { display: none; }
 .lb-protect { font-size: 0.76rem; color: var(--muted); line-height: 1.5; }
 
 .lb-close, .lb-nav {
@@ -464,6 +473,10 @@ body.no-scroll { overflow: hidden; }
   gap: 1rem; flex-wrap: wrap; margin-bottom: clamp(1.6rem, 4vw, 2.4rem);
 }
 .band-head h2 { font-size: 0.72rem; font-weight: 400; letter-spacing: 0.28em; }
+.band-lede {
+  color: var(--muted); font-size: 0.85rem; max-width: 46ch;
+  margin: -0.9rem 0 clamp(1.6rem, 4vw, 2.4rem);
+}
 .band-more {
   display: inline-block; padding: 0.25rem 0;   /* 24px minimum target height */
   font-size: 0.74rem; letter-spacing: 0.14em; color: var(--muted); transition: color 0.25s;
@@ -481,6 +494,7 @@ body.no-scroll { overflow: hidden; }
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
 }
 .cards-all { max-width: 1500px; margin: 0 auto; }
+#albumGrid[data-peek] .card { cursor: zoom-in; }
 .card { display: grid; gap: 0.75rem; opacity: 0; transform: translateY(10px); }
 .card.is-in { opacity: 1; transform: none; transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
 .card[hidden] { display: none; }
