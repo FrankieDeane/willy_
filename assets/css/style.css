@@ -78,7 +78,10 @@ button { background: none; border: none; cursor: pointer; }
 /* z-index 200 keeps wordmark and rail above the menu overlay (150), the way the
    close button already is — the identity should never be hidden by the menu */
 .wordmark {
-  position: fixed; top: var(--pad); left: var(--pad); z-index: 200;
+  /* absolute, not fixed: the name belongs at the top of the page and stays
+     there. Riding the viewport put it on top of every photograph scrolled
+     past, which is what it was doing before. */
+  position: absolute; top: var(--pad); left: var(--pad); z-index: 200;
   display: grid; gap: 0.28rem; line-height: 1;
   color: var(--text); transition: color 0.35s var(--ease);
 }
@@ -150,6 +153,27 @@ body.menu-open .wordmark, body.menu-open .burger, body.menu-open .rail {
   color: var(--text); text-shadow: none;
 }
 body.menu-open .burger span { box-shadow: none; }
+
+/* Past the hero, the fixed chrome sits on the page's own background rather
+   than on a photograph — white on white — so it takes the page colour back,
+   and the carousel's controls retire along with the carousel. */
+body[data-page="home"].past-hero .burger,
+body[data-page="home"].past-hero .sel-badge {
+  color: var(--text); text-shadow: none;
+}
+/* Past the hero the grid's photographs still slide underneath the burger, so
+   a flat dark line disappears against a dark frame. A hairline of light around
+   it reads on a photograph and stays invisible against the page. */
+body[data-page="home"].past-hero .burger span {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.65);
+}
+body[data-page="home"].past-hero .sel-badge {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+body[data-page="home"].past-hero .sel-badge:hover { background: var(--text); color: var(--bg); }
+body[data-page="home"].past-hero .home-controls {
+  opacity: 0; visibility: hidden; pointer-events: none;
+}
 
 /* ---------- menu overlay ---------- */
 .menu {
@@ -229,6 +253,7 @@ body.menu-open .burger span { box-shadow: none; }
 /* a counter, not dots — there are two dozen frames */
 .home-controls {
   position: fixed; right: var(--pad); bottom: var(--pad); z-index: 120;
+  transition: opacity 0.4s var(--ease), visibility 0.4s var(--ease);
   display: flex; align-items: center; gap: 1.1rem;
 }
 .slide-pause {
@@ -505,9 +530,27 @@ body.no-scroll { overflow: hidden; }
 .card-img img {
   width: 100%; height: 100%; object-fit: cover;
   -webkit-user-select: none; user-select: none; -webkit-user-drag: none;
-  transition: transform 0.8s var(--ease);
+  transition: transform 0.8s var(--ease), filter 0.5s var(--ease);
 }
-.card:hover .card-img img, .card:focus-visible .card-img img { transform: scale(1.04); }
+.card:hover .card-img img, .card:focus-visible .card-img img {
+  transform: scale(1.04); filter: brightness(1.06);
+}
+/* A band of light crosses the cover on hover — the cue that a series can be
+   opened. One pseudo-element moved by transform only, so it never repaints
+   the photograph, and the reduced-motion rule below switches it off. The
+   transition lives on the hover state alone: leaving resets it instantly
+   rather than sweeping the light backwards. */
+.card-img::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(105deg,
+    transparent 30%, rgba(255, 255, 255, 0.46) 50%, transparent 70%);
+  transform: translateX(-130%);
+  opacity: 0;
+}
+.card:hover .card-img::after, .card:focus-visible .card-img::after {
+  opacity: 1; transform: translateX(130%);
+  transition: transform 0.9s var(--ease), opacity 0.3s linear;
+}
 .card-body { display: grid; gap: 0.2rem; }
 .card-title { font-size: 0.92rem; letter-spacing: 0.02em; }
 .card-meta { font-size: 0.74rem; letter-spacing: 0.08em; color: var(--muted); }
@@ -549,7 +592,10 @@ body.no-scroll { overflow: hidden; }
   text-align: center; color: var(--muted); font-size: 0.9rem;
   max-width: 60ch; margin: clamp(2rem, 5vw, 3rem) auto 0;
 }
-.album-cta a { border-bottom: 1px solid var(--accent); color: var(--text); }
+.album-cta a {
+  border-bottom: 1px solid var(--accent); color: var(--text);
+  display: inline-block; padding: 0.12rem 0;   /* 24px minimum target height */
+}
 .page-place { font-size: 0.78rem !important; letter-spacing: 0.14em; text-transform: uppercase; }
 
 /* ---------- prev / next series ---------- */
