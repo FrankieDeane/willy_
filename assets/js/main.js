@@ -510,6 +510,18 @@
     });
     buildSlides();
     startSlides();
+
+    /* The chrome that stays fixed is styled light because it sits over the
+       hero photograph. Once the hero has scrolled away it is over the page's
+       own background instead — white on white — so the page is told when that
+       happens and CSS hands the colour back. The carousel's own controls go
+       with it: they steer something no longer on screen. */
+    var heroEl = document.querySelector('.hero');
+    if (heroEl && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        body.classList.toggle('past-hero', !entries[0].isIntersecting);
+      }, { threshold: 0 }).observe(heroEl);
+    }
   }
 
   /* ---------------------------------------------------------- work filters */
