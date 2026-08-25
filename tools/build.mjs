@@ -439,7 +439,7 @@ function pageHome(lang) {
 <section class="hero">
   <div class="slides" id="slides"></div>
   <noscript><div class="slide is-current">${cover
-    ? `<img src="${assetPrefix(lang, 0)}assets/img/w960/${esc(cover.f)}" alt="${attr(t['home.h1'])}" />` : ''}</div></noscript>
+    ? `<img src="${assetPrefix(lang, 0)}assets/img/${esc(cover.f)}" alt="${attr(t['home.h1'])}" />` : ''}</div></noscript>
   <div class="hero-copy">
     <p class="hero-tag">${esc(t['site.tagline'])}</p>
     <a class="btn btn-light" href="${link(0, 'work')}">${esc(t['home.enter'])}</a>
