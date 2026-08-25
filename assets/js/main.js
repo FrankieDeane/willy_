@@ -355,12 +355,36 @@
     return a;
   }
   function at(i) { return (i % slides.length + slides.length) % slides.length; }
+  /* The three copies of a photograph are capped on their LONG edge and never
+     enlarged, so their widths depend on the frame: a landscape w960 file is
+     960px wide, a portrait one only ~640, and an original smaller than the cap
+     stays its own size. srcset has to carry the real width of each file or the
+     browser picks one that is too small and the hero renders soft. */
+  function slideSrcset(x) {
+    if (!x.w || !x.h) return '';
+    var out = [], seen = {};
+    [[480, 'w480'], [960, 'w960'], [1600, '']].forEach(function (s) {
+      var px = x.w >= x.h ? Math.min(x.w, s[0])
+                          : Math.round(x.w * Math.min(x.h, s[0]) / x.h);
+      if (seen[px]) return;                 // caps can coincide on a small original
+      seen[px] = 1;
+      out.push(asset(s[1], x.f) + ' ' + px + 'w');
+    });
+    return out.join(', ');
+  }
   function load(i) {
     if (!slides.length) return;
     var k = at(i), img = slides[k].querySelector('img');
     if (!img.getAttribute('src')) {
-      img.setAttribute('src', asset('w960', flat[k].f));
-      watchMissing(img, flat[k].f);
+      var x = flat[k], ss = slideSrcset(x);
+      /* sizes/srcset before src: the hero covers the viewport, so a w960 file
+         was being upscaled on any screen wider than 960 — twice over on HiDPI. */
+      if (ss) {
+        img.setAttribute('sizes', '100vw');
+        img.setAttribute('srcset', ss);
+      }
+      img.setAttribute('src', asset('w960', x.f));
+      watchMissing(img, x.f);
     }
   }
   function syncCount() {
@@ -380,7 +404,7 @@
   function buildSlides() {
     if (!slidesHost) return;
     CAT.forEach(function (a) {
-      a.photos.forEach(function (p) { flat.push({ f: p.f, slug: a.slug, n: p.n }); });
+      a.photos.forEach(function (p) { flat.push({ f: p.f, slug: a.slug, n: p.n, w: p.w, h: p.h }); });
     });
     flat = shuffle(flat).slice(0, 60);      // a visit never needs more than this
     slidesHost.textContent = '';
