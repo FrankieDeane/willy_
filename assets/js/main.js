@@ -236,9 +236,11 @@
   var lbTitle = document.getElementById('lbTitle');
   var lbPlace = document.getElementById('lbPlace');
   var lbAdd = document.getElementById('lbAdd');
+  var lbSeries = document.getElementById('lbSeries');
   var lbOrder = [];
   var lbIndex = -1;
   var lbReturn = null;
+  var lbSeriesHref = '';        // set when a series is opened from the home grid
 
   function syncLbAdd() {
     if (!lbAdd) return;
@@ -258,19 +260,38 @@
     lbImage.alt = [title(album), place(album)].filter(Boolean).join(' — ');
     lbTitle.textContent = title(album) + ' № ' + cur.n;
     lbPlace.textContent = place(album);
+    /* Only shown when the series was opened from somewhere that is not its own
+       page — otherwise the link would point at the page you are already on. */
+    if (lbSeries) {
+      if (lbSeriesHref) lbSeries.setAttribute('href', lbSeriesHref);
+      lbSeries.hidden = !lbSeriesHref;
+    }
     lbIndex = i;
     syncLbAdd();
   }
-  function lbOpen(file) {
-    if (!lb) return;
-    var i = lbOrder.findIndex(function (x) { return x.f === file; });
-    if (i < 0) return;
+  function lbShowAt(i) {
     lbReturn = document.activeElement;
     lbRender(i);
     lb.classList.add('is-open');
     lb.setAttribute('aria-hidden', 'false');
     body.classList.add('no-scroll');
     document.getElementById('lbClose').focus();
+  }
+  function lbOpen(file) {
+    if (!lb) return;
+    var i = lbOrder.findIndex(function (x) { return x.f === file; });
+    if (i < 0) return;
+    lbShowAt(i);
+  }
+  /* Open a whole series at its first frame. Returns false when it cannot, so
+     the caller can let the click fall through to the album page instead. */
+  function lbOpenAlbum(slug, href) {
+    var album = BY_SLUG[slug];
+    if (!lb || !album || !album.photos.length) return false;
+    lbOrder = album.photos.map(function (p) { return { slug: slug, f: p.f, n: p.n }; });
+    lbSeriesHref = href || '';
+    lbShowAt(0);
+    return true;
   }
   function lbClose() {
     lb.classList.remove('is-open');
@@ -312,6 +333,19 @@
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); lbOpen(fig.getAttribute('data-file')); }
       });
     });
+
+    /* On the home grid a card previews its series here instead of navigating.
+       The card stays a real link: without JavaScript, and on any click the
+       visitor means as "open elsewhere", it still goes to the album page. */
+    var peekGrid = document.querySelector('#albumGrid[data-peek]');
+    if (peekGrid) {
+      peekGrid.addEventListener('click', function (e) {
+        if (e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        var card = e.target.closest && e.target.closest('.card');
+        if (!card) return;
+        if (lbOpenAlbum(card.getAttribute('data-slug'), card.getAttribute('href'))) e.preventDefault();
+      });
+    }
   }
 
   /* -------------------------------------------------------------- keyboard */

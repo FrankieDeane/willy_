@@ -33,6 +33,26 @@ const LANGS   = ['en', 'es'];
 const YEAR    = new Date().getFullYear();
 const TODAY   = new Date().toISOString().slice(0, 10);
 
+/* The theme filter, shared by the portfolio page and the home grid. 'all'
+   first because it is the resting state; the rest match albums.json themes. */
+const THEMES  = ['all', 'architecture', 'landscape', 'street', 'travel'];
+
+/* The filter row and the grid of every series, used on both pages. The home
+   grid is marked data-peek so main.js opens a series in the lightbox there
+   instead of following the card to its own page. */
+function seriesGrid({ lang, depth, peek }) {
+  const t = I18N[lang];
+  return `  <div class="filters" id="filters" role="group" aria-label="${attr(t['work.h'])}">
+${THEMES.map((th, i) =>
+  `    <button type="button" data-filter="${th}"${i === 0 ? ' class="is-active" aria-pressed="true"' : ' aria-pressed="false"'}>${esc(t['work.filter.' + th])}</button>`
+).join('\n')}
+  </div>
+
+  <div class="cards cards-all" id="albumGrid"${peek ? ' data-peek="1"' : ''}>
+${CATALOG.map((a) => albumCard({ album: a, lang, depth })).join('\n')}
+  </div>`;
+}
+
 /* ---------------------------------------------------------------- helpers */
 
 /* Everything that reaches the page goes through this. The data files are
@@ -313,6 +333,7 @@ function lightbox(lang) {
         <div><dt>${esc(t['lb.print'])}</dt><dd>${esc(t['lb.printval'])}</dd></div>
       </dl>
       <button type="button" class="btn lb-cta" id="lbAdd">${esc(t['sel.add'])}</button>
+      <a class="lb-series" id="lbSeries" href="#" hidden>${esc(t['lb.series'])} <span aria-hidden="true">→</span></a>
       <p class="lb-protect">${esc(t['lb.protect'])}</p>
     </figcaption>
   </figure>
@@ -361,7 +382,7 @@ function albumCard({ album, lang, depth }) {
   const cover = album.photos[Math.min((album.cover || 1) - 1, album.photos.length - 1)];
   const n = album.photos.length;
   const place = album[`place_${lang}`];
-  return `    <a class="card" href="${link(depth, 'album', album.slug)}" data-theme="${esc(album.theme)}">
+  return `    <a class="card" href="${link(depth, 'album', album.slug)}" data-theme="${esc(album.theme)}" data-slug="${esc(album.slug)}">
       <span class="card-img${cover ? '' : ' is-empty'}">${cover ? `<img src="${A}assets/img/w480/${esc(cover.f)}"
              srcset="${A}assets/img/w480/${esc(cover.f)} 480w, ${A}assets/img/w960/${esc(cover.f)} 960w"
              sizes="(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw"
@@ -415,7 +436,6 @@ function crumbs(lang, trail) {
 
 function pageHome(lang) {
   const t = I18N[lang], depth = 0;
-  const featured = CATALOG.filter((a) => a.photos.length >= 6).slice(0, 6);
   const graph = [personNode(), siteNode(lang), {
     '@type': 'CollectionPage',
     '@id': absUrl(lang, 'home') + '#page',
@@ -450,14 +470,13 @@ function pageHome(lang) {
   </div>
 </section>
 
-<section class="band">
+<section class="band" id="series">
   <header class="band-head">
-    <h2>${esc(t['home.featured'])}</h2>
+    <h2>${esc(t['home.series'])}</h2>
     <a class="band-more" href="${link(0, 'work')}">${esc(t['home.featured.all'])} <span aria-hidden="true">→</span></a>
   </header>
-  <div class="cards">
-${featured.map((a) => albumCard({ album: a, lang, depth })).join('\n')}
-  </div>
+  <p class="band-lede">${esc(t['home.series.lede'])}</p>
+${seriesGrid({ lang, depth, peek: true })}
 </section>
 
 <section class="band band-sell">
@@ -468,12 +487,11 @@ ${featured.map((a) => albumCard({ album: a, lang, depth })).join('\n')}
   </div>
 </section>
 </main>
-` + foot({ lang, depth });
+` + lightbox(lang) + foot({ lang, depth });
 }
 
 function pageWork(lang) {
   const t = I18N[lang], depth = 0;
-  const themes = ['all', 'architecture', 'landscape', 'street', 'travel'];
   const graph = [personNode(), siteNode(lang),
     crumbs(lang, [
       { name: t['nav.home'], url: absUrl(lang, 'home') },
@@ -504,15 +522,7 @@ function pageWork(lang) {
     <div class="page-lede"><p>${esc(t['work.lede'])}</p></div>
   </header>
 
-  <div class="filters" id="filters" role="group" aria-label="${esc(t['work.h'])}">
-${themes.map((th, i) =>
-  `    <button type="button" data-filter="${th}"${i === 0 ? ' class="is-active" aria-pressed="true"' : ' aria-pressed="false"'}>${esc(t['work.filter.' + th])}</button>`
-).join('\n')}
-  </div>
-
-  <div class="cards cards-all" id="albumGrid">
-${CATALOG.map((a) => albumCard({ album: a, lang, depth })).join('\n')}
-  </div>
+${seriesGrid({ lang, depth, peek: false })}
 </main>
 ` + foot({ lang, depth });
 }

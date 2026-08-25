@@ -32,6 +32,8 @@
     "home.play": "PLAY",
     "home.featured": "SELECTED SERIES",
     "home.featured.all": "All 31 series",
+    "home.series": "THE SERIES",
+    "home.series.lede": "All 31. Tap any one to preview it here, without leaving the page.",
     "home.sell.title": "Build your own selection",
     "home.sell.body": "Choose the photographs you want, pick a size and a paper, and send the set as a single enquiry. Two or three frames hung together read as one work.",
     "home.sell.cta": "START A SELECTION",
@@ -148,6 +150,7 @@
     "lb.close": "Close",
     "lb.prev": "Previous",
     "lb.next": "Next",
+    "lb.series": "SEE THE FULL SERIES",
     "lb.protect": "Preview resolution. Not licensed for download or reproduction.",
 
     "foot.rights": "All photographs © Guillermo Bernaldo de Quirós. All rights reserved."
@@ -184,6 +187,8 @@
     "home.play": "VER",
     "home.featured": "SERIES DESTACADAS",
     "home.featured.all": "Las 31 series",
+    "home.series": "LAS SERIES",
+    "home.series.lede": "Las 31. Tocá cualquiera para verla acá mismo, sin salir de la página.",
     "home.sell.title": "Armá tu propia selección",
     "home.sell.body": "Elegí las fotografías que quieras, definí tamaño y papel, y mandá el conjunto como una sola consulta. Dos o tres cuadros colgados juntos se leen como una única obra.",
     "home.sell.cta": "EMPEZAR UNA SELECCIÓN",
@@ -300,6 +305,7 @@
     "lb.close": "Cerrar",
     "lb.prev": "Anterior",
     "lb.next": "Siguiente",
+    "lb.series": "VER LA SERIE COMPLETA",
     "lb.protect": "Resolución de previsualización. Sin licencia para descarga ni reproducción.",
 
     "foot.rights": "Todas las fotografías © Guillermo Bernaldo de Quirós. Todos los derechos reservados."
