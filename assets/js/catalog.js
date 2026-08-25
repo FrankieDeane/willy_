@@ -52,43 +52,63 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "amish-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "amish-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "amish-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "amish-gbq-4.jpg",
-          "n": 4
+          "n": 4,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "amish-gbq-5.jpg",
-          "n": 5
+          "n": 5,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "amish-gbq-6.jpg",
-          "n": 6
+          "n": 6,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "amish-gbq-7.jpg",
-          "n": 7
+          "n": 7,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "amish-gbq-8.jpg",
-          "n": 8
+          "n": 8,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "amish-gbq-9.jpg",
-          "n": 9
+          "n": 9,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "amish-gbq-10.jpg",
-          "n": 10
+          "n": 10,
+          "w": 1200,
+          "h": 800
         }
       ]
     },
@@ -102,23 +122,33 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "as-night-falls-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "as-night-falls-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "as-night-falls-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "as-night-falls-gbq-4.jpg",
-          "n": 4
+          "n": 4,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "as-night-falls-gbq-5.jpg",
-          "n": 5
+          "n": 5,
+          "w": 1200,
+          "h": 800
         }
       ]
     },
@@ -132,43 +162,63 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "at-the-edge-of-silence-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1600,
+          "h": 1161
         },
         {
           "f": "at-the-edge-of-silence-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "at-the-edge-of-silence-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "at-the-edge-of-silence-gbq-4.jpg",
-          "n": 4
+          "n": 4,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "at-the-edge-of-silence-gbq-5.jpg",
-          "n": 5
+          "n": 5,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "at-the-edge-of-silence-gbq-6.jpg",
-          "n": 6
+          "n": 6,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "at-the-edge-of-silence-gbq-7.jpg",
-          "n": 7
+          "n": 7,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "at-the-edge-of-silence-gbq-8.jpg",
-          "n": 8
+          "n": 8,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "at-the-edge-of-silence-gbq-9.jpg",
-          "n": 9
+          "n": 9,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "at-the-edge-of-silence-gbq-10.jpg",
-          "n": 10
+          "n": 10,
+          "w": 1600,
+          "h": 1067
         }
       ]
     },
@@ -182,35 +232,51 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "between-light-and-dark-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1600,
+          "h": 1068
         },
         {
           "f": "between-light-and-dark-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "between-light-and-dark-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "between-light-and-dark-gbq-4.jpg",
-          "n": 4
+          "n": 4,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "between-light-and-dark-gbq-5.jpg",
-          "n": 5
+          "n": 5,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "between-light-and-dark-gbq-6.jpg",
-          "n": 6
+          "n": 6,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "between-light-and-dark-gbq-7.jpg",
-          "n": 7
+          "n": 7,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "between-light-and-dark-gbq-8.jpg",
-          "n": 8
+          "n": 8,
+          "w": 1600,
+          "h": 1067
         }
       ]
     },
@@ -224,39 +290,57 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "calatrava-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "calatrava-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "calatrava-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "calatrava-gbq-4.jpg",
-          "n": 4
+          "n": 4,
+          "w": 1067,
+          "h": 1600
         },
         {
           "f": "calatrava-gbq-5.jpg",
-          "n": 5
+          "n": 5,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "calatrava-gbq-6.jpg",
-          "n": 6
+          "n": 6,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "calatrava-gbq-7.jpg",
-          "n": 7
+          "n": 7,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "calatrava-gbq-8.jpg",
-          "n": 8
+          "n": 8,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "calatrava-gbq-9.jpg",
-          "n": 9
+          "n": 9,
+          "w": 1600,
+          "h": 1067
         }
       ]
     },
@@ -270,39 +354,57 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "washington-dc-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "washington-dc-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "washington-dc-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "washington-dc-gbq-4.jpg",
-          "n": 4
+          "n": 4,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "washington-dc-gbq-5.jpg",
-          "n": 5
+          "n": 5,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "washington-dc-gbq-6.jpg",
-          "n": 6
+          "n": 6,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "washington-dc-gbq-7.jpg",
-          "n": 7
+          "n": 7,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "washington-dc-gbq-8.jpg",
-          "n": 8
+          "n": 8,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "washington-dc-gbq-9.jpg",
-          "n": 9
+          "n": 9,
+          "w": 1200,
+          "h": 800
         }
       ]
     },
@@ -316,39 +418,57 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "scottish-highlands-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "scottish-highlands-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "scottish-highlands-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "scottish-highlands-gbq-4.jpg",
-          "n": 4
+          "n": 4,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "scottish-highlands-gbq-5.jpg",
-          "n": 5
+          "n": 5,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "scottish-highlands-gbq-6.jpg",
-          "n": 6
+          "n": 6,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "scottish-highlands-gbq-7.jpg",
-          "n": 7
+          "n": 7,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "scottish-highlands-gbq-8.jpg",
-          "n": 8
+          "n": 8,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "scottish-highlands-gbq-9.jpg",
-          "n": 9
+          "n": 9,
+          "w": 1600,
+          "h": 1067
         }
       ]
     },
@@ -362,27 +482,39 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "echoes-of-war-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "echoes-of-war-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "echoes-of-war-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "echoes-of-war-gbq-4.jpg",
-          "n": 4
+          "n": 4,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "echoes-of-war-gbq-5.jpg",
-          "n": 5
+          "n": 5,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "echoes-of-war-gbq-6.jpg",
-          "n": 6
+          "n": 6,
+          "w": 1200,
+          "h": 800
         }
       ]
     },
@@ -396,107 +528,159 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "edinburgh-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "edinburgh-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "edinburgh-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "edinburgh-gbq-4.jpg",
-          "n": 4
+          "n": 4,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "edinburgh-gbq-5.jpg",
-          "n": 5
+          "n": 5,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "edinburgh-gbq-6.jpg",
-          "n": 6
+          "n": 6,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "edinburgh-gbq-7.jpg",
-          "n": 7
+          "n": 7,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "edinburgh-gbq-8.jpg",
-          "n": 8
+          "n": 8,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "edinburgh-gbq-9.jpg",
-          "n": 9
+          "n": 9,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "edinburgh-gbq-10.jpg",
-          "n": 10
+          "n": 10,
+          "w": 1600,
+          "h": 1600
         },
         {
           "f": "edinburgh-gbq-11.jpg",
-          "n": 11
+          "n": 11,
+          "w": 1600,
+          "h": 1318
         },
         {
           "f": "edinburgh-gbq-12.jpg",
-          "n": 12
+          "n": 12,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "edinburgh-gbq-13.jpg",
-          "n": 13
+          "n": 13,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "edinburgh-gbq-14.jpg",
-          "n": 14
+          "n": 14,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "edinburgh-gbq-15.jpg",
-          "n": 15
+          "n": 15,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "edinburgh-gbq-16.jpg",
-          "n": 16
+          "n": 16,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "edinburgh-gbq-17.jpg",
-          "n": 17
+          "n": 17,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "edinburgh-gbq-18.jpg",
-          "n": 18
+          "n": 18,
+          "w": 1600,
+          "h": 1600
         },
         {
           "f": "edinburgh-gbq-19.jpg",
-          "n": 19
+          "n": 19,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "edinburgh-gbq-20.jpg",
-          "n": 20
+          "n": 20,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "edinburgh-gbq-21.jpg",
-          "n": 21
+          "n": 21,
+          "w": 1200,
+          "h": 692
         },
         {
           "f": "edinburgh-gbq-22.jpg",
-          "n": 22
+          "n": 22,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "edinburgh-gbq-23.jpg",
-          "n": 23
+          "n": 23,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "edinburgh-gbq-24.jpg",
-          "n": 24
+          "n": 24,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "edinburgh-gbq-25.jpg",
-          "n": 25
+          "n": 25,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "edinburgh-gbq-26.jpg",
-          "n": 26
+          "n": 26,
+          "w": 1600,
+          "h": 1067
         }
       ]
     },
@@ -510,43 +694,63 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "eternal-tides-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "eternal-tides-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "eternal-tides-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "eternal-tides-gbq-4.jpg",
-          "n": 4
+          "n": 4,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "eternal-tides-gbq-5.jpg",
-          "n": 5
+          "n": 5,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "eternal-tides-gbq-6.jpg",
-          "n": 6
+          "n": 6,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "eternal-tides-gbq-7.jpg",
-          "n": 7
+          "n": 7,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "eternal-tides-gbq-8.jpg",
-          "n": 8
+          "n": 8,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "eternal-tides-gbq-9.jpg",
-          "n": 9
+          "n": 9,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "eternal-tides-gbq-10.jpg",
-          "n": 10
+          "n": 10,
+          "w": 1600,
+          "h": 1067
         }
       ]
     },
@@ -560,59 +764,87 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "geometry-of-silence-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "geometry-of-silence-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "geometry-of-silence-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "geometry-of-silence-gbq-4.jpg",
-          "n": 4
+          "n": 4,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "geometry-of-silence-gbq-5.jpg",
-          "n": 5
+          "n": 5,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "geometry-of-silence-gbq-6.jpg",
-          "n": 6
+          "n": 6,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "geometry-of-silence-gbq-7.jpg",
-          "n": 7
+          "n": 7,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "geometry-of-silence-gbq-8.jpg",
-          "n": 8
+          "n": 8,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "geometry-of-silence-gbq-9.jpg",
-          "n": 9
+          "n": 9,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "geometry-of-silence-gbq-10.jpg",
-          "n": 10
+          "n": 10,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "geometry-of-silence-gbq-11.jpg",
-          "n": 11
+          "n": 11,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "geometry-of-silence-gbq-12.jpg",
-          "n": 12
+          "n": 12,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "geometry-of-silence-gbq-13.jpg",
-          "n": 13
+          "n": 13,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "geometry-of-silence-gbq-14.jpg",
-          "n": 14
+          "n": 14,
+          "w": 1600,
+          "h": 1067
         }
       ]
     },
@@ -626,27 +858,39 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "farm-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "farm-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "farm-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "farm-gbq-4.jpg",
-          "n": 4
+          "n": 4,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "farm-gbq-5.jpg",
-          "n": 5
+          "n": 5,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "farm-gbq-6.jpg",
-          "n": 6
+          "n": 6,
+          "w": 1200,
+          "h": 800
         }
       ]
     },
@@ -660,31 +904,45 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "tuscany-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1600,
+          "h": 1500
         },
         {
           "f": "tuscany-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "tuscany-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "tuscany-gbq-4.jpg",
-          "n": 4
+          "n": 4,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "tuscany-gbq-5.jpg",
-          "n": 5
+          "n": 5,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "tuscany-gbq-6.jpg",
-          "n": 6
+          "n": 6,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "tuscany-gbq-7.jpg",
-          "n": 7
+          "n": 7,
+          "w": 1600,
+          "h": 1067
         }
       ]
     },
@@ -698,19 +956,27 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "inside-out-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "inside-out-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "inside-out-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "inside-out-gbq-4.jpg",
-          "n": 4
+          "n": 4,
+          "w": 1200,
+          "h": 800
         }
       ]
     },
@@ -724,31 +990,45 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "into-the-mist-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "into-the-mist-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "into-the-mist-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "into-the-mist-gbq-4.jpg",
-          "n": 4
+          "n": 4,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "into-the-mist-gbq-5.jpg",
-          "n": 5
+          "n": 5,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "into-the-mist-gbq-6.jpg",
-          "n": 6
+          "n": 6,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "into-the-mist-gbq-7.jpg",
-          "n": 7
+          "n": 7,
+          "w": 1600,
+          "h": 1067
         }
       ]
     },
@@ -762,11 +1042,15 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "light-fading-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "light-fading-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1600,
+          "h": 1067
         }
       ]
     },
@@ -780,59 +1064,87 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "lines-of-milano-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1600,
+          "h": 1098
         },
         {
           "f": "lines-of-milano-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "lines-of-milano-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1600,
+          "h": 1036
         },
         {
           "f": "lines-of-milano-gbq-4.jpg",
-          "n": 4
+          "n": 4,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "lines-of-milano-gbq-5.jpg",
-          "n": 5
+          "n": 5,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "lines-of-milano-gbq-6.jpg",
-          "n": 6
+          "n": 6,
+          "w": 1600,
+          "h": 1178
         },
         {
           "f": "lines-of-milano-gbq-7.jpg",
-          "n": 7
+          "n": 7,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "lines-of-milano-gbq-8.jpg",
-          "n": 8
+          "n": 8,
+          "w": 1600,
+          "h": 939
         },
         {
           "f": "lines-of-milano-gbq-9.jpg",
-          "n": 9
+          "n": 9,
+          "w": 1600,
+          "h": 955
         },
         {
           "f": "lines-of-milano-gbq-10.jpg",
-          "n": 10
+          "n": 10,
+          "w": 1600,
+          "h": 1048
         },
         {
           "f": "lines-of-milano-gbq-11.jpg",
-          "n": 11
+          "n": 11,
+          "w": 1600,
+          "h": 1021
         },
         {
           "f": "lines-of-milano-gbq-12.jpg",
-          "n": 12
+          "n": 12,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "lines-of-milano-gbq-13.jpg",
-          "n": 13
+          "n": 13,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "lines-of-milano-gbq-14.jpg",
-          "n": 14
+          "n": 14,
+          "w": 1600,
+          "h": 1000
         }
       ]
     },
@@ -846,35 +1158,87 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "little-paris-of-italy-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "little-paris-of-italy-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "little-paris-of-italy-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "little-paris-of-italy-gbq-4.jpg",
-          "n": 4
+          "n": 4,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "little-paris-of-italy-gbq-5.jpg",
-          "n": 5
+          "n": 5,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "little-paris-of-italy-gbq-6.jpg",
-          "n": 6
+          "n": 6,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "little-paris-of-italy-gbq-7.jpg",
-          "n": 7
+          "n": 7,
+          "w": 1600,
+          "h": 1041
         },
         {
           "f": "little-paris-of-italy-gbq-8.jpg",
-          "n": 8
+          "n": 8,
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "f": "little-paris-of-italy-gbq-9.jpg",
+          "n": 9,
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "f": "little-paris-of-italy-gbq-10.jpg",
+          "n": 10,
+          "w": 1600,
+          "h": 1145
+        },
+        {
+          "f": "little-paris-of-italy-gbq-11.jpg",
+          "n": 11,
+          "w": 1600,
+          "h": 1021
+        },
+        {
+          "f": "little-paris-of-italy-gbq-12.jpg",
+          "n": 12,
+          "w": 1067,
+          "h": 1600
+        },
+        {
+          "f": "little-paris-of-italy-gbq-13.jpg",
+          "n": 13,
+          "w": 1600,
+          "h": 1028
+        },
+        {
+          "f": "little-paris-of-italy-gbq-14.jpg",
+          "n": 14,
+          "w": 1600,
+          "h": 1138
         }
       ]
     },
@@ -888,51 +1252,75 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "rural-rhythms-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "rural-rhythms-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "rural-rhythms-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1600,
+          "h": 1196
         },
         {
           "f": "rural-rhythms-gbq-4.jpg",
-          "n": 4
+          "n": 4,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "rural-rhythms-gbq-5.jpg",
-          "n": 5
+          "n": 5,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "rural-rhythms-gbq-6.jpg",
-          "n": 6
+          "n": 6,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "rural-rhythms-gbq-7.jpg",
-          "n": 7
+          "n": 7,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "rural-rhythms-gbq-8.jpg",
-          "n": 8
+          "n": 8,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "rural-rhythms-gbq-9.jpg",
-          "n": 9
+          "n": 9,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "rural-rhythms-gbq-10.jpg",
-          "n": 10
+          "n": 10,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "rural-rhythms-gbq-11.jpg",
-          "n": 11
+          "n": 11,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "rural-rhythms-gbq-12.jpg",
-          "n": 12
+          "n": 12,
+          "w": 1600,
+          "h": 1067
         }
       ]
     },
@@ -946,7 +1334,9 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "san-diego-skyline-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1200,
+          "h": 800
         }
       ]
     },
@@ -960,35 +1350,51 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "santiago-de-compostela-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "santiago-de-compostela-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "santiago-de-compostela-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "santiago-de-compostela-gbq-4.jpg",
-          "n": 4
+          "n": 4,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "santiago-de-compostela-gbq-5.jpg",
-          "n": 5
+          "n": 5,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "santiago-de-compostela-gbq-6.jpg",
-          "n": 6
+          "n": 6,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "santiago-de-compostela-gbq-7.jpg",
-          "n": 7
+          "n": 7,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "santiago-de-compostela-gbq-8.jpg",
-          "n": 8
+          "n": 8,
+          "w": 1600,
+          "h": 1067
         }
       ]
     },
@@ -1002,15 +1408,81 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "shadows-of-autumn-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "shadows-of-autumn-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "shadows-of-autumn-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "f": "shadows-of-autumn-gbq-4.jpg",
+          "n": 4,
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "f": "shadows-of-autumn-gbq-5.jpg",
+          "n": 5,
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "f": "shadows-of-autumn-gbq-6.jpg",
+          "n": 6,
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "f": "shadows-of-autumn-gbq-7.jpg",
+          "n": 7,
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "f": "shadows-of-autumn-gbq-8.jpg",
+          "n": 8,
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "f": "shadows-of-autumn-gbq-9.jpg",
+          "n": 9,
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "f": "shadows-of-autumn-gbq-10.jpg",
+          "n": 10,
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "f": "shadows-of-autumn-gbq-11.jpg",
+          "n": 11,
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "f": "shadows-of-autumn-gbq-12.jpg",
+          "n": 12,
+          "w": 1600,
+          "h": 1067
+        },
+        {
+          "f": "shadows-of-autumn-gbq-13.jpg",
+          "n": 13,
+          "w": 1600,
+          "h": 1067
         }
       ]
     },
@@ -1024,63 +1496,93 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "sintra-portugal-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "sintra-portugal-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "sintra-portugal-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "sintra-portugal-gbq-4.jpg",
-          "n": 4
+          "n": 4,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "sintra-portugal-gbq-5.jpg",
-          "n": 5
+          "n": 5,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "sintra-portugal-gbq-6.jpg",
-          "n": 6
+          "n": 6,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "sintra-portugal-gbq-7.jpg",
-          "n": 7
+          "n": 7,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "sintra-portugal-gbq-8.jpg",
-          "n": 8
+          "n": 8,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "sintra-portugal-gbq-9.jpg",
-          "n": 9
+          "n": 9,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "sintra-portugal-gbq-10.jpg",
-          "n": 10
+          "n": 10,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "sintra-portugal-gbq-11.jpg",
-          "n": 11
+          "n": 11,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "sintra-portugal-gbq-12.jpg",
-          "n": 12
+          "n": 12,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "sintra-portugal-gbq-13.jpg",
-          "n": 13
+          "n": 13,
+          "w": 1600,
+          "h": 975
         },
         {
           "f": "sintra-portugal-gbq-14.jpg",
-          "n": 14
+          "n": 14,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "sintra-portugal-gbq-15.jpg",
-          "n": 15
+          "n": 15,
+          "w": 1600,
+          "h": 1067
         }
       ]
     },
@@ -1094,15 +1596,21 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "street-corner-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "street-corner-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "street-corner-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1200,
+          "h": 800
         }
       ]
     },
@@ -1116,7 +1624,9 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "clearing-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1600,
+          "h": 1067
         }
       ]
     },
@@ -1130,51 +1640,75 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "eternal-and-ephemeral-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "eternal-and-ephemeral-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "eternal-and-ephemeral-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "eternal-and-ephemeral-gbq-4.jpg",
-          "n": 4
+          "n": 4,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "eternal-and-ephemeral-gbq-5.jpg",
-          "n": 5
+          "n": 5,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "eternal-and-ephemeral-gbq-6.jpg",
-          "n": 6
+          "n": 6,
+          "w": 1600,
+          "h": 1048
         },
         {
           "f": "eternal-and-ephemeral-gbq-7.jpg",
-          "n": 7
+          "n": 7,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "eternal-and-ephemeral-gbq-8.jpg",
-          "n": 8
+          "n": 8,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "eternal-and-ephemeral-gbq-9.jpg",
-          "n": 9
+          "n": 9,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "eternal-and-ephemeral-gbq-10.jpg",
-          "n": 10
+          "n": 10,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "eternal-and-ephemeral-gbq-11.jpg",
-          "n": 11
+          "n": 11,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "eternal-and-ephemeral-gbq-12.jpg",
-          "n": 12
+          "n": 12,
+          "w": 1600,
+          "h": 1067
         }
       ]
     },
@@ -1188,7 +1722,9 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "tavern-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1200,
+          "h": 800
         }
       ]
     },
@@ -1202,39 +1738,57 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "under-highland-skies-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "under-highland-skies-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "under-highland-skies-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "under-highland-skies-gbq-4.jpg",
-          "n": 4
+          "n": 4,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "under-highland-skies-gbq-5.jpg",
-          "n": 5
+          "n": 5,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "under-highland-skies-gbq-6.jpg",
-          "n": 6
+          "n": 6,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "under-highland-skies-gbq-7.jpg",
-          "n": 7
+          "n": 7,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "under-highland-skies-gbq-8.jpg",
-          "n": 8
+          "n": 8,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "under-highland-skies-gbq-9.jpg",
-          "n": 9
+          "n": 9,
+          "w": 1600,
+          "h": 1067
         }
       ]
     },
@@ -1248,35 +1802,51 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "where-land-meets-silence-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "where-land-meets-silence-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "where-land-meets-silence-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "where-land-meets-silence-gbq-4.jpg",
-          "n": 4
+          "n": 4,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "where-land-meets-silence-gbq-5.jpg",
-          "n": 5
+          "n": 5,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "where-land-meets-silence-gbq-6.jpg",
-          "n": 6
+          "n": 6,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "where-land-meets-silence-gbq-7.jpg",
-          "n": 7
+          "n": 7,
+          "w": 1600,
+          "h": 1067
         },
         {
           "f": "where-land-meets-silence-gbq-8.jpg",
-          "n": 8
+          "n": 8,
+          "w": 1600,
+          "h": 1067
         }
       ]
     },
@@ -1290,39 +1860,57 @@ window.__CATALOG__ = {
       "photos": [
         {
           "f": "winter-gbq-1.jpg",
-          "n": 1
+          "n": 1,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "winter-gbq-2.jpg",
-          "n": 2
+          "n": 2,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "winter-gbq-3.jpg",
-          "n": 3
+          "n": 3,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "winter-gbq-4.jpg",
-          "n": 4
+          "n": 4,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "winter-gbq-5.jpg",
-          "n": 5
+          "n": 5,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "winter-gbq-6.jpg",
-          "n": 6
+          "n": 6,
+          "w": 1200,
+          "h": 846
         },
         {
           "f": "winter-gbq-7.jpg",
-          "n": 7
+          "n": 7,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "winter-gbq-8.jpg",
-          "n": 8
+          "n": 8,
+          "w": 1200,
+          "h": 800
         },
         {
           "f": "winter-gbq-9.jpg",
-          "n": 9
+          "n": 9,
+          "w": 1200,
+          "h": 900
         }
       ]
     }
