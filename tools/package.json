@@ -9,7 +9,7 @@
     "scan": "node scan-secrets.mjs"
   },
   "dependencies": {
-    "sharp": "0.35.3"
+    "sharp": "0.35.4"
   },
   "engines": { "node": ">=20" }
 }
